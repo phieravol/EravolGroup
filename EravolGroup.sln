@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eravol.UserWebApi", "ApplicationUser\Eravol.UserWebApi.csproj", "{FE0FDF59-6DB6-43CA-9479-BAE1403A0A37}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE0FDF59-6DB6-43CA-9479-BAE1403A0A37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE0FDF59-6DB6-43CA-9479-BAE1403A0A37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE0FDF59-6DB6-43CA-9479-BAE1403A0A37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE0FDF59-6DB6-43CA-9479-BAE1403A0A37}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {328A0265-85B3-415C-B458-919962116EB7}
+	EndGlobalSection
+EndGlobal
