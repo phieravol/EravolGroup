@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Eravol.UserWebApi.Migrations
 {
-    public partial class InitDb : Migration
+    public partial class InitIdentityDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,6 +30,12 @@ namespace Eravol.UserWebApi.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Tagline = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MemberSince = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserLevel = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

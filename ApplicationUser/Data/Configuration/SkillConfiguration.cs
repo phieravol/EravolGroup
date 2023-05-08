@@ -15,7 +15,6 @@ namespace Eravol.UserWebApi.Data.Configuration
 				.HasMaxLength(50);
 			builder.Property(x => x.Score)
 				.HasDefaultValue(0);
-			
 		}
 	}
 }
