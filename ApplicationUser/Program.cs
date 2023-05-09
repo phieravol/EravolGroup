@@ -7,23 +7,29 @@ using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Eravol.UserWebApi.Data;
+using Eravol.UserWebApi.System;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Register and Config Identity
 builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>()
 	.AddEntityFrameworkStores<EravolUserWebApiContext>()
 	.AddDefaultTokenProviders();
+
+// Register and config Authentication
 builder.Services.AddAuthentication(option =>
 {
 	option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 	option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 	option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 })
+
+// Register and config JwtBear
 .AddJwtBearer(option => {
 	option.SaveToken = true;
 	option.RequireHttpsMetadata = false;
@@ -42,6 +48,12 @@ builder.Services.AddDbContext<EravolUserWebApiContext>(options => options.UseSql
 	builder.Configuration.GetConnectionString("EravlolUserWebApiContextConnection")
 	));
 
+/**
+ * Add application services
+ */
+builder.Services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
+builder.Services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
+builder.Services.AddTransient<IAccountService, AccountService>();
 
 var app = builder.Build();
 

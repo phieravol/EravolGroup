@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Eravol.UserWebApi.Controllers
 {
-	public class AuthenticationController : Controller
+	[Route("api/[controller]")]
+	[ApiController]
+	public class AuthController : ControllerBase
 	{
-		public IActionResult Index()
-		{
-			return View();
-		}
 	}
 }
