@@ -1,6 +1,7 @@
 ﻿using Eravlol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Data.Configuration;
 using Eravol.UserWebApi.Data.Models;
+using Eravol.UserWebApi.Data.Seeding;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,7 @@ namespace Eravol.UserWebApi.Data
 			modelBuilder.ApplyConfiguration(new AppUserConfiguration());
 			modelBuilder.ApplyConfiguration(new SkillConfiguration());
 			base.OnModelCreating(modelBuilder);
+			new DataSeeder(modelBuilder).Seed();
 		}
 
 		#region DbSet

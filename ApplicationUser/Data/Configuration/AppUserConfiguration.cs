@@ -14,10 +14,12 @@ namespace Eravol.UserWebApi.Data.Configuration
 			builder.Property(x => x.LastName)
 				.IsRequired()
 				.HasMaxLength(50);
+			builder.Property(x => x.Password)
+				.IsRequired()
+				.HasMaxLength(50);
 			builder.HasMany(s => s.Skills)
 				.WithOne(u => u.AppUser)
 				.HasForeignKey(u => u.UserId);
-				
 		}
 	}
 }
