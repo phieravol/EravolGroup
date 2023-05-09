@@ -24,9 +24,9 @@ namespace Eravol.UserWebApi.Data.Seeding
 
 			// Seed User data
 			modelBuilder.Entity<AppUser>().HasData(
-				new AppUser() { Id = new Guid("AEDC1266-B3B5-4323-B10B-F020A31F3359"), UserName = "RootAdmin", Password="Admin@123" ,Email = "eravolgroup@gmail.com", FirstName = "Elio", LastName = "Nguyen"},
-				new AppUser() { Id = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF"), UserName = "phinq", Password = "Phinq@2001", Email = "phinqevol@gmail.com", FirstName = "Nguyen", LastName = "Quoc Phi"},
-				new AppUser() { Id = new Guid("01A033A2-DDF4-4986-8CC9-4E117F7C8685"), UserName = "tungnc", Password = "Tungnc@9999", Email = "chitung@gmail.com", FirstName = "Nguyen", LastName = "Chi Tung"}
+				new AppUser() { Id = new Guid("AEDC1266-B3B5-4323-B10B-F020A31F3359"), UserName = "RootAdmin", Password="Admin@123" ,Email = "eravolgroup@gmail.com", FirstName = "Elio", LastName = "Nguyen", Address="Thai Binh", Country = "VietNam"},
+				new AppUser() { Id = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF"), UserName = "phinq", Password = "Phinq@2001", Email = "phinqevol@gmail.com", FirstName = "Nguyen", LastName = "Quoc Phi", Address = "Yen Bai", Country = "VietNam" },
+				new AppUser() { Id = new Guid("01A033A2-DDF4-4986-8CC9-4E117F7C8685"), UserName = "tungnc", Password = "Tungnc@9999", Email = "chitung@gmail.com", FirstName = "Nguyen", LastName = "Chi Tung", Address = "Hung Yen", Country = "VietNam" }
 				);
 
 			// Seed User-Role
