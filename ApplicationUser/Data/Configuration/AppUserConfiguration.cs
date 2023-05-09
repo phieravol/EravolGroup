@@ -26,6 +26,9 @@ namespace Eravol.UserWebApi.Data.Configuration
 			builder.Property(x => x.UserLevel)
 				.IsRequired(false)
 				.HasMaxLength(70);
+			builder.Property(x => x.Password)
+				.IsRequired()
+				.HasMaxLength(50);
 			builder.HasMany(s => s.Skills)
 				.WithOne(u => u.AppUser)
 				.HasForeignKey(u => u.UserId);

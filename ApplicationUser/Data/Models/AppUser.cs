@@ -7,6 +7,7 @@ namespace Eravlol.UserWebApi.Data.Models
 	{
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
+		public string Password { get; set; }
 		public string? Tagline { get; set; }
 		public string? Description { get; set; }
 		public string Country { get; set; }

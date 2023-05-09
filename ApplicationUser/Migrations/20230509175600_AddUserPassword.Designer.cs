@@ -4,6 +4,7 @@ using Eravol.UserWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eravol.UserWebApi.Migrations
 {
     [DbContext(typeof(EravolUserWebApiContext))]
-    partial class EravolUserWebApiContextModelSnapshot : ModelSnapshot
+    [Migration("20230509175600_AddUserPassword")]
+    partial class AddUserPassword
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,21 +33,9 @@ namespace Eravol.UserWebApi.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(4000)
-                        .HasColumnType("nvarchar(4000)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -69,9 +59,6 @@ namespace Eravol.UserWebApi.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTime>("MemberSince")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -98,16 +85,8 @@ namespace Eravol.UserWebApi.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tagline")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
-
-                    b.Property<string>("UserLevel")
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -124,62 +103,6 @@ namespace Eravol.UserWebApi.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("aedc1266-b3b5-4323-b10b-f020a31f3359"),
-                            AccessFailedCount = 0,
-                            Address = "Thai Binh",
-                            ConcurrencyStamp = "52afc4e6-56eb-4aa2-abe9-90a4f67629b2",
-                            Country = "VietNam",
-                            Email = "eravolgroup@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Elio",
-                            LastName = "Nguyen",
-                            LockoutEnabled = false,
-                            MemberSince = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "Admin@123",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "RootAdmin"
-                        },
-                        new
-                        {
-                            Id = new Guid("ae750391-4d11-4e00-8e92-607d18b839cf"),
-                            AccessFailedCount = 0,
-                            Address = "Yen Bai",
-                            ConcurrencyStamp = "b77984be-3b0a-4465-8e24-da2615806ce8",
-                            Country = "VietNam",
-                            Email = "phinqevol@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Nguyen",
-                            LastName = "Quoc Phi",
-                            LockoutEnabled = false,
-                            MemberSince = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "Phinq@2001",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "phinq"
-                        },
-                        new
-                        {
-                            Id = new Guid("01a033a2-ddf4-4986-8cc9-4e117f7c8685"),
-                            AccessFailedCount = 0,
-                            Address = "Hung Yen",
-                            ConcurrencyStamp = "f4919356-c422-4af1-9472-cc1e0eb99801",
-                            Country = "VietNam",
-                            Email = "chitung@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Nguyen",
-                            LastName = "Chi Tung",
-                            LockoutEnabled = false,
-                            MemberSince = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "Tungnc@9999",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "tungnc"
-                        });
                 });
 
             modelBuilder.Entity("Eravol.UserWebApi.Data.Models.Skill", b =>
@@ -239,26 +162,6 @@ namespace Eravol.UserWebApi.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("30a990c6-33c7-4884-9dcb-718ce356eb0d"),
-                            ConcurrencyStamp = "9b13428a-1a09-4dfa-a375-af45673301c7",
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = new Guid("b8fd818f-63f1-49ee-bec5-f7b66cafbfca"),
-                            ConcurrencyStamp = "86d009e7-9ab0-44ca-be47-ebad959b7ed0",
-                            Name = "Freelancer"
-                        },
-                        new
-                        {
-                            Id = new Guid("fe0e9c2d-6abd-4f73-a635-63fc58ec700e"),
-                            ConcurrencyStamp = "69f6664e-98f7-4f75-aa45-8641c33c5aed",
-                            Name = "Client"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -343,28 +246,6 @@ namespace Eravol.UserWebApi.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("aedc1266-b3b5-4323-b10b-f020a31f3359"),
-                            RoleId = new Guid("30a990c6-33c7-4884-9dcb-718ce356eb0d")
-                        },
-                        new
-                        {
-                            UserId = new Guid("ae750391-4d11-4e00-8e92-607d18b839cf"),
-                            RoleId = new Guid("b8fd818f-63f1-49ee-bec5-f7b66cafbfca")
-                        },
-                        new
-                        {
-                            UserId = new Guid("01a033a2-ddf4-4986-8cc9-4e117f7c8685"),
-                            RoleId = new Guid("b8fd818f-63f1-49ee-bec5-f7b66cafbfca")
-                        },
-                        new
-                        {
-                            UserId = new Guid("01a033a2-ddf4-4986-8cc9-4e117f7c8685"),
-                            RoleId = new Guid("fe0e9c2d-6abd-4f73-a635-63fc58ec700e")
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
