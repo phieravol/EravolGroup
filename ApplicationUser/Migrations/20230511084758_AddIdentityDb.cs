@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Eravol.UserWebApi.Migrations
 {
-    public partial class AddUserPassword : Migration
+    public partial class AddIdentityDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,6 +31,12 @@ namespace Eravol.UserWebApi.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Tagline = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    MemberSince = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserLevel = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -177,6 +183,37 @@ namespace Eravol.UserWebApi.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { new Guid("30a990c6-33c7-4884-9dcb-718ce356eb0d"), "d44bc367-e02c-40fa-adcc-22aa0876635d", "Admin", null },
+                    { new Guid("b8fd818f-63f1-49ee-bec5-f7b66cafbfca"), "841c0d48-49f6-4da1-9ff4-977ceafe4d22", "Freelancer", null },
+                    { new Guid("fe0e9c2d-6abd-4f73-a635-63fc58ec700e"), "ad7ad7f9-4ac5-4a57-b8a4-fe4eeee1b170", "Client", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "Country", "Description", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "MemberSince", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Tagline", "TwoFactorEnabled", "UserLevel", "UserName" },
+                values: new object[,]
+                {
+                    { new Guid("01a033a2-ddf4-4986-8cc9-4e117f7c8685"), 0, "Hung Yen", "25dfaea1-993e-432b-b4a5-e26e5f3f34ee", "VietNam", null, "chitung@gmail.com", false, "Nguyen", "Chi Tung", false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "Tungnc@9999", null, null, false, null, null, false, null, "tungnc" },
+                    { new Guid("ae750391-4d11-4e00-8e92-607d18b839cf"), 0, "Yen Bai", "4acf804a-502a-48cb-b64a-b06187ac42db", "VietNam", null, "phinqevol@gmail.com", false, "Nguyen", "Quoc Phi", false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "Phinq@2001", null, null, false, null, null, false, null, "phinq" },
+                    { new Guid("aedc1266-b3b5-4323-b10b-f020a31f3359"), 0, "Thai Binh", "f549c2ae-8a6e-43cc-aed8-a9892980c8e0", "VietNam", null, "eravolgroup@gmail.com", false, "Elio", "Nguyen", false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "Admin@123", null, null, false, null, null, false, null, "RootAdmin" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { new Guid("b8fd818f-63f1-49ee-bec5-f7b66cafbfca"), new Guid("01a033a2-ddf4-4986-8cc9-4e117f7c8685") },
+                    { new Guid("fe0e9c2d-6abd-4f73-a635-63fc58ec700e"), new Guid("01a033a2-ddf4-4986-8cc9-4e117f7c8685") },
+                    { new Guid("b8fd818f-63f1-49ee-bec5-f7b66cafbfca"), new Guid("ae750391-4d11-4e00-8e92-607d18b839cf") },
+                    { new Guid("30a990c6-33c7-4884-9dcb-718ce356eb0d"), new Guid("aedc1266-b3b5-4323-b10b-f020a31f3359") }
                 });
 
             migrationBuilder.CreateIndex(

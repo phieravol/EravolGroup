@@ -23,6 +23,9 @@ namespace Eravol.UserWebApi.Data.Configuration
 			builder.Property(x => x.Country)
 				.IsRequired(false)
 				.HasMaxLength(80);
+			builder.Property(x => x.Address)
+				.IsRequired(false)
+				.HasMaxLength(1000);
 			builder.Property(x => x.UserLevel)
 				.IsRequired(false)
 				.HasMaxLength(70);
