@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eravol.UserWebApi.Migrations
 {
     [DbContext(typeof(EravolUserWebApiContext))]
-    [Migration("20230509191354_SeedData")]
-    partial class SeedData
+    [Migration("20230511084758_AddIdentityDb")]
+    partial class AddIdentityDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,9 +33,21 @@ namespace Eravol.UserWebApi.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Address")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -59,6 +71,9 @@ namespace Eravol.UserWebApi.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime>("MemberSince")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -85,8 +100,16 @@ namespace Eravol.UserWebApi.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Tagline")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
+
+                    b.Property<string>("UserLevel")
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -109,12 +132,15 @@ namespace Eravol.UserWebApi.Migrations
                         {
                             Id = new Guid("aedc1266-b3b5-4323-b10b-f020a31f3359"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "36de266d-6ed7-4935-a74f-47bca963be59",
+                            Address = "Thai Binh",
+                            ConcurrencyStamp = "f549c2ae-8a6e-43cc-aed8-a9892980c8e0",
+                            Country = "VietNam",
                             Email = "eravolgroup@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Elio",
                             LastName = "Nguyen",
                             LockoutEnabled = false,
+                            MemberSince = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Password = "Admin@123",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
@@ -124,12 +150,15 @@ namespace Eravol.UserWebApi.Migrations
                         {
                             Id = new Guid("ae750391-4d11-4e00-8e92-607d18b839cf"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c0cdb8c8-1eb3-4362-a5ea-a6e00c473c46",
+                            Address = "Yen Bai",
+                            ConcurrencyStamp = "4acf804a-502a-48cb-b64a-b06187ac42db",
+                            Country = "VietNam",
                             Email = "phinqevol@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Nguyen",
                             LastName = "Quoc Phi",
                             LockoutEnabled = false,
+                            MemberSince = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Password = "Phinq@2001",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
@@ -139,12 +168,15 @@ namespace Eravol.UserWebApi.Migrations
                         {
                             Id = new Guid("01a033a2-ddf4-4986-8cc9-4e117f7c8685"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "011648cc-1086-4801-b86e-53e56f3f7835",
+                            Address = "Hung Yen",
+                            ConcurrencyStamp = "25dfaea1-993e-432b-b4a5-e26e5f3f34ee",
+                            Country = "VietNam",
                             Email = "chitung@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Nguyen",
                             LastName = "Chi Tung",
                             LockoutEnabled = false,
+                            MemberSince = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Password = "Tungnc@9999",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
@@ -214,19 +246,19 @@ namespace Eravol.UserWebApi.Migrations
                         new
                         {
                             Id = new Guid("30a990c6-33c7-4884-9dcb-718ce356eb0d"),
-                            ConcurrencyStamp = "96f6184e-422e-48e6-b2fe-0f23408665bf",
+                            ConcurrencyStamp = "d44bc367-e02c-40fa-adcc-22aa0876635d",
                             Name = "Admin"
                         },
                         new
                         {
                             Id = new Guid("b8fd818f-63f1-49ee-bec5-f7b66cafbfca"),
-                            ConcurrencyStamp = "37d22fbc-653b-4eb5-bf38-ef7ef860e474",
+                            ConcurrencyStamp = "841c0d48-49f6-4da1-9ff4-977ceafe4d22",
                             Name = "Freelancer"
                         },
                         new
                         {
                             Id = new Guid("fe0e9c2d-6abd-4f73-a635-63fc58ec700e"),
-                            ConcurrencyStamp = "9952146a-66e2-437f-ac58-026ea38edaa5",
+                            ConcurrencyStamp = "ad7ad7f9-4ac5-4a57-b8a4-fe4eeee1b170",
                             Name = "Client"
                         });
                 });

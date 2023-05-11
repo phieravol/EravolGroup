@@ -1,13 +1,11 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Eravlol.UserWebApi.Data;
 using Eravlol.UserWebApi.Data.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Security.Cryptography;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Eravol.UserWebApi.Data;
 using Eravol.UserWebApi.System;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +28,8 @@ builder.Services.AddAuthentication(option =>
 })
 
 // Register and config JwtBear
-.AddJwtBearer(option => {
+.AddJwtBearer(option =>
+{
 	option.SaveToken = true;
 	option.RequireHttpsMetadata = false;
 	option.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
@@ -53,6 +52,8 @@ builder.Services.AddDbContext<EravolUserWebApiContext>(options => options.UseSql
  */
 builder.Services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
 builder.Services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
+builder.Services.AddTransient<RoleManager<IdentityRole<Guid>>, RoleManager<IdentityRole<Guid>>>();
+
 builder.Services.AddTransient<IAccountService, AccountService>();
 
 var app = builder.Build();
@@ -65,7 +66,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthentication();;
+app.UseAuthentication(); ;
 
 app.UseAuthorization();
 
