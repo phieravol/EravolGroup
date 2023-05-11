@@ -30,6 +30,8 @@ namespace Eravol.UserWebApi.Data
 		{
 			modelBuilder.ApplyConfiguration(new AppUserConfiguration());
 			modelBuilder.ApplyConfiguration(new SkillConfiguration());
+			modelBuilder.ApplyConfiguration(new UserImageConfiguration());
+
 			base.OnModelCreating(modelBuilder);
 			new DataSeeder(modelBuilder).Seed();
 		}
@@ -37,6 +39,7 @@ namespace Eravol.UserWebApi.Data
 		#region DbSet
 		public DbSet<AppUser> AppUsers { get; set; }
 		public DbSet<Skill> Skills { get; set; }
+		public DbSet<UserImage> UserImages { get; set; }
         #endregion
     }
 }
