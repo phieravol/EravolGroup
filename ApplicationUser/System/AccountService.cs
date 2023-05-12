@@ -85,7 +85,8 @@ namespace Eravol.UserWebApi.System
 				Password = request.Password,
 				FirstName = request.FirstName,
 				LastName = request.LastName,
-				Country = request.Country
+				Country = request.Country,
+				MemberSince = DateTime.Now,
 			};
 
 			var result = await userManager.CreateAsync(user, request.Password);
