@@ -5,6 +5,10 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eravol.UserWebApi", "ApplicationUser\Eravol.UserWebApi.csproj", "{FE0FDF59-6DB6-43CA-9479-BAE1403A0A37}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eravol.UIClient", "Eravol.UIClient\Eravol.UIClient.csproj", "{6DDAE8D8-0A87-4A11-A690-4575E0B634C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservices", "{907D311C-4814-401E-B162-573B7E82E351}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{FE0FDF59-6DB6-43CA-9479-BAE1403A0A37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE0FDF59-6DB6-43CA-9479-BAE1403A0A37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE0FDF59-6DB6-43CA-9479-BAE1403A0A37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DDAE8D8-0A87-4A11-A690-4575E0B634C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DDAE8D8-0A87-4A11-A690-4575E0B634C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DDAE8D8-0A87-4A11-A690-4575E0B634C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DDAE8D8-0A87-4A11-A690-4575E0B634C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FE0FDF59-6DB6-43CA-9479-BAE1403A0A37} = {907D311C-4814-401E-B162-573B7E82E351}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {328A0265-85B3-415C-B458-919962116EB7}
