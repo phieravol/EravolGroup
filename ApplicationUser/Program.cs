@@ -1,5 +1,6 @@
 using Eravlol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Data;
+using Eravol.UserWebApi.Repository.User.Admin;
 using Eravol.UserWebApi.System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -87,6 +88,7 @@ builder.Services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
 builder.Services.AddTransient<RoleManager<IdentityRole<Guid>>, RoleManager<IdentityRole<Guid>>>();
 
 builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<IManageProfileRepository, ManageProfileRepository>();
 
 var app = builder.Build();
 
