@@ -30,12 +30,6 @@ namespace Eravol.UIClient.Pages.User
         [BindProperty] public RegisterRequest request { get; set; }
         public async Task<IActionResult> OnPostAsync()
         {
-            //List<Country> Categories = new List<Country>();
-            //var response = await client.GetAsync(CountryApiUrl);
-            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("CountryApikey", CountryApiKey);
-
-            //var json = await response.Content.ReadAsStringAsync();
-            //var data = JsonConvert.DeserializeObject<List<Country>>(json);
             return Page();
         }
     }

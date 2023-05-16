@@ -11,9 +11,6 @@ namespace Eravol.UserWebApi.Controllers
 	[ApiController]
 	public class AuthController : ControllerBase
 	{
-        //https://localhost:7053/
-		private const string DOMAIN = "https://localhost";
-		private const string PORT = "7053";
 
 		private readonly IAccountService accountService;
 
@@ -52,10 +49,7 @@ namespace Eravol.UserWebApi.Controllers
 			{
 				return BadRequest("Register unsuccessfull!");
 			}
-			string path = "";
-			string redirectUrl = $"{DOMAIN}://{PORT}/{path}";
-
-			return Redirect(redirectUrl);
+			return Ok();
         }
 	}
 }

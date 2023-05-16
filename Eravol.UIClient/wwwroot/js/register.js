@@ -141,6 +141,7 @@ function sendRequestFormData() {
         contentType: "application/json",
         success: function (response) {
             console.log("Request successful");
+            window.location.href = "/";
             console.log(response);
         },
         error: function (xhr, status, error) {
