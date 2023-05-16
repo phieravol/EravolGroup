@@ -10,4 +10,12 @@
     <None Include="wwwroot\css\Register.css" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="RestSharp" Version="110.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApplicationUser\Eravol.UserWebApi.csproj" />
+  </ItemGroup>
+
 </Project>

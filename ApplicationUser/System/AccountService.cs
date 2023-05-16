@@ -1,4 +1,5 @@
 ﻿using Eravlol.UserWebApi.Data.Models;
+using Eravol.UserWebApi.Data;
 using Eravol.UserWebApi.ViewModels.System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -14,16 +15,19 @@ namespace Eravol.UserWebApi.System
 		private readonly SignInManager<AppUser> signInManager;
 		private readonly RoleManager<IdentityRole<Guid>> roleManager;
 		private readonly IConfiguration config;
+		private readonly EravolUserWebApiContext context;
 		public AccountService(
 			UserManager<AppUser> userManager, 
 			SignInManager<AppUser> signInManager, 
 			RoleManager<IdentityRole<Guid>> roleManager,
-			IConfiguration config
-		) {
+			IConfiguration config,
+            EravolUserWebApiContext context
+        ) {
 			this.userManager = userManager;
 			this.signInManager = signInManager;
 			this.roleManager = roleManager;
 			this.config = config;
+			this.context = context;
 		}
 
 		/// <summary>
@@ -87,13 +91,30 @@ namespace Eravol.UserWebApi.System
 				LastName = request.LastName,
 				Country = request.Country,
 				MemberSince = DateTime.Now,
+				Birthday = request.Birthday,
+				PhoneNumber = request.PhoneNumber
 			};
 
 			var result = await userManager.CreateAsync(user, request.Password);
 
 			if (result.Succeeded)
 			{
-				return true;
+				try
+				{
+                    var userAfter = await userManager.FindByNameAsync(user.UserName);
+                    var role = await roleManager.FindByNameAsync(request.Role);
+
+                    await userManager.AddToRoleAsync(user, request.Role);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+				catch (Exception ex)
+				{
+					context.AppUsers.Remove(user);
+					await context.SaveChangesAsync();
+                    Console.WriteLine(ex.Message);
+                }
+                
 			}
 			return false;
 		}

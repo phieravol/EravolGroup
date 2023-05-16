@@ -25,10 +25,6 @@ namespace Eravol.UserWebApi.Controllers
 			}
 			AppUser? appUser = await profileRepository.GetUserByUsername(UserName);
 
-			//if (appUser == null)
-			//{
-			//	return NotFound("User is notfound!");
-			//}
 			return appUser;
 		}
 	}

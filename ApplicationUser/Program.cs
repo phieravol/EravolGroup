@@ -50,7 +50,8 @@ builder.Services.AddSwaggerGen(config =>
 // Register and Config Identity
 builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>()
 	.AddEntityFrameworkStores<EravolUserWebApiContext>()
-	.AddDefaultTokenProviders();
+	.AddDefaultTokenProviders()
+	.AddRoles<IdentityRole<Guid>>();
 
 // Register and config Authentication
 builder.Services.AddAuthentication(option =>
@@ -80,6 +81,12 @@ builder.Services.AddDbContext<EravolUserWebApiContext>(options => options.UseSql
 	builder.Configuration.GetConnectionString("EravlolUserWebApiContextConnection")
 	));
 
+//Add Cors service
+builder.Services.AddCors(p => p.AddPolicy("corseravol", builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
+
 /**
  * Add application services
  */
@@ -100,6 +107,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("corseravol");
 app.UseAuthentication(); ;
 
 app.UseAuthorization();
