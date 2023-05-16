@@ -3,6 +3,7 @@ using Eravol.UserWebApi.ViewModels.System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Policy;
 
 namespace Eravol.UserWebApi.Controllers
 {
@@ -10,6 +11,10 @@ namespace Eravol.UserWebApi.Controllers
 	[ApiController]
 	public class AuthController : ControllerBase
 	{
+        //https://localhost:7053/
+		private const string DOMAIN = "https://localhost";
+		private const string PORT = "7053";
+
 		private readonly IAccountService accountService;
 
 		public AuthController(IAccountService accountService)
@@ -47,7 +52,10 @@ namespace Eravol.UserWebApi.Controllers
 			{
 				return BadRequest("Register unsuccessfull!");
 			}
-			return Ok(result);
-		}
+			string path = "";
+			string redirectUrl = $"{DOMAIN}://{PORT}/{path}";
+
+			return Redirect(redirectUrl);
+        }
 	}
 }

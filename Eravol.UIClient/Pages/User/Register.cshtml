@@ -1,7 +1,10 @@
 ﻿@page
+@using Eravlol.UserWebApi.Data.Models;
 @model Eravol.UIClient.Pages.User.RegisterModel
 @{
     Layout = null;
+    const string CLIENT_ROLE = "Client";
+    const string FREELANCER_ROLE = "Freelancer";
 }
 <head>
     <!-- Required meta tags-->
@@ -40,13 +43,13 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">User name *</label>
-                                    <input class="input--style-4" type="text" name="username">
+                                    <input class="input--style-4 input-username" type="text" name="username">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Email *</label>
-                                    <input class="input--style-4" type="text" name="email">
+                                    <input class="input--style-4 input-email" type="text" name="email">
                                 </div>
                             </div>
                         </div>
@@ -54,13 +57,13 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">first name *</label>
-                                    <input class="input--style-4" type="text" name="firstname">
+                                    <input class="input--style-4 input-firstname" type="text" name="firstname"/>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">last name *</label>
-                                    <input class="input--style-4" type="text" name="lastname">
+                                    <input class="input--style-4 input-lastname" type="text" name="lastname" />
                                 </div>
                             </div>
                         </div>
@@ -68,13 +71,14 @@
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <label class="label">Password *</label>
-                                    <input class="input--style-4" type="password" name="password">
+                                    <input class="input--style-4 pass__enter" type="password" name="password" />
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <label class="label">Confirm Password *</label>
-                                    <input class="input--style-4" type="password" name="confirm_password">
+                                    <input class="input--style-4 pass__confirm" type="password" name="confirm_password" />
+                                    <span class="confirm-error-message text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +87,7 @@
                                 <div class="input-group">
                                     <label class="label">Birthday</label>
                                     <div class="input-group-icon">
-                                        <input class="input--style-4 js-datepicker" type="text" name="birthday">
+                                        <input class="input--style-4 js-datepicker input-birthday" type="text" name="birthday" />
                                         <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                                     </div>
                                 </div>
@@ -94,12 +98,12 @@
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">
                                             Client
-                                            <input type="radio" checked="checked" name="role">
+                                            <input type="radio" checked="checked" name="role" value="@CLIENT_ROLE" />
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container">
                                             Freelancer
-                                            <input type="radio" name="role">
+                                            <input type="radio" name="role" value="@FREELANCER_ROLE" />
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -111,11 +115,10 @@
                                 <div class="input-group">
                                     <label class="label">Select Your Country</label>
                                     <div class="rs-select2 js-select-simple select--no-search">
-                                        <select name="country">
+                                        <select name="country" id="select-country" class="select__listcountry">
                                             <option disabled="disabled" selected="selected">Choose option</option>
-                                            <option>Vietnam (+84)</option>
-                                            <option>USA (+01)</option>
-                                            <option>Japan (+36)</option>
+                                            <option value="US">US (+01)</option>
+                                            <option value="VN">Vietnam (+98)</option>
                                         </select>
                                         <div class="select-dropdown"></div>
                                     </div>
@@ -124,12 +127,12 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Phone Number</label>
-                                    <input class="input--style-4" type="text" name="phoneNumber">
+                                    <input class="input--style-4 input-phone" type="text" name="phoneNumber" />
                                 </div>
                             </div>
                         </div>
                         <div class="p-t-15">
-                            <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                            <button class="btn btn--radius-2 btn--blue" id="button__submit" type="button">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -146,5 +149,6 @@
 
     <!-- Main JS-->
     <script src="~/js/register.js"></script>
+    <script src="~/js/country/countryloading.js"></script>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
