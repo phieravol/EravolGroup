@@ -16,6 +16,7 @@ namespace Eravol.UserWebApi.System
 		private readonly RoleManager<IdentityRole<Guid>> roleManager;
 		private readonly IConfiguration config;
 		private readonly EravolUserWebApiContext context;
+
 		public AccountService(
 			UserManager<AppUser> userManager, 
 			SignInManager<AppUser> signInManager, 
@@ -38,10 +39,10 @@ namespace Eravol.UserWebApi.System
 		/// <exception cref="Exception"></exception>
 		public async Task<string> Authenticate(LoginRequest request)
 		{
-			// Find User by username in database
+			//Find User by username in database
 			var user = await userManager.FindByNameAsync(request.UserName);
 
-			//if User is not found raise an exception
+			//if User is not found then raise an exception
 			if (user == null)
 			{
 				throw new Exception("Cannot find user name");
@@ -101,20 +102,21 @@ namespace Eravol.UserWebApi.System
 			{
 				try
 				{
+					//Debug if user and role can be get
                     var userAfter = await userManager.FindByNameAsync(user.UserName);
                     var role = await roleManager.FindByNameAsync(request.Role);
 
+					//Add User to role
                     await userManager.AddToRoleAsync(user, request.Role);
                     await context.SaveChangesAsync();
                     return true;
                 }
 				catch (Exception ex)
 				{
+					//Rollback data
 					context.AppUsers.Remove(user);
 					await context.SaveChangesAsync();
-                    Console.WriteLine(ex.Message);
                 }
-                
 			}
 			return false;
 		}
