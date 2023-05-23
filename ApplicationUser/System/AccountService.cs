@@ -42,11 +42,6 @@ namespace Eravol.UserWebApi.System
 			//Find User by username in database
 			var user = await userManager.FindByNameAsync(request.UserName);
 
-			//if User is not found then raise an exception
-			if (user == null)
-			{
-				throw new Exception("Cannot find user name");
-			}
 			// Process check the signIn info
 			var result = await signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, true);
 			// If username or password is incorrect, signin failed
@@ -85,7 +80,17 @@ namespace Eravol.UserWebApi.System
 			return new JwtSecurityTokenHandler().WriteToken(token);
 		}
 
-		public async Task<bool> Registration(RegisterRequest request)
+        public bool isAccountExisted(LoginRequest request)
+        {
+            var user = userManager.FindByNameAsync(request.UserName);
+			if (user == null)
+			{
+				return false;
+			}
+			return true;
+        }
+
+        public async Task<bool> Registration(RegisterRequest request)
 		{
 			// Create a new User by register request
 			var user = new AppUser()
