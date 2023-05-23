@@ -24,7 +24,6 @@ function isValidFormat(username, password) {
         usernameCheckmark.css("color", "red");
         usernameCheckmark.text("username is empty!");
         result = false;
-        console.log(result);
     } else {
         usernameCheckmark.css("display", "none");
     }
@@ -34,7 +33,6 @@ function isValidFormat(username, password) {
         passwordCheckmark.css("color", "red");
         passwordCheckmark.text("password is empty!");
         result = false;
-        console.log(result);
     } else {
         passwordCheckmark.css("display", "none");
     }
@@ -53,20 +51,21 @@ function handleLoginFormData(username, password) {
       type: "POST",
       data: JSON.stringify(inputData),
       contentType: "application/json",
+      // If send ajax request successfully
       success: function (response) {
-        // window.location.href = "/";
-        console.log(response);
         const loginStatus = response.loginStatus;
-        console.log(response.loginStatus);
+        const loginResult = response.loginResult;
+
         if (loginStatus==false) {
           var passwordCheckmark = $(".login-checkmark-password");
-          console.log(passwordCheckmark);
           passwordCheckmark.css("display", "block");
           passwordCheckmark.css("color", "red");
           passwordCheckmark.text(response.loginResult);
+        } else {
+            console.log("login successfull");
         }
-        console.log("login successfull");
       },
+      //if send ajax request failed
       error: function (xhr, status, error) {
         console.log("Request failed");
         console.log(error);

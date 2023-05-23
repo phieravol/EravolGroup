@@ -23,26 +23,32 @@ namespace Eravol.WebApi.Controllers.Users
         [AllowAnonymous]
         public async Task<IActionResult> Authenticate([FromBody] LoginRequest request)
         {
-            bool loginStatus = true;
+            bool loginStatus = false;
+            string resultLogin = "";
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var resultToken = await accountService.Authenticate(request);
-
             if (!accountService.isAccountExisted(request))
             {
-                loginStatus = false;
-                resultToken = $"Can not find user have username @{request.UserName}";
-            }
-            else if (resultToken is null)
+                resultLogin = $"Can not find user have username @{request.UserName}";
+            } 
+            else
             {
-                loginStatus = false;
-                resultToken = "Username or password is incorrect";
+                resultLogin = await accountService.Authenticate(request);
+                if (resultLogin is null)
+                {
+                    resultLogin = "Username or password is incorrect";
+                }
+                else
+                {
+                    loginStatus = true;
+                }
             }
+            
             return Ok(new {
                 loginStatus = loginStatus,
-                loginResult = resultToken 
+                loginResult = resultLogin 
             });
         }
 
