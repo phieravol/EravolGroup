@@ -28,6 +28,23 @@ namespace Eravol.UserWebApi.Controllers.Skills
             return Ok(userSkills);
         }
 
+        [HttpGet("skill/{skillId}")]
+        [Authorize]
+        public IActionResult GetSkillById(int? skillId)
+        {
+            //get skill by id
+            if (skillId==null)
+            {
+                return BadRequest("Require skill identify");
+            }
+            Skill? skill = skillRepository.getSkillById(skillId);
+            if (skill==null)
+            {
+                return NotFound("Can not found skill, please try again!");
+            }
+            return Ok(skill);
+        }
+
         [HttpPost]
         [Authorize]
         public IActionResult CreateUserSkills(SkillViewModel request)
