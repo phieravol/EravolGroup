@@ -4,6 +4,7 @@ using Eravol.UserWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eravol.UserWebApi.Migrations
 {
     [DbContext(typeof(EravolUserWebApiContext))]
-    partial class EravolUserWebApiContextModelSnapshot : ModelSnapshot
+    [Migration("20230522050931_AddSkillData")]
+    partial class AddSkillData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

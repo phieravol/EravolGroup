@@ -36,6 +36,14 @@ namespace Eravol.UserWebApi.Data.Seeding
 				new IdentityUserRole<Guid>() { RoleId = new Guid("B8FD818F-63F1-49EE-BEC5-F7B66CAFBFCA"), UserId= new Guid("01A033A2-DDF4-4986-8CC9-4E117F7C8685") },
 				new IdentityUserRole<Guid>() { RoleId = new Guid("FE0E9C2D-6ABD-4F73-A635-63FC58EC700E"), UserId= new Guid("01A033A2-DDF4-4986-8CC9-4E117F7C8685") }
 				);
+
+			// Seed Skill
+			modelBuilder.Entity<Skill>().HasData(
+				new Skill() { Id=1, SkillName = "C# programing", IsVerified = false, Score=0, UserId = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF") },
+                new Skill() { Id = 2, SkillName = "Bussiness Analyst", IsVerified = false, Score = 0, UserId = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF") },
+                new Skill() { Id = 3, SkillName = "Web development", IsVerified = false, Score = 0, UserId = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF") }
+
+                );
 		}
 	}
 }

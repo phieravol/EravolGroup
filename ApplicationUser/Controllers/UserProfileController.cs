@@ -1,6 +1,7 @@
 ﻿using Eravlol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Repository.User.Admin;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eravol.UserWebApi.Controllers
@@ -10,10 +11,12 @@ namespace Eravol.UserWebApi.Controllers
     public class UserProfileController : ControllerBase
     {
         private readonly IManageProfileRepository profileRepository;
+		private readonly UserManager<AppUser> userManager;
 
-		public UserProfileController(IManageProfileRepository profileRepository)
+		public UserProfileController(IManageProfileRepository profileRepository, UserManager<AppUser> userManager)
 		{
 			this.profileRepository = profileRepository;
+			this.userManager = userManager;
 		}
 
 		[HttpGet("{UserName}")]
@@ -25,7 +28,12 @@ namespace Eravol.UserWebApi.Controllers
 			}
 			AppUser? appUser = await profileRepository.GetUserByUsername(UserName);
 
-			return appUser;
+			if (appUser == null)
+			{
+				return NotFound("User can't be found in the system!");
+			}
+
+            return appUser;
 		}
 	}
 }
