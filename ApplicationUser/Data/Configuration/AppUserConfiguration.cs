@@ -23,6 +23,9 @@ namespace Eravol.UserWebApi.Data.Configuration
 			builder.Property(x => x.Country)
 				.IsRequired(false)
 				.HasMaxLength(80);
+			builder.Property(x => x.Currency)
+				.IsRequired(false)
+				.HasMaxLength(80);
 			builder.Property(x => x.Address)
 				.IsRequired(false)
 				.HasMaxLength(1000);
@@ -32,9 +35,18 @@ namespace Eravol.UserWebApi.Data.Configuration
 			builder.Property(x => x.Password)
 				.IsRequired()
 				.HasMaxLength(50);
+			builder.Property(x => x.isAccountEnable)
+				.HasDefaultValue(true);
+
+			/*
+			 * Config foreign key which 1-n from AppUser
+			 */
 			builder.HasMany(s => s.Skills)
 				.WithOne(u => u.AppUser)
 				.HasForeignKey(u => u.UserId);
+			builder.HasMany(i => i.UserImages)
+				.WithOne(u => u.AppUser)
+				.HasForeignKey(x => x.UserId);
 		}
 	}
 }

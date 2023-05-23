@@ -35,11 +35,18 @@ namespace Eravol.UserWebApi.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<DateTime?>("Birthday")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Currency")
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
@@ -113,6 +120,11 @@ namespace Eravol.UserWebApi.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<bool?>("isAccountEnable")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -131,7 +143,7 @@ namespace Eravol.UserWebApi.Migrations
                             Id = new Guid("aedc1266-b3b5-4323-b10b-f020a31f3359"),
                             AccessFailedCount = 0,
                             Address = "Thai Binh",
-                            ConcurrencyStamp = "f549c2ae-8a6e-43cc-aed8-a9892980c8e0",
+                            ConcurrencyStamp = "2697c739-3f71-4aee-9fb2-4e42636c7293",
                             Country = "VietNam",
                             Email = "eravolgroup@gmail.com",
                             EmailConfirmed = false,
@@ -149,7 +161,7 @@ namespace Eravol.UserWebApi.Migrations
                             Id = new Guid("ae750391-4d11-4e00-8e92-607d18b839cf"),
                             AccessFailedCount = 0,
                             Address = "Yen Bai",
-                            ConcurrencyStamp = "4acf804a-502a-48cb-b64a-b06187ac42db",
+                            ConcurrencyStamp = "d13b4d3e-b4ed-42eb-8fb7-8aebbee3128a",
                             Country = "VietNam",
                             Email = "phinqevol@gmail.com",
                             EmailConfirmed = false,
@@ -167,7 +179,7 @@ namespace Eravol.UserWebApi.Migrations
                             Id = new Guid("01a033a2-ddf4-4986-8cc9-4e117f7c8685"),
                             AccessFailedCount = 0,
                             Address = "Hung Yen",
-                            ConcurrencyStamp = "25dfaea1-993e-432b-b4a5-e26e5f3f34ee",
+                            ConcurrencyStamp = "78c94a1d-6090-4274-878e-3c5d789daee4",
                             Country = "VietNam",
                             Email = "chitung@gmail.com",
                             EmailConfirmed = false,
@@ -211,6 +223,67 @@ namespace Eravol.UserWebApi.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Skill", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsVerified = false,
+                            Score = 0,
+                            SkillName = "C# programing",
+                            UserId = new Guid("ae750391-4d11-4e00-8e92-607d18b839cf")
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsVerified = false,
+                            Score = 0,
+                            SkillName = "Bussiness Analyst",
+                            UserId = new Guid("ae750391-4d11-4e00-8e92-607d18b839cf")
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsVerified = false,
+                            Score = 0,
+                            SkillName = "Web development",
+                            UserId = new Guid("ae750391-4d11-4e00-8e92-607d18b839cf")
+                        });
+                });
+
+            modelBuilder.Entity("Eravol.UserWebApi.Data.Models.UserImage", b =>
+                {
+                    b.Property<int>("ImgageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImgageId"), 1L, 1);
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserImagePath")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
+
+                    b.Property<int?>("UserImageSize")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isThumbnail")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isUserAvatar")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ImgageId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserImage", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -244,19 +317,19 @@ namespace Eravol.UserWebApi.Migrations
                         new
                         {
                             Id = new Guid("30a990c6-33c7-4884-9dcb-718ce356eb0d"),
-                            ConcurrencyStamp = "d44bc367-e02c-40fa-adcc-22aa0876635d",
+                            ConcurrencyStamp = "884494a2-35f3-49e4-a77a-3d5cbf19a61a",
                             Name = "Admin"
                         },
                         new
                         {
                             Id = new Guid("b8fd818f-63f1-49ee-bec5-f7b66cafbfca"),
-                            ConcurrencyStamp = "841c0d48-49f6-4da1-9ff4-977ceafe4d22",
+                            ConcurrencyStamp = "ce7c01e1-64de-4730-819a-20b7abe1bb79",
                             Name = "Freelancer"
                         },
                         new
                         {
                             Id = new Guid("fe0e9c2d-6abd-4f73-a635-63fc58ec700e"),
-                            ConcurrencyStamp = "ad7ad7f9-4ac5-4a57-b8a4-fe4eeee1b170",
+                            ConcurrencyStamp = "6794c703-e188-496f-ae5e-7e02a62f1d30",
                             Name = "Client"
                         });
                 });
@@ -397,6 +470,17 @@ namespace Eravol.UserWebApi.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("Eravol.UserWebApi.Data.Models.UserImage", b =>
+                {
+                    b.HasOne("Eravlol.UserWebApi.Data.Models.AppUser", "AppUser")
+                        .WithMany("UserImages")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -451,6 +535,8 @@ namespace Eravol.UserWebApi.Migrations
             modelBuilder.Entity("Eravlol.UserWebApi.Data.Models.AppUser", b =>
                 {
                     b.Navigation("Skills");
+
+                    b.Navigation("UserImages");
                 });
 #pragma warning restore 612, 618
         }
