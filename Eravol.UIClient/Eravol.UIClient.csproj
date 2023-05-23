@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ApplicationUser\Eravol.UserWebApi.csproj" />
+    <ProjectReference Include="..\ApplicationUser\Eravol.WebApi.csproj" />
   </ItemGroup>
 
 </Project>

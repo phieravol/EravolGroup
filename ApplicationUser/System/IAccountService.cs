@@ -5,6 +5,7 @@ namespace Eravol.UserWebApi.System
 	public interface IAccountService
 	{
 		Task<string> Authenticate(LoginRequest request);
-		Task<bool> Registration(RegisterRequest request);
+        bool isAccountExisted(LoginRequest request);
+        Task<bool> Registration(RegisterRequest request);
 	}
 }

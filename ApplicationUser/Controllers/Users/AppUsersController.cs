@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Eravlol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Data;
 
-namespace Eravol.UserWebApi.Controllers
+namespace Eravol.WebApi.Controllers.Users
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -26,10 +26,10 @@ namespace Eravol.UserWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetAppUsers()
         {
-          if (_context.AppUsers == null)
-          {
-              return NotFound();
-          }
+            if (_context.AppUsers == null)
+            {
+                return NotFound();
+            }
             return await _context.AppUsers.ToListAsync();
         }
 
@@ -37,10 +37,10 @@ namespace Eravol.UserWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>> GetAppUser(Guid id)
         {
-          if (_context.AppUsers == null)
-          {
-              return NotFound();
-          }
+            if (_context.AppUsers == null)
+            {
+                return NotFound();
+            }
             var appUser = await _context.AppUsers.FindAsync(id);
 
             if (appUser == null)
@@ -87,10 +87,10 @@ namespace Eravol.UserWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<AppUser>> PostAppUser(AppUser appUser)
         {
-          if (_context.AppUsers == null)
-          {
-              return Problem("Entity set 'EravolUserWebApiContext.AppUsers'  is null.");
-          }
+            if (_context.AppUsers == null)
+            {
+                return Problem("Entity set 'EravolUserWebApiContext.AppUsers'  is null.");
+            }
             _context.AppUsers.Add(appUser);
             await _context.SaveChangesAsync();
 
