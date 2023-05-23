@@ -83,7 +83,7 @@ namespace Eravol.UserWebApi.System
         public bool isAccountExisted(LoginRequest request)
         {
             var user = userManager.FindByNameAsync(request.UserName);
-			if (user == null)
+			if (user.Result == null)
 			{
 				return false;
 			}
