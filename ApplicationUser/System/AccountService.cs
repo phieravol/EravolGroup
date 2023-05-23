@@ -1,4 +1,5 @@
 ﻿using Eravlol.UserWebApi.Data.Models;
+using Eravol.UserWebApi.Data;
 using Eravol.UserWebApi.ViewModels.System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -14,16 +15,20 @@ namespace Eravol.UserWebApi.System
 		private readonly SignInManager<AppUser> signInManager;
 		private readonly RoleManager<IdentityRole<Guid>> roleManager;
 		private readonly IConfiguration config;
+		private readonly EravolUserWebApiContext context;
+
 		public AccountService(
 			UserManager<AppUser> userManager, 
 			SignInManager<AppUser> signInManager, 
 			RoleManager<IdentityRole<Guid>> roleManager,
-			IConfiguration config
-		) {
+			IConfiguration config,
+            EravolUserWebApiContext context
+        ) {
 			this.userManager = userManager;
 			this.signInManager = signInManager;
 			this.roleManager = roleManager;
 			this.config = config;
+			this.context = context;
 		}
 
 		/// <summary>
@@ -34,10 +39,10 @@ namespace Eravol.UserWebApi.System
 		/// <exception cref="Exception"></exception>
 		public async Task<string> Authenticate(LoginRequest request)
 		{
-			// Find User by username in database
+			//Find User by username in database
 			var user = await userManager.FindByNameAsync(request.UserName);
 
-			//if User is not found raise an exception
+			//if User is not found then raise an exception
 			if (user == null)
 			{
 				throw new Exception("Cannot find user name");
@@ -50,14 +55,19 @@ namespace Eravol.UserWebApi.System
 				return null;
 			}
 
-			//if login success, get roles of this user
-			var roles = await userManager.GetRolesAsync(user);
+            //if login success, get roles of this user
+            var roles = await userManager.GetRolesAsync(user);
 
-			// create info will stored in JWT, these info will be encode and decode by API application use this JWT
-			var claims = new[]
+            // create info will stored in JWT, these info will be encode and decode by API application use this JWT
+            var claims = new[]
 			{
-				new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Email, user.Email),
 				new Claim(ClaimTypes.GivenName, user.FirstName),
+				new Claim(ClaimTypes.Name, user.UserName),
+				new Claim(ClaimTypes.GivenName, user.LastName),
+				new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
+				new Claim(ClaimTypes.MobilePhone, user.PhoneNumber),
 				new Claim(ClaimTypes.Role, string.Join(";", roles)),
 			};
 
@@ -87,13 +97,31 @@ namespace Eravol.UserWebApi.System
 				LastName = request.LastName,
 				Country = request.Country,
 				MemberSince = DateTime.Now,
+				Birthday = request.Birthday,
+				PhoneNumber = request.PhoneNumber
 			};
 
 			var result = await userManager.CreateAsync(user, request.Password);
 
 			if (result.Succeeded)
 			{
-				return true;
+				try
+				{
+					//Debug if user and role can be get
+                    var userAfter = await userManager.FindByNameAsync(user.UserName);
+                    var role = await roleManager.FindByNameAsync(request.Role);
+
+					//Add User to role
+                    await userManager.AddToRoleAsync(user, request.Role);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+				catch (Exception ex)
+				{
+					//Rollback data
+					context.AppUsers.Remove(user);
+					await context.SaveChangesAsync();
+                }
 			}
 			return false;
 		}

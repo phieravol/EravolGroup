@@ -1,5 +1,6 @@
 using Eravlol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Data;
+using Eravol.UserWebApi.Repository.Skills;
 using Eravol.UserWebApi.Repository.User.Admin;
 using Eravol.UserWebApi.System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -50,7 +51,8 @@ builder.Services.AddSwaggerGen(config =>
 // Register and Config Identity
 builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>()
 	.AddEntityFrameworkStores<EravolUserWebApiContext>()
-	.AddDefaultTokenProviders();
+	.AddDefaultTokenProviders()
+	.AddRoles<IdentityRole<Guid>>();
 
 // Register and config Authentication
 builder.Services.AddAuthentication(option =>
@@ -80,6 +82,12 @@ builder.Services.AddDbContext<EravolUserWebApiContext>(options => options.UseSql
 	builder.Configuration.GetConnectionString("EravlolUserWebApiContextConnection")
 	));
 
+//Add Cors service
+builder.Services.AddCors(p => p.AddPolicy("corseravol", builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
+
 /**
  * Add application services
  */
@@ -89,6 +97,7 @@ builder.Services.AddTransient<RoleManager<IdentityRole<Guid>>, RoleManager<Ident
 
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IManageProfileRepository, ManageProfileRepository>();
+builder.Services.AddTransient<ISkillRepository, SkillRepository>();
 
 var app = builder.Build();
 
@@ -100,6 +109,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("corseravol");
 app.UseAuthentication(); ;
 
 app.UseAuthorization();

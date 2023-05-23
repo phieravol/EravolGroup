@@ -14,6 +14,7 @@ namespace Eravlol.UserWebApi.Data.Models
 		public string Currency { get; set; }
 		public string? Address { get; set; }
 		public DateTime MemberSince { get; set; }
+		public DateTime? Birthday { get; set; }
 		public string UserLevel { get; set; }
 		public bool? isAccountEnable { get; set; }
 		public virtual ICollection<Skill> Skills { get; set; }
