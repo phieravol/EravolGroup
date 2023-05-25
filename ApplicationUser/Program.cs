@@ -2,7 +2,7 @@ using Eravlol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Data;
 using Eravol.UserWebApi.Repository.Skills;
 using Eravol.UserWebApi.Repository.User.Admin;
-using Eravol.UserWebApi.System;
+using Eravol.WebApi.Repository.System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
