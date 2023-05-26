@@ -1,7 +1,24 @@
+﻿using Eravlol.UserWebApi.Data.Models;
+using Eravol.UIClient.Repositories.Users;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddAuthentication(options =>
+{
+	options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+	options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+	options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie(options =>
+{
+	options.AccessDeniedPath = "/Forbidden";
+});
+
+builder.Services.AddHttpClient();
+builder.Services.AddTransient<ILoginApiClient, LoginApiClient>();
 
 var app = builder.Build();
 
@@ -15,6 +32,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseAuthentication();
 
 app.UseRouting();
 
