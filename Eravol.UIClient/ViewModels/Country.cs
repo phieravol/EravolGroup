@@ -1,4 +1,4 @@
-﻿namespace Eravol.UIClient.Pages.ViewModels
+﻿namespace Eravol.UIClient.ViewModels
 {
     public class Country
     {
