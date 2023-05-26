@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Repository\User\Public\**" />
-    <Content Remove="Repository\User\Public\**" />
-    <EmbeddedResource Remove="Repository\User\Public\**" />
-    <None Remove="Repository\User\Public\**" />
+    <Compile Remove="Repositories\User\Public\**" />
+    <Content Remove="Repositories\User\Public\**" />
+    <EmbeddedResource Remove="Repositories\User\Public\**" />
+    <None Remove="Repositories\User\Public\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <Folder Include="Utilities\" />
+    <Folder Include="ViewModels\Users\" />
   </ItemGroup>
 
 </Project>

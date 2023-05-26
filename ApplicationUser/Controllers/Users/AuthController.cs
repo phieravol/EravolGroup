@@ -1,5 +1,5 @@
-﻿using Eravol.UserWebApi.System;
-using Eravol.UserWebApi.ViewModels.System;
+﻿using Eravol.UserWebApi.ViewModels.System;
+using Eravol.WebApi.Repository.System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

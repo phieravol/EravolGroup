@@ -1,4 +1,3 @@
-using Eravol.UIClient.Pages.ViewModels;
 using Eravol.UserWebApi.ViewModels.System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
