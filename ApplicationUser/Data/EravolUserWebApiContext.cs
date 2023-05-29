@@ -2,6 +2,7 @@
 using Eravol.UserWebApi.Data.Configuration;
 using Eravol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Data.Seeding;
+using Eravol.WebApi.Data.Configuration;
 using Eravol.WebApi.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -14,7 +15,6 @@ namespace Eravol.UserWebApi.Data
         public EravolUserWebApiContext(DbContextOptions options) : base(options)
         {
         }
-
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			if (!optionsBuilder.IsConfigured)
@@ -32,6 +32,12 @@ namespace Eravol.UserWebApi.Data
 			modelBuilder.ApplyConfiguration(new AppUserConfiguration());
 			modelBuilder.ApplyConfiguration(new SkillConfiguration());
 			modelBuilder.ApplyConfiguration(new UserImageConfiguration());
+			modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+			modelBuilder.ApplyConfiguration(new PostConfiguration());
+			modelBuilder.ApplyConfiguration(new PostStatusConfiguration());
+			modelBuilder.ApplyConfiguration(new ServiceConfiguration());
+			modelBuilder.ApplyConfiguration(new ServiceStatusConfiguration());
+			modelBuilder.ApplyConfiguration(new ServiceImageConfiguration());
 
 			base.OnModelCreating(modelBuilder);
 			new DataSeeder(modelBuilder).Seed();
@@ -44,6 +50,9 @@ namespace Eravol.UserWebApi.Data
 		public DbSet<Post> Posts { get; set; }
 		public DbSet<PostStatus> PostStatuses { get; set; }
 		public DbSet<Category> Categories { get; set; }
+		public DbSet<Service> Services { get; set; }
+		public DbSet<ServiceImage> ServicesImages { get; set; }
+		public DbSet<ServiceStatus> ServiceStatuses { get; set; }
         #endregion
     }
 }

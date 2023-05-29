@@ -21,6 +21,8 @@ namespace Eravol.WebApi.Data.Configuration
 			#region Config relationships
 			builder.HasMany(x => x.Posts).WithOne(x => x.Categories)
 				.HasForeignKey(x => x.CategoryId);
+			builder.HasMany(x => x.Services).WithOne(x => x.Categories)
+				.HasForeignKey(x => x.CategoryId);
 			#endregion
 		}
 	}

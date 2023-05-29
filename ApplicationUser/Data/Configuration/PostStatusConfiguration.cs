@@ -9,7 +9,7 @@ namespace Eravol.WebApi.Data.Configuration
 	{
 		public void Configure(EntityTypeBuilder<PostStatus> builder)
 		{
-			builder.ToTable("PostStatus");
+			builder.ToTable("PostStatuse");
 			builder.HasKey(x => x.PostStatusId);
 			builder.Property(x =>x.PostStatusName)
 				.IsRequired()

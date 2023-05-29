@@ -51,7 +51,14 @@ namespace Eravol.UserWebApi.Data.Seeding
 				new PostStatus { PostStatusId = 2, PostStatusName = "On Going", PostStatusDesc = "When User published the Post, can be visible" },
 				new PostStatus { PostStatusId = 3, PostStatusName = "Expired", PostStatusDesc = "When The Post is out date, can be visible"},
 				new PostStatus { PostStatusId = 4, PostStatusName = "Deleted", PostStatusDesc = "When The Post is Delete by Clients, Unvisible by anyone" },
-				new PostStatus { PostStatusId = 45, PostStatusName = "Locked", PostStatusDesc = "When The Post is Locked by Clients, Can visible by anyone" }
+				new PostStatus { PostStatusId = 5, PostStatusName = "Locked", PostStatusDesc = "When The Post is Locked by Clients, Can visible by anyone" }
+				);
+
+			//Seed ServiceStatus
+			modelBuilder.Entity<ServiceStatus>().HasData(
+				new ServiceStatus { ServiceStatusId = 1, ServiceStatusName = "Available", ServiceStatusDesc = "When the service can still be ordered by clients" },
+				new ServiceStatus { ServiceStatusId = 2, ServiceStatusName = "Busy", ServiceStatusDesc = "When a freelancer is busy with multiple tasks, you can still request their services and join the queue." },
+				new ServiceStatus { ServiceStatusId = 3, ServiceStatusName = "Cancel", ServiceStatusDesc = "When the freelancer has stopped providing this service." }
 				);
 		}
 	}
