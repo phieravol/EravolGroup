@@ -2,6 +2,7 @@
 using Eravol.UserWebApi.Data.Configuration;
 using Eravol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Data.Seeding;
+using Eravol.WebApi.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +41,8 @@ namespace Eravol.UserWebApi.Data
 		public DbSet<AppUser> AppUsers { get; set; }
 		public DbSet<Skill> Skills { get; set; }
 		public DbSet<UserImage> UserImages { get; set; }
+		public DbSet<Post> Posts { get; set; }
+		public DbSet<PostStatus> PostStatuses { get; set; }
         #endregion
     }
 }
