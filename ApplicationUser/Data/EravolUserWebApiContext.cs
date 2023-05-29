@@ -43,6 +43,7 @@ namespace Eravol.UserWebApi.Data
 		public DbSet<UserImage> UserImages { get; set; }
 		public DbSet<Post> Posts { get; set; }
 		public DbSet<PostStatus> PostStatuses { get; set; }
+		public DbSet<Category> Categories { get; set; }
         #endregion
     }
 }

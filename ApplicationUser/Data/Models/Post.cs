@@ -21,6 +21,7 @@ namespace Eravol.WebApi.Data.Models
 		#region Constraints
 		public virtual AppUser AppUser { get; set; }
 		public virtual PostStatus PostStatus { get; set; }
+		public virtual Category Categories { get; set; }
 		#endregion
 	}
 }
