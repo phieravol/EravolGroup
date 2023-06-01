@@ -1,5 +1,6 @@
 ﻿using Eravlol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Data.Models;
+using Eravol.WebApi.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,9 +18,9 @@ namespace Eravol.UserWebApi.Data.Seeding
 		{
 			// Seed role data
 			modelBuilder.Entity<IdentityRole<Guid>>().HasData(
-				new IdentityRole<Guid>() { Id = new Guid("30A990C6-33C7-4884-9DCB-718CE356EB0D"), Name= "Admin" },
-				new IdentityRole<Guid>() { Id = new Guid("B8FD818F-63F1-49EE-BEC5-F7B66CAFBFCA"), Name= "Freelancer" },
-				new IdentityRole<Guid>() { Id = new Guid("FE0E9C2D-6ABD-4F73-A635-63FC58EC700E"), Name= "Client" }
+				new IdentityRole<Guid>() { Id = new Guid("30A990C6-33C7-4884-9DCB-718CE356EB0D"), Name= "Admin", NormalizedName="ADMIN" },
+				new IdentityRole<Guid>() { Id = new Guid("B8FD818F-63F1-49EE-BEC5-F7B66CAFBFCA"), Name= "Freelancer", NormalizedName = "FREELANCER" },
+				new IdentityRole<Guid>() { Id = new Guid("FE0E9C2D-6ABD-4F73-A635-63FC58EC700E"), Name= "Client", NormalizedName = "CLIENT" }
 			);
 
 			// Seed User data
@@ -42,8 +43,23 @@ namespace Eravol.UserWebApi.Data.Seeding
 				new Skill() { Id=1, SkillName = "C# programing", IsVerified = false, Score=0, UserId = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF") },
                 new Skill() { Id = 2, SkillName = "Bussiness Analyst", IsVerified = false, Score = 0, UserId = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF") },
                 new Skill() { Id = 3, SkillName = "Web development", IsVerified = false, Score = 0, UserId = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF") }
-
                 );
+
+			//Seed PostStatus
+			modelBuilder.Entity<PostStatus>().HasData(
+				new PostStatus { PostStatusId = 1, PostStatusName = "Draft", PostStatusDesc = "When User not yet Public Post, visible by Freelancer" },
+				new PostStatus { PostStatusId = 2, PostStatusName = "On Going", PostStatusDesc = "When User published the Post, can be visible" },
+				new PostStatus { PostStatusId = 3, PostStatusName = "Expired", PostStatusDesc = "When The Post is out date, can be visible"},
+				new PostStatus { PostStatusId = 4, PostStatusName = "Deleted", PostStatusDesc = "When The Post is Delete by Clients, Unvisible by anyone" },
+				new PostStatus { PostStatusId = 5, PostStatusName = "Locked", PostStatusDesc = "When The Post is Locked by Clients, Can visible by anyone" }
+				);
+
+			//Seed ServiceStatus
+			modelBuilder.Entity<ServiceStatus>().HasData(
+				new ServiceStatus { ServiceStatusId = 1, ServiceStatusName = "Available", ServiceStatusDesc = "When the service can still be ordered by clients" },
+				new ServiceStatus { ServiceStatusId = 2, ServiceStatusName = "Busy", ServiceStatusDesc = "When a freelancer is busy with multiple tasks, you can still request their services and join the queue." },
+				new ServiceStatus { ServiceStatusId = 3, ServiceStatusName = "Cancel", ServiceStatusDesc = "When the freelancer has stopped providing this service." }
+				);
 		}
 	}
 }

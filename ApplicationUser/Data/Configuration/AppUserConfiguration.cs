@@ -47,6 +47,8 @@ namespace Eravol.UserWebApi.Data.Configuration
 			builder.HasMany(i => i.UserImages)
 				.WithOne(u => u.AppUser)
 				.HasForeignKey(x => x.UserId);
+			builder.HasMany(p => p.Posts)
+				.WithOne(u => u.AppUser);
 		}
 	}
 }

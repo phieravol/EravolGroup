@@ -1,4 +1,5 @@
 ﻿using Eravol.UserWebApi.Data.Models;
+using Eravol.WebApi.Data.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace Eravlol.UserWebApi.Data.Models
@@ -17,7 +18,12 @@ namespace Eravlol.UserWebApi.Data.Models
 		public DateTime? Birthday { get; set; }
 		public string UserLevel { get; set; }
 		public bool? isAccountEnable { get; set; }
+
+		#region relationships
 		public virtual ICollection<Skill> Skills { get; set; }
 		public virtual ICollection<UserImage> UserImages { get; set; }
+		public virtual ICollection<Post> Posts { get; set; }
+		public virtual ICollection<Service> Services { get; set; }
+		#endregion
 	}
 }

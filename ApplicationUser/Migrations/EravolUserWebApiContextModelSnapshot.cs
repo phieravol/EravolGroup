@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Eravol.UserWebApi.Migrations
+namespace Eravol.WebApi.Migrations
 {
     [DbContext(typeof(EravolUserWebApiContext))]
     partial class EravolUserWebApiContextModelSnapshot : ModelSnapshot
@@ -143,7 +143,7 @@ namespace Eravol.UserWebApi.Migrations
                             Id = new Guid("aedc1266-b3b5-4323-b10b-f020a31f3359"),
                             AccessFailedCount = 0,
                             Address = "Thai Binh",
-                            ConcurrencyStamp = "2697c739-3f71-4aee-9fb2-4e42636c7293",
+                            ConcurrencyStamp = "327aa290-f473-4b61-8087-81a710c1dd3c",
                             Country = "VietNam",
                             Email = "eravolgroup@gmail.com",
                             EmailConfirmed = false,
@@ -161,7 +161,7 @@ namespace Eravol.UserWebApi.Migrations
                             Id = new Guid("ae750391-4d11-4e00-8e92-607d18b839cf"),
                             AccessFailedCount = 0,
                             Address = "Yen Bai",
-                            ConcurrencyStamp = "d13b4d3e-b4ed-42eb-8fb7-8aebbee3128a",
+                            ConcurrencyStamp = "9682f17d-96d5-4a93-9bcb-ce457b575d54",
                             Country = "VietNam",
                             Email = "phinqevol@gmail.com",
                             EmailConfirmed = false,
@@ -179,7 +179,7 @@ namespace Eravol.UserWebApi.Migrations
                             Id = new Guid("01a033a2-ddf4-4986-8cc9-4e117f7c8685"),
                             AccessFailedCount = 0,
                             Address = "Hung Yen",
-                            ConcurrencyStamp = "78c94a1d-6090-4274-878e-3c5d789daee4",
+                            ConcurrencyStamp = "0efb924c-9416-43e7-817d-02e1bef15f59",
                             Country = "VietNam",
                             Email = "chitung@gmail.com",
                             EmailConfirmed = false,
@@ -286,6 +286,281 @@ namespace Eravol.UserWebApi.Migrations
                     b.ToTable("UserImage", (string)null);
                 });
 
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"), 1L, 1);
+
+                    b.Property<string>("CategoryDesc")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("CategoryImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CategoryLevel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("CategoryParent")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isCategoryActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Category", (string)null);
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.Post", b =>
+                {
+                    b.Property<int>("PostId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostId"), 1L, 1);
+
+                    b.Property<Guid>("AppUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Budget")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LevelRequired")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PostDetails")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostStatusId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PostTitle")
+                        .IsRequired()
+                        .HasMaxLength(800)
+                        .HasColumnType("nvarchar(800)");
+
+                    b.Property<DateTime>("PostedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SortDesc")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("PostId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("PostStatusId");
+
+                    b.ToTable("Post", (string)null);
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.PostStatus", b =>
+                {
+                    b.Property<int>("PostStatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostStatusId"), 1L, 1);
+
+                    b.Property<string>("PostStatusDesc")
+                        .IsRequired()
+                        .HasMaxLength(800)
+                        .HasColumnType("nvarchar(800)");
+
+                    b.Property<string>("PostStatusName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("PostStatusId");
+
+                    b.ToTable("PostStatuse", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            PostStatusId = 1,
+                            PostStatusDesc = "When User not yet Public Post, visible by Freelancer",
+                            PostStatusName = "Draft"
+                        },
+                        new
+                        {
+                            PostStatusId = 2,
+                            PostStatusDesc = "When User published the Post, can be visible",
+                            PostStatusName = "On Going"
+                        },
+                        new
+                        {
+                            PostStatusId = 3,
+                            PostStatusDesc = "When The Post is out date, can be visible",
+                            PostStatusName = "Expired"
+                        },
+                        new
+                        {
+                            PostStatusId = 4,
+                            PostStatusDesc = "When The Post is Delete by Clients, Unvisible by anyone",
+                            PostStatusName = "Deleted"
+                        },
+                        new
+                        {
+                            PostStatusId = 5,
+                            PostStatusDesc = "When The Post is Locked by Clients, Can visible by anyone",
+                            PostStatusName = "Locked"
+                        });
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.Service", b =>
+                {
+                    b.Property<string>("ServiceCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<Guid>("AppUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("CategoryId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ServiceAuthor")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ServiceDetails")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ServiceIntro")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int>("ServiceStatusId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ServiceTitle")
+                        .IsRequired()
+                        .HasMaxLength(800)
+                        .HasColumnType("nvarchar(800)");
+
+                    b.Property<int?>("TotalClients")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TotalStars")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ServiceCode");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("ServiceStatusId");
+
+                    b.ToTable("Service", (string)null);
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.ServiceImage", b =>
+                {
+                    b.Property<int>("ServiceImgageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceImgageId"), 1L, 1);
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ServiceCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ServiceImagePath")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int?>("ServiceImageSize")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isThumbnail")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ServiceImgageId");
+
+                    b.HasIndex("ServiceCode");
+
+                    b.ToTable("ServiceImage", (string)null);
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.ServiceStatus", b =>
+                {
+                    b.Property<int>("ServiceStatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceStatusId"), 1L, 1);
+
+                    b.Property<string>("ServiceStatusDesc")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("ServiceStatusName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ServiceStatusId");
+
+                    b.ToTable("ServiceStatus", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            ServiceStatusId = 1,
+                            ServiceStatusDesc = "When the service can still be ordered by clients",
+                            ServiceStatusName = "Available"
+                        },
+                        new
+                        {
+                            ServiceStatusId = 2,
+                            ServiceStatusDesc = "When a freelancer is busy with multiple tasks, you can still request their services and join the queue.",
+                            ServiceStatusName = "Busy"
+                        },
+                        new
+                        {
+                            ServiceStatusId = 3,
+                            ServiceStatusDesc = "When the freelancer has stopped providing this service.",
+                            ServiceStatusName = "Cancel"
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
                     b.Property<Guid>("Id")
@@ -317,20 +592,23 @@ namespace Eravol.UserWebApi.Migrations
                         new
                         {
                             Id = new Guid("30a990c6-33c7-4884-9dcb-718ce356eb0d"),
-                            ConcurrencyStamp = "884494a2-35f3-49e4-a77a-3d5cbf19a61a",
-                            Name = "Admin"
+                            ConcurrencyStamp = "db4d74cd-4dc7-45b8-a4bd-e9aa1c2ab5d1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("b8fd818f-63f1-49ee-bec5-f7b66cafbfca"),
-                            ConcurrencyStamp = "ce7c01e1-64de-4730-819a-20b7abe1bb79",
-                            Name = "Freelancer"
+                            ConcurrencyStamp = "ef075da4-44fb-4717-9bef-5ef02d5d6e19",
+                            Name = "Freelancer",
+                            NormalizedName = "FREELANCER"
                         },
                         new
                         {
                             Id = new Guid("fe0e9c2d-6abd-4f73-a635-63fc58ec700e"),
-                            ConcurrencyStamp = "6794c703-e188-496f-ae5e-7e02a62f1d30",
-                            Name = "Client"
+                            ConcurrencyStamp = "7ee8633c-0b0e-42b1-9c15-e1ed670553db",
+                            Name = "Client",
+                            NormalizedName = "CLIENT"
                         });
                 });
 
@@ -481,6 +759,71 @@ namespace Eravol.UserWebApi.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.Post", b =>
+                {
+                    b.HasOne("Eravlol.UserWebApi.Data.Models.AppUser", "AppUser")
+                        .WithMany("Posts")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Eravol.WebApi.Data.Models.Category", "Categories")
+                        .WithMany("Posts")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Eravol.WebApi.Data.Models.PostStatus", "PostStatus")
+                        .WithMany("Posts")
+                        .HasForeignKey("PostStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Categories");
+
+                    b.Navigation("PostStatus");
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.Service", b =>
+                {
+                    b.HasOne("Eravlol.UserWebApi.Data.Models.AppUser", "AppUser")
+                        .WithMany("Services")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Eravol.WebApi.Data.Models.Category", "Categories")
+                        .WithMany("Services")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Eravol.WebApi.Data.Models.ServiceStatus", "ServiceStatus")
+                        .WithMany("Services")
+                        .HasForeignKey("ServiceStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Categories");
+
+                    b.Navigation("ServiceStatus");
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.ServiceImage", b =>
+                {
+                    b.HasOne("Eravol.WebApi.Data.Models.Service", "Service")
+                        .WithMany("ServiceImages")
+                        .HasForeignKey("ServiceCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Service");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -534,9 +877,35 @@ namespace Eravol.UserWebApi.Migrations
 
             modelBuilder.Entity("Eravlol.UserWebApi.Data.Models.AppUser", b =>
                 {
+                    b.Navigation("Posts");
+
+                    b.Navigation("Services");
+
                     b.Navigation("Skills");
 
                     b.Navigation("UserImages");
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.Category", b =>
+                {
+                    b.Navigation("Posts");
+
+                    b.Navigation("Services");
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.PostStatus", b =>
+                {
+                    b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.Service", b =>
+                {
+                    b.Navigation("ServiceImages");
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.ServiceStatus", b =>
+                {
+                    b.Navigation("Services");
                 });
 #pragma warning restore 612, 618
         }
