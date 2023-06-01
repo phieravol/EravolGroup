@@ -14,7 +14,7 @@ namespace Eravol.WebApi.Data.Models
 		#endregion
 
 		#region ReferenceKey
-		public int ServiceId { get; set; }
+		public string ServiceCode { get; set; }
 		#endregion
 
 		#region relationships

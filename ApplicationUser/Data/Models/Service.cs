@@ -5,7 +5,7 @@ namespace Eravol.WebApi.Data.Models
 	public class Service
 	{
 		#region Fields
-		public int ServiceId { get; set; }
+		public string ServiceCode { get; set; }
 		public string ServiceTitle { get; set; }
 		public string? ServiceIntro { get; set; }
 		public string? ServiceDetails { get; set; }

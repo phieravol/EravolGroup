@@ -10,7 +10,8 @@ namespace Eravol.WebApi.Data.Configuration
 		{
 			#region ConfigFields
 			builder.ToTable("Service");
-			builder.HasKey(x => x.ServiceId);
+			builder.HasKey(x => x.ServiceCode);
+			builder.Property(x => x.ServiceCode).HasMaxLength(50);
 			builder.Property(x=>x.ServiceTitle).IsRequired()
 				.HasMaxLength(800);
 			builder.Property(x => x.ServiceIntro).IsRequired(false).
@@ -23,7 +24,7 @@ namespace Eravol.WebApi.Data.Configuration
 
 			#region ConfigRelationships
 			builder.HasMany(x=>x.ServiceImages).WithOne(x=>x.Service)
-				.HasForeignKey(x=>x.ServiceId);
+				.HasForeignKey(x=>x.ServiceCode);
 			#endregion
 		}
 	}
