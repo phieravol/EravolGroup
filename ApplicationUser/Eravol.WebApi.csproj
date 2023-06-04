@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="Repositories\User\Public\**" />
+    <Compile Remove="ViewModels\Users\**" />
     <Content Remove="Repositories\User\Public\**" />
+    <Content Remove="ViewModels\Users\**" />
     <EmbeddedResource Remove="Repositories\User\Public\**" />
+    <EmbeddedResource Remove="ViewModels\Users\**" />
     <None Remove="Repositories\User\Public\**" />
+    <None Remove="ViewModels\Users\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,7 +38,6 @@
 
   <ItemGroup>
     <Folder Include="Utilities\" />
-    <Folder Include="ViewModels\Users\" />
   </ItemGroup>
 
 </Project>

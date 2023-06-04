@@ -2,6 +2,7 @@ using Eravlol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Data;
 using Eravol.UserWebApi.Repository.Skills;
 using Eravol.UserWebApi.Repository.User.Admin;
+using Eravol.WebApi.Repositories.Categories;
 using Eravol.WebApi.Repository.System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -98,6 +99,7 @@ builder.Services.AddTransient<RoleManager<IdentityRole<Guid>>, RoleManager<Ident
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IManageProfileRepository, ManageProfileRepository>();
 builder.Services.AddTransient<ISkillRepository, SkillRepository>();
+builder.Services.AddTransient<IManageCategoryRepository, ManageCategoryRepository>();
 
 var app = builder.Build();
 
