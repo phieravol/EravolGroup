@@ -1,6 +1,9 @@
 ﻿@page
+@using Eravol.WebApi.Data.Models;
 @model Eravol.UIClient.Pages.Categories.Admin.IndexModel
 @{
+	List<Category>? Categories = Model.PagingRequest.Items;
+
 }
 
 <head>
@@ -98,249 +101,35 @@
 									</th>
 									<th>Icon</th>
 									<th>Name</th>
-									<th>Slug</th>
+									<th>Description</th>
 									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>
-										<span class="wt-checkbox">
-											<input id="wt-namea" type="checkbox" name="head">
-											<label for="wt-namea"></label>
-										</span>
-									</td>
-									<td><figure><img src="~/images/categories/img-09.png" alt="img description"></figure></td>
-									<td>Advertising Director</td>
-									<td>Advertising Director</td>
-									<td>
-										<div class="wt-actionbtn">
-											<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-											<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="wt-checkbox">
-											<input id="wt-name1" type="checkbox" name="categories">
-											<label for="wt-name1"></label>
-										</span>
-									</td>
-									<td><figure><img src="~/images/categories/img-10.png" alt="img description"></figure></td>
-									<td class="wt-subcategories wt-child-2">Advertising Executive</td>
-									<td>Advertising Executive</td>
-									<td>
-										<div class="wt-actionbtn">
-											<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-											<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="wt-checkbox">
-											<input id="wt-name2" type="checkbox" name="categories">
-											<label for="wt-name2"></label>
-										</span>
-									</td>
-									<td><figure><img src="~/images/categories/img-09.png" alt="img description"></figure></td>
-									<td class="wt-subcategories wt-child-3">Advertising Manager</td>
-									<td>Advertising Manager</td>
-									<td>
-										<div class="wt-actionbtn">
-											<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-											<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="wt-checkbox">
-											<input id="wt-name3" type="checkbox" name="categories">
-											<label for="wt-name3"></label>
-										</span>
-									</td>
-									<td><figure><img src="~/images/categories/img-09.png" alt="img description"></figure></td>
-									<td class="wt-subcategories wt-child-4">Classified Advertising Manager</td>
-									<td>Classified Advertising Manager</td>
-									<td>
-										<div class="wt-actionbtn">
-											<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-											<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="wt-checkbox">
-											<input id="wt-name4" type="checkbox" name="categories">
-											<label for="wt-name4"></label>
-										</span>
-									</td>
-									<td><figure><img src="~/images/categories/img-10.png" alt="img description"></figure></td>
-									<td>Promotion Manager</td>
-									<td>Promotion Manager</td>
-									<td>
-										<div class="wt-actionbtn">
-											<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-											<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="wt-checkbox">
-											<input id="wt-name5" type="checkbox" name="categories">
-											<label for="wt-name5"></label>
-										</span>
-									</td>
-									<td><figure><img src="~/images/categories/img-10.png" alt="img description"></figure></td>
-									<td>Promotions Director</td>
-									<td>Promotions Director</td>
-									<td>
-										<div class="wt-actionbtn">
-											<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-											<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="wt-checkbox">
-											<input id="wt-name6" type="checkbox" name="categories">
-											<label for="wt-name6"></label>
-										</span>
-									</td>
-									<td><figure><img src="~/images/categories/img-09.png" alt="img description"></figure></td>
-									<td>VP Advertising</td>
-									<td>VP Advertising</td>
-									<td>
-										<div class="wt-actionbtn">
-											<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-											<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="wt-checkbox">
-											<input id="wt-name7" type="checkbox" name="categories">
-											<label for="wt-name7"></label>
-										</span>
-									</td>
-									<td><figure><img src="~/images/categories/img-09.png" alt="img description"></figure></td>
-									<td>VP Promotions</td>
-									<td>VP Promotions</td>
-									<td>
-										<div class="wt-actionbtn">
-											<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-											<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="wt-checkbox">
-											<input id="wt-name8" type="checkbox" name="categories">
-											<label for="wt-name8"></label>
-										</span>
-									</td>
-									<td><figure><img src="~/images/categories/img-09.png" alt="img description"></figure></td>
-									<td>Public Information Relations Manager</td>
-									<td>Public Information Relations Manager</td>
-									<td>
-										<div class="wt-actionbtn">
-											<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-											<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="wt-checkbox">
-											<input id="wt-name9" type="checkbox" name="categories">
-											<label for="wt-name9"></label>
-										</span>
-									</td>
-									<td><figure><img src="~/images/categories/img-09.png" alt="img description"></figure></td>
-									<td>Public Information Director</td>
-									<td>Public Information Director</td>
-									<td>
-										<div class="wt-actionbtn">
-											<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-											<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="wt-checkbox">
-											<input id="wt-name10" type="checkbox" name="categories">
-											<label for="wt-name10"></label>
-										</span>
-									</td>
-									<td><figure><img src="~/images/categories/img-10.png" alt="img description"></figure></td>
-									<td>Public Relations Manager</td>
-									<td>Public Relations Manager</td>
-									<td>
-										<div class="wt-actionbtn">
-											<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-											<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="wt-checkbox">
-											<input id="wt-name12" type="checkbox" name="categories">
-											<label for="wt-name12"></label>
-										</span>
-									</td>
-									<td><figure><img src="~/images/categories/img-09.png" alt="img description"></figure></td>
-									<td>Communication Manager</td>
-									<td>Communication Manager</td>
-									<td>
-										<div class="wt-actionbtn">
-											<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-											<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="wt-checkbox">
-											<input id="wt-name13" type="checkbox" name="categories">
-											<label for="wt-name13"></label>
-										</span>
-									</td>
-									<td><figure><img src="~/images/categories/img-10.png" alt="img description"></figure></td>
-									<td>Management Information Systems Director</td>
-									<td>Management Information Systems Director</td>
-									<td>
-										<div class="wt-actionbtn">
-											<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-											<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="wt-checkbox">
-											<input id="wt-name14" type="checkbox" name="categories">
-											<label for="wt-name14"></label>
-										</span>
-									</td>
-									<td><figure><img src="~/images/categories/img-09.png" alt="img description"></figure></td>
-									<td>Information Technology Systems Director</td>
-									<td>Information Technology Systems Director</td>
-									<td>
-										<div class="wt-actionbtn">
-											<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-											<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-										</div>
-									</td>
-								</tr>
+                                @if (Categories != null)
+                                {
+									@foreach (var item in Categories)
+									{
+										<tr>
+											<td>
+												<span class="wt-checkbox">
+													<input id="wt-namea-@item.CategoryId" type="checkbox" name="head">
+													<label for="wt-namea-@item.CategoryId"></label>
+												</span>
+											</td>
+											<td><figure><img src="~/images/categories/img-09.png" alt="img description"></figure></td>
+											<td>@item.CategoryName</td>
+											<td>@item.CategoryDesc</td>
+											<td>
+												<div class="wt-actionbtn">
+													<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
+													<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
+												</div>
+											</td>
+										</tr>
+									}
+                                }
+								
 							</tbody>
 						</table>
 						<nav class="wt-pagination">

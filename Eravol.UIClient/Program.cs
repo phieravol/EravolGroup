@@ -1,4 +1,5 @@
 ﻿using Eravlol.UserWebApi.Data.Models;
+using Eravol.UIClient.Repositories.General;
 using Eravol.UIClient.Repositories.Users;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -17,8 +18,11 @@ builder.Services.AddAuthentication(options =>
 	options.AccessDeniedPath = "/Forbidden";
 });
 
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 builder.Services.AddTransient<ILoginApiClient, LoginApiClient>();
+builder.Services.AddTransient(typeof(IClientsRequestService<>), typeof(ClientsRequestService<>));
 
 var app = builder.Build();
 
@@ -32,7 +36,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseAuthentication();
 
 app.UseRouting();

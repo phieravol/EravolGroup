@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace Eravol.WebApi.Controllers.Categories
+namespace Eravol.WebApi.Controllers.Categories.Admin
 {
-    [Route("api/[controller]")]
+    [Route("api/Admin/[controller]")]
     [ApiController]
-    public class ManageCategoriesController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
         private readonly IManageCategoryRepository manageCategoryService;
 
-        public ManageCategoriesController(IManageCategoryRepository manageCategoryService)
+        public CategoriesController(IManageCategoryRepository manageCategoryService)
         {
             this.manageCategoryService = manageCategoryService;
         }
