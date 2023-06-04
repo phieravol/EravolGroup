@@ -3,6 +3,7 @@ using Eravol.WebApi.Data.Models;
 using Eravol.WebApi.ViewModels.Base;
 using Eravol.WebApi.ViewModels.Categories;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Metrics;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Eravol.WebApi.Repositories.Categories
@@ -30,6 +31,20 @@ namespace Eravol.WebApi.Repositories.Categories
             }
 		}
 
+		public async Task<Category>? GetCategoryByIdAsync(int categoryId)
+		{
+            try
+            {
+                Category?category = await context.Categories.FindAsync(categoryId);
+                return category;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+		}
+
 		public async Task<List<Category>> GetCategorySearchPaging(PagingRequestBase<Category> request)
         {
             try
@@ -49,5 +64,18 @@ namespace Eravol.WebApi.Repositories.Categories
             }
             return request.Items;
         }
-    }
+
+		public void UpdateCategoryById(Category? category)
+		{
+			try
+			{
+				context.Entry<Category>(category).State = EntityState.Modified;
+				context.SaveChanges();
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			}
+		}
+	}
 }

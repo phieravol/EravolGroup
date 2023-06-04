@@ -1,0 +1,68 @@
+﻿@page
+@using Eravol.WebApi.Data.Models;
+@using Eravol.WebApi.ViewModels.Categories;
+@model Eravol.UIClient.Pages.Categories.Admin.UpdateModel
+@{
+	Category category = Model.category;
+}
+
+<!--Register Form Start-->
+<section class="wt-haslayout wt-dbsectionspace">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 float-left">
+			<div class="wt-dashboardbox">
+				<div class="wt-dashboardboxtitle">
+					<h2>Add New Category</h2>
+				</div>
+				<div class="wt-dashboardboxcontent">
+					<form method="post" class="wt-formtheme wt-formprojectinfo wt-formcategory">
+						<fieldset>
+							<input type="hidden" asp-for="@category.CategoryId" class="form-control" placeholder="Name">
+							<div class="form-group">
+								<input type="text" asp-for="@category.CategoryName" class="form-control" placeholder="Name">
+								<span class="form-group-description">Category name</span>
+							</div>
+							<div class="form-group">
+								<span class="wt-select">
+									<select asp-for="@category.isCategoryActive">
+										<option value="" disabled="" selected>Set Active</option>
+										<option value="@true">Active</option>
+										<option value="@false">Not Active</option>
+									</select>
+								</span>
+								<span class="form-group-description">Category Active</span>
+							</div>
+							<div class="form-group">
+								<textarea asp-for="@category.CategoryDesc" class="form-control" placeholder="Description"></textarea>
+								<span class="form-group-description">Category Description</span>
+							</div>
+							<div class="form-group form-group-label">
+								<div class="wt-labelgroup">
+									<label for="file">
+										<span class="wt-btn">Select Files</span>
+										<input type="file" name="file" id="file">
+									</label>
+									<span>Drop files here to upload</span>
+									<em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
+								</div>
+							</div>
+							<div class="form-group">
+								<ul class="wt-attachfile">
+									<li class="wt-uploading">
+										<span class="uploadprogressbar"></span>
+										<span>Category Icon.jpg</span>
+										<em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
+									</li>
+								</ul>
+							</div>
+							<div class="form-group wt-btnarea">
+								<button type="submit" class="wt-btn">Update Category</button>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--Register Form End-->

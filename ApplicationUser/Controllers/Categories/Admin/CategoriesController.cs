@@ -4,6 +4,7 @@ using Eravol.WebApi.ViewModels.Base;
 using Eravol.WebApi.ViewModels.Categories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Metrics;
 using System.Net;
 
 namespace Eravol.WebApi.Controllers.Categories.Admin
@@ -33,8 +34,15 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
             return Ok(request);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateCategory(CreateCategoryRequest request)
+        [HttpGet("GetCategory")]
+		public async Task<IActionResult> GetProducts(int CategoryId)
+		{
+            Category category = await manageCategoryService.GetCategoryByIdAsync(CategoryId);
+			return Ok(category);
+		}
+
+		[HttpPost]
+        public async Task<IActionResult> CreateCategory(Category request)
         {
             request.CategoryDesc = WebUtility.UrlDecode(request.CategoryDesc);
             request.CategoryName = WebUtility.UrlDecode(request.CategoryName);
@@ -45,11 +53,20 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
                 CategoryDesc = request.CategoryDesc,
                 CategoryLevel = 1,
                 isCategoryActive = request.isCategoryActive
-                
             };
 
             await manageCategoryService.CreateCategoryAsync(category);
 			return Created("./Index", request);
         }
-    }
+        [HttpPut("{CategoryId}")]
+		public async Task<IActionResult> UpdateMember(int? CategoryId, Category? category)
+		{
+			if (CategoryId is null) return NotFound("Category Id not found");
+			if (CategoryId is null) return NotFound("Category is Empty");
+
+			manageCategoryService.UpdateCategoryById(category);
+
+			return NoContent();
+		}
+	}
 }

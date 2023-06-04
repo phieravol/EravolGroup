@@ -124,8 +124,8 @@
 											<td>@item.CategoryDesc</td>
 											<td>
 												<div class="wt-actionbtn">
-													<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-													<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
+													<a asp-page="/Categories/Admin/Update" asp-route-CategoryId="@item.CategoryId" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
+													<a asp-page="/Categories/Admin/Delete" asp-route-CategoryId="@item.CategoryId" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
 												</div>
 											</td>
 										</tr>
