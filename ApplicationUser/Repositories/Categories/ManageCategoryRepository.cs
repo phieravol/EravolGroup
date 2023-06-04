@@ -16,7 +16,21 @@ namespace Eravol.WebApi.Repositories.Categories
             this.context = context;
         }
 
-        public async Task<List<Category>> GetCategorySearchPaging(PagingRequestBase<Category> request)
+		public async Task CreateCategoryAsync(Category category)
+		{
+            try
+            {
+                context.Categories.Add(category);
+                context.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+		}
+
+		public async Task<List<Category>> GetCategorySearchPaging(PagingRequestBase<Category> request)
         {
             try
             {

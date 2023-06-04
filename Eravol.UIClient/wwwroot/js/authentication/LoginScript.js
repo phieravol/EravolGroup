@@ -77,10 +77,10 @@ function handleLoginFormData(username, password) {
         contentType: "application/json",
         // If send ajax request successfully
         success: function (response) {
+
             const loginStatus = response.loginStatus;
             const loginResult = response.loginResult;
             console.log(response);
-            console.log(loginStatus);
 
             var loginAreaElement = $(".wt-loginarea");
             var loggedElement = $(".wt-userlogedin");
@@ -94,16 +94,28 @@ function handleLoginFormData(username, password) {
                 loginAreaElement.css("display", "block");
                 loggedElement.css("display", "none");
             } else {
-                
-                console.log("login successfull");
-
                 sessionStorage.setItem('loginStatus', loginStatus);
                 sessionStorage.setItem('fullname', response.fullname);
                 sessionStorage.setItem('email', response.email);
                 sessionStorage.setItem('username', response.username);
                 sessionStorage.setItem('phoneNumber', response.phoneNumber);
                 sessionStorage.setItem('roles', response.roles);
-                location.reload()
+                //location.reload()
+
+                switch (response.roles) {
+                    case "Admin":
+                        window.location.href = "https://localhost:7053/dashboard/insight/admin";
+                        break;
+                    case "Freelancer":
+                        window.location.href = "https://localhost:7053/dashboard/insight/clients";
+                        break;
+                    case "Client":
+                        window.location.href = "https://localhost:7053/dashboard/insight/freelancers";
+                        break;
+                    default:
+                        location.reload();
+                        break;
+                }
             }
         },
         //if send ajax request failed

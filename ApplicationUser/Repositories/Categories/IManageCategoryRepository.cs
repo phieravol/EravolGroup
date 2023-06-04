@@ -6,6 +6,7 @@ namespace Eravol.WebApi.Repositories.Categories
 {
     public interface IManageCategoryRepository
     {
-        Task<List<Category>> GetCategorySearchPaging(PagingRequestBase<Category> request);
+		Task CreateCategoryAsync(Category category);
+		Task<List<Category>> GetCategorySearchPaging(PagingRequestBase<Category> request);
     }
 }

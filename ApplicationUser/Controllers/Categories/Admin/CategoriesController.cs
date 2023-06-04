@@ -32,5 +32,24 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
             request.Items = categories;
             return Ok(request);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCategory(CreateCategoryRequest request)
+        {
+            request.CategoryDesc = WebUtility.UrlDecode(request.CategoryDesc);
+            request.CategoryName = WebUtility.UrlDecode(request.CategoryName);
+
+            Category category = new Category()
+            {
+                CategoryName = request.CategoryName,
+                CategoryDesc = request.CategoryDesc,
+                CategoryLevel = 1,
+                isCategoryActive = request.isCategoryActive
+                
+            };
+
+            await manageCategoryService.CreateCategoryAsync(category);
+			return Created("./Index", request);
+        }
     }
 }

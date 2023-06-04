@@ -1,9 +1,11 @@
 ﻿@page
 @using Eravol.WebApi.Data.Models;
+@using Eravol.WebApi.ViewModels.Categories;
+
 @model Eravol.UIClient.Pages.Categories.Admin.IndexModel
 @{
 	List<Category>? Categories = Model.PagingRequest.Items;
-
+	CreateCategoryRequest? category = new CreateCategoryRequest();
 }
 
 <head>
@@ -29,25 +31,25 @@
 						<h2>Add New Category</h2>
 					</div>
 					<div class="wt-dashboardboxcontent">
-						<form class="wt-formtheme wt-formprojectinfo wt-formcategory">
+						<form method="post" asp-page="./Create" class="wt-formtheme wt-formprojectinfo wt-formcategory">
 							<fieldset>
 								<div class="form-group">
-									<input type="text" name="Name" class="form-control" placeholder="Name">
-									<span class="form-group-description">Dolore magna aliqua enim adminim</span>
+									<input type="text" asp-for="@category.CategoryName" class="form-control" placeholder="Name">
+									<span class="form-group-description">Category name</span>
 								</div>
 								<div class="form-group">
 									<span class="wt-select">
-										<select>
-											<option value="" disabled="">Select parent Category</option>
-											<option value="">Category 1</option>
-											<option value="">Category 2</option>
+										<select asp-for="@category.isCategoryActive">
+											<option value="" disabled="" selected>Set Active</option>
+											<option value="@true">Active</option>
+											<option value="@false">Not Active</option>
 										</select>
 									</span>
-									<span class="form-group-description">Elit sed do eiusmod tempor incididunt ut labore</span>
+									<span class="form-group-description">Category Active</span>
 								</div>
 								<div class="form-group">
-									<textarea name="message" class="form-control" placeholder="Description"></textarea>
-									<span class="form-group-description">Veniam quis nostrud exercitation</span>
+									<textarea asp-for="@category.CategoryDesc" class="form-control" placeholder="Description"></textarea>
+									<span class="form-group-description">Category Description</span>
 								</div>
 								<div class="form-group form-group-label">
 									<div class="wt-labelgroup">
@@ -69,7 +71,7 @@
 									</ul>
 								</div>
 								<div class="form-group wt-btnarea">
-									<a href="javascript:void(0);" class="wt-btn">Add New Category</a>
+									<button type="submit" class="wt-btn">Add New Category</button>
 								</div>
 							</fieldset>
 						</form>

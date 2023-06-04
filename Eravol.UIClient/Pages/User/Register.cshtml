@@ -5,6 +5,7 @@
     Layout = null;
     const string CLIENT_ROLE = "Client";
     const string FREELANCER_ROLE = "Freelancer";
+    const string ADMIN_ROLE = "Admin";
 }
 <head>
     <!-- Required meta tags-->
@@ -104,6 +105,11 @@
                                         <label class="radio-container">
                                             Freelancer
                                             <input type="radio" name="role" value="@FREELANCER_ROLE" />
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="radio-container">
+                                            Admin
+                                            <input type="radio" name="role" value="@ADMIN_ROLE" />
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
