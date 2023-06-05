@@ -31,7 +31,21 @@ namespace Eravol.WebApi.Repositories.Categories
             }
 		}
 
-		public async Task<Category>? GetCategoryByIdAsync(int categoryId)
+        public async Task DeleteCategoryAsync(Category category)
+        {
+            try
+            {
+                context.Categories.Remove(category);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+
+        public async Task<Category>? GetCategoryByIdAsync(int? categoryId)
 		{
             try
             {

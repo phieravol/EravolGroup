@@ -4,6 +4,12 @@
 
 @model Eravol.UIClient.Pages.Categories.Admin.IndexModel
 @{
+	bool HasPreviousPage = Model.PagingRequest.HasPrevious;
+	bool HasNextPage = Model.PagingRequest.HasNext;
+	int TotalPages = Model.PagingRequest.TotalPages;
+	int PageSize = Model.PagingRequest.PageSize;
+	int CurrentPage = Model.PagingRequest.CurrentPage;
+	string? SearchTerm = Model.PagingRequest.SearchTerm;
 	List<Category>? Categories = Model.PagingRequest.Items;
 	CreateCategoryRequest? category = new CreateCategoryRequest();
 }
@@ -19,9 +25,11 @@
 
 <!--Main Start-->
 <main id="wt-main" class="wt-main wt-haslayout">
+
 	<!--Sidebar Start-->
 	@await Component.InvokeAsync("DashboardSideBarComponent")
 	<!--Sidebar Start-->
+
 	<!--Register Form Start-->
 	<section class="wt-haslayout wt-dbsectionspace">
 		<div class="row">
@@ -85,8 +93,8 @@
 						<form class="wt-formtheme wt-formsearch">
 							<fieldset>
 								<div class="form-group">
-									<input type="text" name="category" class="form-control" placeholder="Search Category">
-									<a href="javascrip:void(0);" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></a>
+									<input type="text" asp-for="@SearchTerm" class="form-control" placeholder="Search Category">
+									<button type="submit" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></button>
 								</div>
 							</fieldset>
 						</form>
@@ -112,7 +120,7 @@
                                 {
 									@foreach (var item in Categories)
 									{
-										<tr>
+										<tr id="row-category-@item.CategoryId">
 											<td>
 												<span class="wt-checkbox">
 													<input id="wt-namea-@item.CategoryId" type="checkbox" name="head">
@@ -125,7 +133,7 @@
 											<td>
 												<div class="wt-actionbtn">
 													<a asp-page="/Categories/Admin/Update" asp-route-CategoryId="@item.CategoryId" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-													<a asp-page="/Categories/Admin/Delete" asp-route-CategoryId="@item.CategoryId" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
+													<a href="javascript:void(0)" class="wt-deleteinfo" onclick="confirmDelteCategory(@item.CategoryId)"><i class="lnr lnr-trash"></i></a>
 												</div>
 											</td>
 										</tr>
@@ -134,18 +142,39 @@
 								
 							</tbody>
 						</table>
-						<nav class="wt-pagination">
-							<ul>
-								<li class="wt-prevpage"><a href="javascrip:void(0);"><i class="lnr lnr-chevron-left"></i></a></li>
-								<li><a href="javascrip:void(0);">1</a></li>
-								<li><a href="javascrip:void(0);">2</a></li>
-								<li><a href="javascrip:void(0);">3</a></li>
-								<li><a href="javascrip:void(0);">4</a></li>
-								<li><a href="javascrip:void(0);">...</a></li>
-								<li><a href="javascrip:void(0);">50</a></li>
-								<li class="wt-nextpage"><a href="javascrip:void(0);"><i class="lnr lnr-chevron-right"></i></a></li>
-							</ul>
-						</nav>
+						@if (HasPreviousPage ||HasNextPage)
+						{
+							<nav class="wt-pagination">
+								<ul>
+									<li class="wt-prevpage">
+										<a asp-page="./Index" asp-route-CurrentPage="@CurrentPage-1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">
+											<i class="lnr lnr-chevron-left"></i>
+										</a>
+									</li>
+									@if (TotalPages <= 3)
+									{
+										for (int i = 1; i <= TotalPages; i++)
+										{
+											<li><a asp-route-CurrentPage="@i" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">@i</a></li>
+										}
+									}
+									else
+									{
+										for (int i = 1; i <= TotalPages; i++)
+										{
+											<li><a asp-route-CurrentPage="@i" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">@i</a></li>
+										}
+										<li><a href="javascrip:void(0);">...</a></li>
+										<li><a asp-route-CurrentPage="@TotalPages" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">Last Page</a></li>
+									}
+									<li asp-page="./Index" asp-route-CurrentPage="@CurrentPage+1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize" class="wt-nextpage">
+										<a href="javascrip:void(0);">
+											<i class="lnr lnr-chevron-right"></i>
+										</a>
+									</li>
+								</ul>
+							</nav>
+						}
 					</div>
 				</div>
 			</div>
@@ -154,3 +183,7 @@
 	<!--Register Form End-->
 </main>
 <!--Main End-->	
+
+@section Scripts {
+    <script src="~/js/categories/categorydeletescript.js"></script>
+}

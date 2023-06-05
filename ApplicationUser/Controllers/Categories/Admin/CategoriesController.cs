@@ -35,9 +35,15 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
         }
 
         [HttpGet("GetCategory")]
-		public async Task<IActionResult> GetProducts(int CategoryId)
+		public async Task<IActionResult> GetProducts(int? CategoryId)
 		{
-            Category category = await manageCategoryService.GetCategoryByIdAsync(CategoryId);
+            if (CategoryId is null) return NotFound("Category Id not found");
+            Category? category = await manageCategoryService.GetCategoryByIdAsync(CategoryId);
+
+            if (category is null)
+            {
+                return NotFound("Category not found");
+            }
 			return Ok(category);
 		}
 
@@ -68,5 +74,21 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
 
 			return NoContent();
 		}
-	}
+
+        [HttpDelete("{CategoryId}")]
+        public async Task<IActionResult> DeleteMember(int? CategoryId)
+        {
+            if (CategoryId is null) return NotFound("Category Id not found");
+
+            Category? category = await manageCategoryService.GetCategoryByIdAsync(CategoryId);
+
+            if (category is null)
+            {
+                return NotFound("Category not found");
+            }
+            await manageCategoryService.DeleteCategoryAsync(category);
+
+            return NoContent();
+        }
+    }
 }

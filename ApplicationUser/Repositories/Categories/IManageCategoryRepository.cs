@@ -7,7 +7,8 @@ namespace Eravol.WebApi.Repositories.Categories
     public interface IManageCategoryRepository
     {
 		Task CreateCategoryAsync(Category category);
-		Task<Category> GetCategoryByIdAsync(int categoryId);
+        Task DeleteCategoryAsync(Category category);
+        Task<Category> GetCategoryByIdAsync(int? categoryId);
 		Task<List<Category>> GetCategorySearchPaging(PagingRequestBase<Category> request);
 		void UpdateCategoryById(Category? category);
 	}
