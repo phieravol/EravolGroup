@@ -12,6 +12,7 @@ namespace Eravol.WebApi.Data.Models
 		public decimal Budget { get; set; }
 		public DateTime ExpirationDate { get; set; }
 		public DateTime PostedDate { get; set; }
+		public DateTime? LastUpdatedDate { get; set; }
 		public int CategoryId { get; set; }
 		public Guid UserId { get; set; }
 		public int PostStatusId { get; set; }

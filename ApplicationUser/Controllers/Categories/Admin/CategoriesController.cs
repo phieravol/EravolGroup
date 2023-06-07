@@ -1,5 +1,5 @@
 ﻿using Eravol.WebApi.Data.Models;
-using Eravol.WebApi.Repositories.Categories;
+using Eravol.WebApi.Repositories.Categories.Admin;
 using Eravol.WebApi.Repositories.Images;
 using Eravol.WebApi.ViewModels.Base;
 using Eravol.WebApi.ViewModels.Categories;
@@ -15,7 +15,6 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
     public class CategoriesController : ControllerBase
     {
         private readonly IManageCategoryRepository manageCategoryService;
-        
 
         public CategoriesController(
             IManageCategoryRepository manageCategoryService
@@ -25,7 +24,7 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] PagingRequestBase<Category> request)
+        public async Task<IActionResult> GetCategories([FromQuery] PagingRequestBase<Category> request)
         {
             request.SearchTerm = WebUtility.UrlDecode(request.SearchTerm);
 
@@ -38,8 +37,8 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
             return Ok(request);
         }
 
-        [HttpGet("GetCategory")]
-		public async Task<IActionResult> GetProducts(int? CategoryId)
+        [HttpGet("CategoryId")]
+		public async Task<IActionResult> GetCategoryById(int? CategoryId)
 		{
             if (CategoryId is null) return NotFound("Category Id not found");
             Category? category = await manageCategoryService.GetCategoryByIdAsync(CategoryId);
