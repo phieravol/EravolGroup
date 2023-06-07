@@ -2,8 +2,10 @@ using Eravlol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Data;
 using Eravol.UserWebApi.Repository.Skills;
 using Eravol.UserWebApi.Repository.User.Admin;
-using Eravol.WebApi.Repositories.Categories;
+using Eravol.WebApi.Repositories.Categories.Admin;
+using Eravol.WebApi.Repositories.Categories.Public;
 using Eravol.WebApi.Repositories.Images;
+using Eravol.WebApi.Repositories.Posts.Clients;
 using Eravol.WebApi.Repository.System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -104,6 +106,8 @@ builder.Services.AddTransient<ISkillRepository, SkillRepository>();
 builder.Services.AddTransient<IManageCategoryRepository, ManageCategoryRepository>();
 builder.Services.AddTransient<IFileStorageService, FileStorageService>();
 builder.Services.AddTransient<ISkillRepository, SkillRepository>();
+builder.Services.AddTransient<IPublicCategoryRepository, PublicCategoryRepository>();
+builder.Services.AddTransient<IClientsPostRepository, ClientsPostRepository>();
 
 
 var app = builder.Build();

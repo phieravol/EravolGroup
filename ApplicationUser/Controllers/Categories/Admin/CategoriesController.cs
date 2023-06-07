@@ -1,5 +1,5 @@
 ﻿using Eravol.WebApi.Data.Models;
-using Eravol.WebApi.Repositories.Categories;
+using Eravol.WebApi.Repositories.Categories.Admin;
 using Eravol.WebApi.Repositories.Images;
 using Eravol.WebApi.ViewModels.Base;
 using Eravol.WebApi.ViewModels.Categories;
@@ -15,7 +15,6 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
     public class CategoriesController : ControllerBase
     {
         private readonly IManageCategoryRepository manageCategoryService;
-        
 
         public CategoriesController(
             IManageCategoryRepository manageCategoryService

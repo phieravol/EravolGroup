@@ -8,7 +8,7 @@ using System.Diagnostics.Metrics;
 using System.Net.Http.Headers;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace Eravol.WebApi.Repositories.Categories
+namespace Eravol.WebApi.Repositories.Categories.Admin
 {
     public class ManageCategoryRepository : IManageCategoryRepository
     {
@@ -25,23 +25,23 @@ namespace Eravol.WebApi.Repositories.Categories
             this.storageService = storageService;
         }
 
-        
+
         public async Task CreateCategoryAsync(CreateCategoryRequest request)
-		{
+        {
             try
             {
                 Category category = new Category()
                 {
-                    CategoryName= request.CategoryName,
-                    CategoryDesc= request.CategoryDesc,
-                    CategoryLevel= request.CategoryLevel,
+                    CategoryName = request.CategoryName,
+                    CategoryDesc = request.CategoryDesc,
+                    CategoryLevel = request.CategoryLevel,
                     CategoryParent = request.CategoryParent,
                     isCategoryActive = request.isCategoryActive
                 };
 
                 if (request.CategoryImage != null)
                 {
-                    category.CategoryImage = await this.SaveFile(request.CategoryImage);
+                    category.CategoryImage = await SaveFile(request.CategoryImage);
                 }
 
                 context.Categories.Add(category);
@@ -52,7 +52,7 @@ namespace Eravol.WebApi.Repositories.Categories
 
                 throw;
             }
-		}
+        }
 
         public async Task DeleteCategoryAsync(Category category)
         {
@@ -63,16 +63,16 @@ namespace Eravol.WebApi.Repositories.Categories
             }
             catch (Exception)
             {
-                
+
                 throw;
             }
         }
 
         public async Task<Category>? GetCategoryByIdAsync(int? categoryId)
-		{
+        {
             try
             {
-                Category?category = await context.Categories.FindAsync(categoryId);
+                Category? category = await context.Categories.FindAsync(categoryId);
                 return category;
             }
             catch (Exception)
@@ -80,9 +80,9 @@ namespace Eravol.WebApi.Repositories.Categories
 
                 throw;
             }
-		}
+        }
 
-		public async Task<List<Category>> GetCategorySearchPaging(PagingRequestBase<Category> request)
+        public async Task<List<Category>> GetCategorySearchPaging(PagingRequestBase<Category> request)
         {
             try
             {
@@ -102,18 +102,18 @@ namespace Eravol.WebApi.Repositories.Categories
             return request.Items;
         }
 
-		public void UpdateCategoryById(Category? category)
-		{
-			try
-			{
-				context.Entry<Category>(category).State = EntityState.Modified;
-				context.SaveChanges();
-			}
-			catch (Exception e)
-			{
-				throw new Exception(e.Message);
-			}
-		}
+        public void UpdateCategoryById(Category? category)
+        {
+            try
+            {
+                context.Entry<Category>(category).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
 
         private async Task<string> SaveFile(IFormFile file)
         {
