@@ -3,10 +3,12 @@ using Eravol.UserWebApi.Data;
 using Eravol.UserWebApi.Repository.Skills;
 using Eravol.UserWebApi.Repository.User.Admin;
 using Eravol.WebApi.Repositories.Categories;
+using Eravol.WebApi.Repositories.Images;
 using Eravol.WebApi.Repository.System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Cryptography.Xml;
@@ -100,8 +102,16 @@ builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IManageProfileRepository, ManageProfileRepository>();
 builder.Services.AddTransient<ISkillRepository, SkillRepository>();
 builder.Services.AddTransient<IManageCategoryRepository, ManageCategoryRepository>();
+builder.Services.AddTransient<IFileStorageService, FileStorageService>();
+builder.Services.AddTransient<ISkillRepository, SkillRepository>();
+
 
 var app = builder.Build();
+
+var env = app.Environment;
+env.ContentRootPath = Directory.GetCurrentDirectory();
+env.WebRootPath = Directory.GetCurrentDirectory();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

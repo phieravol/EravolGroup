@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace Eravol.UserWebApi.Controllers.Skills
 {
-    [Route("api/user/[controller]")]
+    [Route("api/skills/[controller]")]
     [ApiController]
     public class SkillsController : ControllerBase
     {
@@ -17,6 +17,13 @@ namespace Eravol.UserWebApi.Controllers.Skills
         public SkillsController(ISkillRepository skillRepository)
         {
             this.skillRepository = skillRepository;
+        }
+
+        [HttpGet]
+        public IActionResult GetPublicSkills()
+        {
+            List<Skill> skills = skillRepository.GetPublicSkills();
+            return Ok(skills);
         }
 
         [HttpGet("{username}")]
@@ -28,7 +35,7 @@ namespace Eravol.UserWebApi.Controllers.Skills
             return Ok(userSkills);
         }
 
-        [HttpGet("skill/{skillId}")]
+        [HttpGet("{skillId}")]
         [Authorize]
         public IActionResult GetSkillById(int? skillId)
         {
@@ -54,8 +61,6 @@ namespace Eravol.UserWebApi.Controllers.Skills
             Skill skill = new Skill()
             {
                 SkillName = request.SkillName,
-                Score = request.Score,
-                UserId = UserId
             };
             if (!ModelState.IsValid)
             {
@@ -81,7 +86,7 @@ namespace Eravol.UserWebApi.Controllers.Skills
                 return NotFound($"Can not find skill!");
             }
             skill.SkillName = request.SkillName;
-            skill.Score = request.Score;
+ 
             skillRepository.UpdateSkillAsync(skill);
 
             return Ok();

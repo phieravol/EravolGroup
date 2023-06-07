@@ -1,9 +1,11 @@
 ﻿using Eravol.UserWebApi.Data;
 using Eravol.WebApi.Data.Models;
+using Eravol.WebApi.Repositories.Images;
 using Eravol.WebApi.ViewModels.Base;
 using Eravol.WebApi.ViewModels.Categories;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Metrics;
+using System.Net.Http.Headers;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Eravol.WebApi.Repositories.Categories
@@ -11,16 +13,37 @@ namespace Eravol.WebApi.Repositories.Categories
     public class ManageCategoryRepository : IManageCategoryRepository
     {
         private readonly EravolUserWebApiContext context;
+        private readonly IFileStorageService storageService;
+        private const string USER_CONTENT_FOLDER_NAME = "user-content";
 
-        public ManageCategoryRepository(EravolUserWebApiContext context)
+        public ManageCategoryRepository(
+            EravolUserWebApiContext context,
+            IFileStorageService storageService
+        )
         {
             this.context = context;
+            this.storageService = storageService;
         }
 
-		public async Task CreateCategoryAsync(Category category)
+        
+        public async Task CreateCategoryAsync(CreateCategoryRequest request)
 		{
             try
             {
+                Category category = new Category()
+                {
+                    CategoryName= request.CategoryName,
+                    CategoryDesc= request.CategoryDesc,
+                    CategoryLevel= request.CategoryLevel,
+                    CategoryParent = request.CategoryParent,
+                    isCategoryActive = request.isCategoryActive
+                };
+
+                if (request.CategoryImage != null)
+                {
+                    category.CategoryImage = await this.SaveFile(request.CategoryImage);
+                }
+
                 context.Categories.Add(category);
                 context.SaveChanges();
             }
@@ -91,5 +114,13 @@ namespace Eravol.WebApi.Repositories.Categories
 				throw new Exception(e.Message);
 			}
 		}
-	}
+
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await storageService.SaveFileAsync(file.OpenReadStream(), fileName);
+            return fileName;
+        }
+    }
 }

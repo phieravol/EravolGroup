@@ -10,7 +10,7 @@ namespace Eravol.UserWebApi.Data.Models
 		public bool isUserAvatar { get; set; }
 		public bool isThumbnail { get; set; }
 		public DateTime? DateCreated { get; set; }
-		public int? UserImageSize { get; set; }
+		public long? UserImageSize { get; set; }
 		public virtual AppUser? AppUser { get; set; }
 	}
 }

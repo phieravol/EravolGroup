@@ -41,9 +41,6 @@ namespace Eravol.UserWebApi.Data.Configuration
 			/*
 			 * Config foreign key which 1-n from AppUser
 			 */
-			builder.HasMany(s => s.Skills)
-				.WithOne(u => u.AppUser)
-				.HasForeignKey(u => u.UserId);
 			builder.HasMany(i => i.UserImages)
 				.WithOne(u => u.AppUser)
 				.HasForeignKey(x => x.UserId);

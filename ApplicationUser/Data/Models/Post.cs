@@ -22,6 +22,7 @@ namespace Eravol.WebApi.Data.Models
 		public virtual AppUser AppUser { get; set; }
 		public virtual PostStatus PostStatus { get; set; }
 		public virtual Category Categories { get; set; }
-		#endregion
-	}
+        public virtual ICollection<PostSkillRequired> PostSkillRequired { get; set; }
+        #endregion
+    }
 }

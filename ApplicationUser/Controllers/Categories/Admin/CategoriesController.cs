@@ -1,5 +1,6 @@
 ﻿using Eravol.WebApi.Data.Models;
 using Eravol.WebApi.Repositories.Categories;
+using Eravol.WebApi.Repositories.Images;
 using Eravol.WebApi.ViewModels.Base;
 using Eravol.WebApi.ViewModels.Categories;
 using Microsoft.AspNetCore.Http;
@@ -14,8 +15,11 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
     public class CategoriesController : ControllerBase
     {
         private readonly IManageCategoryRepository manageCategoryService;
+        
 
-        public CategoriesController(IManageCategoryRepository manageCategoryService)
+        public CategoriesController(
+            IManageCategoryRepository manageCategoryService
+        )
         {
             this.manageCategoryService = manageCategoryService;
         }
@@ -48,20 +52,12 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
 		}
 
 		[HttpPost]
-        public async Task<IActionResult> CreateCategory(Category request)
+        public async Task<IActionResult> CreateCategory([FromForm] CreateCategoryRequest request)
         {
             request.CategoryDesc = WebUtility.UrlDecode(request.CategoryDesc);
             request.CategoryName = WebUtility.UrlDecode(request.CategoryName);
-
-            Category category = new Category()
-            {
-                CategoryName = request.CategoryName,
-                CategoryDesc = request.CategoryDesc,
-                CategoryLevel = 1,
-                isCategoryActive = request.isCategoryActive
-            };
-
-            await manageCategoryService.CreateCategoryAsync(category);
+            
+            await manageCategoryService.CreateCategoryAsync(request);
 			return Created("./Index", request);
         }
         [HttpPut("{CategoryId}")]

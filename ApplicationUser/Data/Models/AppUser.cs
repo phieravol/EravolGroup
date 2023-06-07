@@ -19,9 +19,9 @@ namespace Eravlol.UserWebApi.Data.Models
 		public string UserLevel { get; set; }
 		public bool? isAccountEnable { get; set; }
 
-		#region relationships
-		public virtual ICollection<Skill> Skills { get; set; }
-		public virtual ICollection<UserImage> UserImages { get; set; }
+        #region relationships
+        public virtual ICollection<UserSkill> UserSkills { get; set; }
+        public virtual ICollection<UserImage> UserImages { get; set; }
 		public virtual ICollection<Post> Posts { get; set; }
 		public virtual ICollection<Service> Services { get; set; }
 		#endregion

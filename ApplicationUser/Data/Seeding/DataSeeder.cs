@@ -40,9 +40,9 @@ namespace Eravol.UserWebApi.Data.Seeding
 
 			// Seed Skill
 			modelBuilder.Entity<Skill>().HasData(
-				new Skill() { Id=1, SkillName = "C# programing", IsVerified = false, Score=0, UserId = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF") },
-                new Skill() { Id = 2, SkillName = "Bussiness Analyst", IsVerified = false, Score = 0, UserId = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF") },
-                new Skill() { Id = 3, SkillName = "Web development", IsVerified = false, Score = 0, UserId = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF") }
+				new Skill() { Id=1, SkillName = "C# programing"},
+                new Skill() { Id = 2, SkillName = "Bussiness Analyst" },
+                new Skill() { Id = 3, SkillName = "Web development"}
                 );
 
 			//Seed PostStatus

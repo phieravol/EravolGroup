@@ -1,17 +1,15 @@
 using Eravol.UIClient.Repositories.General;
 using Eravol.UIClient.ViewModels.General;
-using Eravol.WebApi.Data.Models;
 using Eravol.WebApi.ViewModels.Categories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Diagnostics.Metrics;
 
 namespace Eravol.UIClient.Pages.Categories.Admin
 {
-    public class CreateModel : PageModel
+	public class CreateModel : PageModel
     {
 		const string BASE_URL = "https://localhost:7259";
-		string RELATIVE_PATH_URL = $"/api/Members";
+		string RELATIVE_PATH_URL = $"/api/Categories";
 		const string HTTP_GET = "GET";
 		const string HTTP_PUT = "PUT";
         const string HTTP_POST = "POST";
