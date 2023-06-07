@@ -143,7 +143,7 @@ namespace Eravol.WebApi.Migrations
                             Id = new Guid("aedc1266-b3b5-4323-b10b-f020a31f3359"),
                             AccessFailedCount = 0,
                             Address = "Thai Binh",
-                            ConcurrencyStamp = "327aa290-f473-4b61-8087-81a710c1dd3c",
+                            ConcurrencyStamp = "76a1317f-e394-45e0-a3bb-27a0f287fed8",
                             Country = "VietNam",
                             Email = "eravolgroup@gmail.com",
                             EmailConfirmed = false,
@@ -151,6 +151,7 @@ namespace Eravol.WebApi.Migrations
                             LastName = "Nguyen",
                             LockoutEnabled = false,
                             MemberSince = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NormalizedUserName = "ROOTADMIN",
                             Password = "Admin@123",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
@@ -161,7 +162,7 @@ namespace Eravol.WebApi.Migrations
                             Id = new Guid("ae750391-4d11-4e00-8e92-607d18b839cf"),
                             AccessFailedCount = 0,
                             Address = "Yen Bai",
-                            ConcurrencyStamp = "9682f17d-96d5-4a93-9bcb-ce457b575d54",
+                            ConcurrencyStamp = "cec90918-96ec-48ba-a64f-b9420ae2b8ef",
                             Country = "VietNam",
                             Email = "phinqevol@gmail.com",
                             EmailConfirmed = false,
@@ -169,6 +170,7 @@ namespace Eravol.WebApi.Migrations
                             LastName = "Quoc Phi",
                             LockoutEnabled = false,
                             MemberSince = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NormalizedUserName = "PHINQ",
                             Password = "Phinq@2001",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
@@ -179,7 +181,7 @@ namespace Eravol.WebApi.Migrations
                             Id = new Guid("01a033a2-ddf4-4986-8cc9-4e117f7c8685"),
                             AccessFailedCount = 0,
                             Address = "Hung Yen",
-                            ConcurrencyStamp = "0efb924c-9416-43e7-817d-02e1bef15f59",
+                            ConcurrencyStamp = "35b242da-b9bb-4745-99c5-e93f8ac00457",
                             Country = "VietNam",
                             Email = "chitung@gmail.com",
                             EmailConfirmed = false,
@@ -187,6 +189,7 @@ namespace Eravol.WebApi.Migrations
                             LastName = "Chi Tung",
                             LockoutEnabled = false,
                             MemberSince = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NormalizedUserName = "TUNGNC",
                             Password = "Tungnc@9999",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
@@ -202,25 +205,15 @@ namespace Eravol.WebApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("IsVerified")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Score")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
-
                     b.Property<string>("SkillName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<bool?>("isPublic")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Skill", (string)null);
 
@@ -228,26 +221,17 @@ namespace Eravol.WebApi.Migrations
                         new
                         {
                             Id = 1,
-                            IsVerified = false,
-                            Score = 0,
-                            SkillName = "C# programing",
-                            UserId = new Guid("ae750391-4d11-4e00-8e92-607d18b839cf")
+                            SkillName = "C# programing"
                         },
                         new
                         {
                             Id = 2,
-                            IsVerified = false,
-                            Score = 0,
-                            SkillName = "Bussiness Analyst",
-                            UserId = new Guid("ae750391-4d11-4e00-8e92-607d18b839cf")
+                            SkillName = "Bussiness Analyst"
                         },
                         new
                         {
                             Id = 3,
-                            IsVerified = false,
-                            Score = 0,
-                            SkillName = "Web development",
-                            UserId = new Guid("ae750391-4d11-4e00-8e92-607d18b839cf")
+                            SkillName = "Web development"
                         });
                 });
 
@@ -270,8 +254,8 @@ namespace Eravol.WebApi.Migrations
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)");
 
-                    b.Property<int?>("UserImageSize")
-                        .HasColumnType("int");
+                    b.Property<long?>("UserImageSize")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("isThumbnail")
                         .HasColumnType("bit");
@@ -376,6 +360,29 @@ namespace Eravol.WebApi.Migrations
                     b.HasIndex("PostStatusId");
 
                     b.ToTable("Post", (string)null);
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.PostSkillRequired", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("SkillId");
+
+                    b.ToTable("PostSkillRequired", (string)null);
                 });
 
             modelBuilder.Entity("Eravol.WebApi.Data.Models.PostStatus", b =>
@@ -561,6 +568,35 @@ namespace Eravol.WebApi.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.UserSkill", b =>
+                {
+                    b.Property<int>("UserSkillId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserSkillId"), 1L, 1);
+
+                    b.Property<bool>("IsVerified")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("Score")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserSkillId");
+
+                    b.HasIndex("SkillId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserSkill", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
                     b.Property<Guid>("Id")
@@ -592,21 +628,21 @@ namespace Eravol.WebApi.Migrations
                         new
                         {
                             Id = new Guid("30a990c6-33c7-4884-9dcb-718ce356eb0d"),
-                            ConcurrencyStamp = "db4d74cd-4dc7-45b8-a4bd-e9aa1c2ab5d1",
+                            ConcurrencyStamp = "b6fade02-6e78-4223-afb7-7136b4f50c06",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("b8fd818f-63f1-49ee-bec5-f7b66cafbfca"),
-                            ConcurrencyStamp = "ef075da4-44fb-4717-9bef-5ef02d5d6e19",
+                            ConcurrencyStamp = "4e6dc241-1301-44b6-a618-207aad63ffd3",
                             Name = "Freelancer",
                             NormalizedName = "FREELANCER"
                         },
                         new
                         {
                             Id = new Guid("fe0e9c2d-6abd-4f73-a635-63fc58ec700e"),
-                            ConcurrencyStamp = "7ee8633c-0b0e-42b1-9c15-e1ed670553db",
+                            ConcurrencyStamp = "7fd28e86-f7d1-4d6f-8831-c178c871d508",
                             Name = "Client",
                             NormalizedName = "CLIENT"
                         });
@@ -737,17 +773,6 @@ namespace Eravol.WebApi.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Eravol.UserWebApi.Data.Models.Skill", b =>
-                {
-                    b.HasOne("Eravlol.UserWebApi.Data.Models.AppUser", "AppUser")
-                        .WithMany("Skills")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("Eravol.UserWebApi.Data.Models.UserImage", b =>
                 {
                     b.HasOne("Eravlol.UserWebApi.Data.Models.AppUser", "AppUser")
@@ -786,6 +811,25 @@ namespace Eravol.WebApi.Migrations
                     b.Navigation("PostStatus");
                 });
 
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.PostSkillRequired", b =>
+                {
+                    b.HasOne("Eravol.WebApi.Data.Models.Post", "Post")
+                        .WithMany("PostSkillRequired")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Eravol.UserWebApi.Data.Models.Skill", "Skill")
+                        .WithMany("PostSkillRequired")
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("Skill");
+                });
+
             modelBuilder.Entity("Eravol.WebApi.Data.Models.Service", b =>
                 {
                     b.HasOne("Eravlol.UserWebApi.Data.Models.AppUser", "AppUser")
@@ -822,6 +866,25 @@ namespace Eravol.WebApi.Migrations
                         .IsRequired();
 
                     b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.UserSkill", b =>
+                {
+                    b.HasOne("Eravol.UserWebApi.Data.Models.Skill", "Skill")
+                        .WithMany("UserSkills")
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Eravlol.UserWebApi.Data.Models.AppUser", "AppUser")
+                        .WithMany("UserSkills")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Skill");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -881,9 +944,16 @@ namespace Eravol.WebApi.Migrations
 
                     b.Navigation("Services");
 
-                    b.Navigation("Skills");
-
                     b.Navigation("UserImages");
+
+                    b.Navigation("UserSkills");
+                });
+
+            modelBuilder.Entity("Eravol.UserWebApi.Data.Models.Skill", b =>
+                {
+                    b.Navigation("PostSkillRequired");
+
+                    b.Navigation("UserSkills");
                 });
 
             modelBuilder.Entity("Eravol.WebApi.Data.Models.Category", b =>
@@ -891,6 +961,11 @@ namespace Eravol.WebApi.Migrations
                     b.Navigation("Posts");
 
                     b.Navigation("Services");
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.Post", b =>
+                {
+                    b.Navigation("PostSkillRequired");
                 });
 
             modelBuilder.Entity("Eravol.WebApi.Data.Models.PostStatus", b =>

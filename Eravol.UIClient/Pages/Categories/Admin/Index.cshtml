@@ -1,0 +1,189 @@
+﻿@page
+@using Eravol.WebApi.Data.Models;
+@using Eravol.WebApi.ViewModels.Categories;
+
+@model Eravol.UIClient.Pages.Categories.Admin.IndexModel
+@{
+	bool HasPreviousPage = Model.PagingRequest.HasPrevious;
+	bool HasNextPage = Model.PagingRequest.HasNext;
+	int TotalPages = Model.PagingRequest.TotalPages;
+	int PageSize = Model.PagingRequest.PageSize;
+	int CurrentPage = Model.PagingRequest.CurrentPage;
+	string? SearchTerm = Model.PagingRequest.SearchTerm;
+	List<Category>? Categories = Model.PagingRequest.Items;
+	CreateCategoryRequest? category = new CreateCategoryRequest();
+}
+
+<head>
+	<link rel="stylesheet" href="~/css/themify-icons.css">
+	<link rel="stylesheet" href="~/css/basictable.css">
+	<link rel="stylesheet" href="~/css/dashboard.css">
+	<link rel="stylesheet" href="~/css/dbresponsive.css">
+	<script src="~/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+
+
+<!--Main Start-->
+<main id="wt-main" class="wt-main wt-haslayout">
+
+	<!--Sidebar Start-->
+	@await Component.InvokeAsync("DashboardSideBarComponent")
+	<!--Sidebar Start-->
+
+	<!--Register Form Start-->
+	<section class="wt-haslayout wt-dbsectionspace">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 float-left">
+				<div class="wt-dashboardbox">
+					<div class="wt-dashboardboxtitle">
+						<h2>Add New Category</h2>
+					</div>
+					<div class="wt-dashboardboxcontent">
+						<form method="post" asp-page="./Create" class="wt-formtheme wt-formprojectinfo wt-formcategory">
+							<fieldset>
+								<div class="form-group">
+									<input type="text" asp-for="@category.CategoryName" class="form-control" placeholder="Name">
+									<span class="form-group-description">Category name</span>
+								</div>
+								<div class="form-group">
+									<span class="wt-select">
+										<select asp-for="@category.isCategoryActive">
+											<option value="" disabled="" selected>Set Active</option>
+											<option value="@true">Active</option>
+											<option value="@false">Not Active</option>
+										</select>
+									</span>
+									<span class="form-group-description">Category Active</span>
+								</div>
+								<div class="form-group">
+									<textarea asp-for="@category.CategoryDesc" class="form-control" placeholder="Description"></textarea>
+									<span class="form-group-description">Category Description</span>
+								</div>
+								<div class="form-group form-group-label">
+									<div class="wt-labelgroup">
+										<label for="file">
+											<span class="wt-btn">Select Files</span>
+											<input type="file" name="file" id="file">
+										</label>
+										<span>Drop files here to upload</span>
+										<em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
+									</div>
+								</div>
+								<div class="form-group">
+									<ul class="wt-attachfile">
+										<li class="wt-uploading">
+											<span class="uploadprogressbar"></span>
+											<span>Category Icon.jpg</span>
+											<em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
+										</li>
+									</ul>
+								</div>
+								<div class="form-group wt-btnarea">
+									<button type="submit" class="wt-btn">Add New Category</button>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 float-right">
+				<div class="wt-dashboardbox wt-categorys">
+					<div class="wt-dashboardboxtitle wt-titlewithsearch">
+						<h2>Category</h2>
+						<form class="wt-formtheme wt-formsearch">
+							<fieldset>
+								<div class="form-group">
+									<input type="text" asp-for="@SearchTerm" class="form-control" placeholder="Search Category">
+									<button type="submit" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></button>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+					<div class="wt-dashboardboxcontent wt-categoriescontentholder">
+						<table class="wt-tablecategories">
+							<thead>
+								<tr>
+									<th>
+										<span class="wt-checkbox">
+											<input id="wt-name" type="checkbox" name="head">
+											<label for="wt-name"></label>
+										</span>
+									</th>
+									<th>Icon</th>
+									<th>Name</th>
+									<th>Description</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+                                @if (Categories != null)
+                                {
+									@foreach (var item in Categories)
+									{
+										<tr id="row-category-@item.CategoryId">
+											<td>
+												<span class="wt-checkbox">
+													<input id="wt-namea-@item.CategoryId" type="checkbox" name="head">
+													<label for="wt-namea-@item.CategoryId"></label>
+												</span>
+											</td>
+											<td><figure><img src=@($"https://localhost:7259/api/Images/{item.CategoryImage}") alt="img description"></figure></td>
+											<td>@item.CategoryName</td>
+											<td>@item.CategoryDesc</td>
+											<td>
+												<div class="wt-actionbtn">
+													<a asp-page="/Categories/Admin/Update" asp-route-CategoryId="@item.CategoryId" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
+													<a href="javascript:void(0)" class="wt-deleteinfo" onclick="confirmDelteCategory(@item.CategoryId)"><i class="lnr lnr-trash"></i></a>
+												</div>
+											</td>
+										</tr>
+									}
+                                }
+								
+							</tbody>
+						</table>
+						@if (HasPreviousPage ||HasNextPage)
+						{
+							<nav class="wt-pagination">
+								<ul>
+									<li class="wt-prevpage">
+										<a asp-page="./Index" asp-route-CurrentPage="@CurrentPage-1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">
+											<i class="lnr lnr-chevron-left"></i>
+										</a>
+									</li>
+									@if (TotalPages <= 3)
+									{
+										for (int i = 1; i <= TotalPages; i++)
+										{
+											<li><a asp-route-CurrentPage="@i" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">@i</a></li>
+										}
+									}
+									else
+									{
+										for (int i = 1; i <= TotalPages; i++)
+										{
+											<li><a asp-route-CurrentPage="@i" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">@i</a></li>
+										}
+										<li><a href="javascrip:void(0);">...</a></li>
+										<li><a asp-route-CurrentPage="@TotalPages" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">Last Page</a></li>
+									}
+									<li asp-page="./Index" asp-route-CurrentPage="@CurrentPage+1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize" class="wt-nextpage">
+										<a href="javascrip:void(0);">
+											<i class="lnr lnr-chevron-right"></i>
+										</a>
+									</li>
+								</ul>
+							</nav>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--Register Form End-->
+</main>
+<!--Main End-->	
+
+@section Scripts {
+    <script src="~/js/categories/categorydeletescript.js"></script>
+}

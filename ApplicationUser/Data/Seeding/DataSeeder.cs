@@ -25,9 +25,9 @@ namespace Eravol.UserWebApi.Data.Seeding
 
 			// Seed User data
 			modelBuilder.Entity<AppUser>().HasData(
-				new AppUser() { Id = new Guid("AEDC1266-B3B5-4323-B10B-F020A31F3359"), UserName = "RootAdmin", Password="Admin@123" ,Email = "eravolgroup@gmail.com", FirstName = "Elio", LastName = "Nguyen", Address="Thai Binh", Country = "VietNam"},
-				new AppUser() { Id = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF"), UserName = "phinq", Password = "Phinq@2001", Email = "phinqevol@gmail.com", FirstName = "Nguyen", LastName = "Quoc Phi", Address = "Yen Bai", Country = "VietNam" },
-				new AppUser() { Id = new Guid("01A033A2-DDF4-4986-8CC9-4E117F7C8685"), UserName = "tungnc", Password = "Tungnc@9999", Email = "chitung@gmail.com", FirstName = "Nguyen", LastName = "Chi Tung", Address = "Hung Yen", Country = "VietNam" }
+				new AppUser() { Id = new Guid("AEDC1266-B3B5-4323-B10B-F020A31F3359"), UserName = "RootAdmin", Password="Admin@123" ,Email = "eravolgroup@gmail.com", FirstName = "Elio", LastName = "Nguyen", Address="Thai Binh", Country = "VietNam", NormalizedUserName = "ROOTADMIN" },
+				new AppUser() { Id = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF"), UserName = "phinq", Password = "Phinq@2001", Email = "phinqevol@gmail.com", FirstName = "Nguyen", LastName = "Quoc Phi", Address = "Yen Bai", Country = "VietNam", NormalizedUserName = "PHINQ" },
+				new AppUser() { Id = new Guid("01A033A2-DDF4-4986-8CC9-4E117F7C8685"), UserName = "tungnc", Password = "Tungnc@9999", Email = "chitung@gmail.com", FirstName = "Nguyen", LastName = "Chi Tung", Address = "Hung Yen", Country = "VietNam", NormalizedUserName = "TUNGNC" }
 				);
 
 			// Seed User-Role
@@ -40,9 +40,9 @@ namespace Eravol.UserWebApi.Data.Seeding
 
 			// Seed Skill
 			modelBuilder.Entity<Skill>().HasData(
-				new Skill() { Id=1, SkillName = "C# programing", IsVerified = false, Score=0, UserId = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF") },
-                new Skill() { Id = 2, SkillName = "Bussiness Analyst", IsVerified = false, Score = 0, UserId = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF") },
-                new Skill() { Id = 3, SkillName = "Web development", IsVerified = false, Score = 0, UserId = new Guid("AE750391-4D11-4E00-8E92-607D18B839CF") }
+				new Skill() { Id=1, SkillName = "C# programing"},
+                new Skill() { Id = 2, SkillName = "Bussiness Analyst" },
+                new Skill() { Id = 3, SkillName = "Web development"}
                 );
 
 			//Seed PostStatus

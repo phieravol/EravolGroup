@@ -20,6 +20,11 @@ namespace Eravol.UserWebApi.Repository.Skills
             context.SaveChanges();
         }
 
+        public List<Skill> GetPublicSkills()
+        {
+            return context.Skills.ToList();
+        }
+
         public Skill getSkillById(int? skillId)
         {
             return context.Skills.Find(skillId);
@@ -33,8 +38,8 @@ namespace Eravol.UserWebApi.Repository.Skills
         public List<Skill> GetSkillsByUsername(string username)
         {
             var query = from skill in context.Skills
-                        join user in context.AppUsers on skill.UserId equals user.Id
-                        where user.UserName == username
+                        //join user in context.AppUsers on skill.UserId equals user.Id
+                        //where user.UserName == username
                         select skill;
             return query.ToList();
         }

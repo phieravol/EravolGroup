@@ -13,8 +13,8 @@
 		#endregion
 
 		#region Relationships
-		public virtual ICollection<Post> Posts { get; set; }
-		public virtual ICollection<Service> Services { get; set; }
+		public virtual ICollection<Post>? Posts { get; set; }
+		public virtual ICollection<Service>? Services { get; set; }
 		#endregion
 	}
 }

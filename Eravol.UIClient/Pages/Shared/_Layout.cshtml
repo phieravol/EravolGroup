@@ -36,7 +36,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <strong class="wt-logo"><a href="index-2.html"><img src="~/images/logo.png" alt="company logo here"></a></strong>
+                                <strong class="wt-logo"><a asp-page="/Index"><img src="~/images/logo.png" alt="company logo here"></a></strong>
                                 <div class="wt-rightarea">
                                     <nav id="wt-nav" class="wt-nav navbar-expand-lg">
                                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,27 +47,18 @@
                                                 <li class="menu-item-has-children page_item_has_children">
                                                     <a href="javascript:void(0);">Main</a>
                                                     <ul class="sub-menu">
-                                                        <li class="menu-item-has-children page_item_has_children wt-notificationicon">
+                                                        <li class="menu-item-has-children page_item_has_children">
                                                             <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
-                                                            <a href="javascript:void(0);">Home</a>
+                                                            <a href="javascript:void(0);">Job Posted</a>
                                                             <ul class="sub-menu">
-                                                                <li><a href="index-2.html">Home v1</a></li>
-                                                                <li class="wt-newnoti"><a href="indexvtwo.html">Home v2<em>without login</em></a></li>
+                                                                <li><a asp-page="/Posts/Index">Posted Grid View</a></li>
+                                                                <li><a href="#">Article List (developing)</a></li>
+                                                                <li><a href="#">Article Classic (developing)</a></li>
                                                             </ul>
                                                         </li>
                                                         <li class="menu-item-has-children page_item_has_children">
                                                             <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
-                                                            <a href="javascript:void(0);">Article</a>
-                                                            <ul class="sub-menu">
-                                                                <li><a href="articlelist.html">Article List</a></li>
-                                                                <li><a href="articlegrid.html">Article Grid</a></li>
-                                                                <li><a href="articlesingle.html">Article Single</a></li>
-                                                                <li><a href="articleclassic.html">Article Classic</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="menu-item-has-children page_item_has_children">
-                                                            <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
-                                                            <a href="javascript:void(0);">Company</a>
+                                                            <a href="javascript:void(0);">Freelancer Services</a>
                                                             <ul class="sub-menu">
                                                                 <li><a href="companygrid.html">Company Grid</a></li>
                                                                 <li><a href="companysigle.html">Company Sigle</a></li>
@@ -94,10 +85,10 @@
                                                     <a href="javascript:void(0);">Browse Jobs</a>
                                                     <ul class="sub-menu">
                                                         <li>
-                                                            <a href="joblisting.html">Job Listing</a>
+                                                            <a href="joblisting.html">My Services</a>
                                                         </li>
                                                         <li class="current-menu-item">
-                                                            <a href="jobsingle.html">Job Single</a>
+                                                            <a href="jobsingle.html">My Jobs</a>
                                                         </li>
                                                         <li>
                                                             <a href="jobproposal.html">Job Proposal</a>
@@ -105,13 +96,13 @@
                                                     </ul>
                                                 </li>
                                                 <li class="menu-item-has-children page_item_has_children">
-                                                    <a href="javascript:void(0);">View Freelancers</a>
+                                                    <a href="javascript:void(0);">Views</a>
                                                     <ul class="sub-menu">
                                                         <li>
-                                                            <a href="userlisting.html">User Listing</a>
+                                                            <a href="userlisting.html">Top Freelancers</a>
                                                         </li>
                                                         <li class="current-menu-item">
-                                                            <a href="usersingle.html">User Single</a>
+                                                            <a href="usersingle.html">Top Projects</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -179,89 +170,7 @@
                                             <h3 class="logged-fullname">Louanne Mattioli</h3>
                                             <span class="logged-username">Amento Tech</span>
                                         </div>
-                                        <nav class="wt-usernav">
-                                            <ul>
-                                                <li class="menu-item-has-children page_item_has_children">
-                                                    <a href="javascript:void(0);">
-                                                        <span>Insights</span>
-                                                    </a>
-                                                    <ul class="sub-menu children">
-                                                        <li><a href="dashboard-insights.html">Insights</a></li>
-                                                        <li><a href="dashboard-insightsuser.html">Insights User</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="dashboard-profile.html">
-                                                        <span>My Profile</span>
-                                                    </a>
-                                                </li>
-                                                <li class="menu-item-has-children">
-                                                    <a href="javascript:void(0);">
-                                                        <span>All Jobs</span>
-                                                    </a>
-                                                    <ul class="sub-menu">
-                                                        <li><a href="dashboard-completejobs.html">Completed Jobs</a></li>
-                                                        <li><a href="dashboard-canceljobs.html">Cancelled Jobs</a></li>
-                                                        <li><a href="dashboard-ongoingjob.html">Ongoing Jobs</a></li>
-                                                        <li><a href="dashboard-ongoingsingle.html">Ongoing Single</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="dashboard-managejobs.html">
-                                                        <span>Manage Jobs</span>
-                                                    </a>
-                                                </li>
-                                                <li class="wt-notificationicon menu-item-has-children">
-                                                    <a href="javascript:void(0);">
-                                                        <span>Messages</span>
-                                                    </a>
-                                                    <ul class="sub-menu">
-                                                        <li><a href="dashboard-messages.html">Messages</a></li>
-                                                        <li><a href="dashboard-messages2.html">Messages V 2</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="dashboard-saveitems.html">
-                                                        <span>My Saved Items</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="dashboard-invocies.html">
-                                                        <span>Invoices</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="dashboard-category.html">
-                                                        <span>Category</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="dashboard-packages.html">
-                                                        <span>Packages</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="dashboard-proposals.html">
-                                                        <span>Proposals</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="dashboard-accountsettings.html">
-                                                        <span>Account Settings</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="dashboard-helpsupport.html">
-                                                        <span>Help &amp; Support</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="index-2.html">
-                                                        <span>Logout</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </nav>
+                                        @await Component.InvokeAsync("UserNavComponent")
                                     </div>
                                 </div>
                             </div>

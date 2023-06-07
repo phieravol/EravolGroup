@@ -13,8 +13,6 @@ namespace Eravol.UserWebApi.Data.Configuration
 			builder.Property(x => x.SkillName)
 				.IsRequired()
 				.HasMaxLength(50);
-			builder.Property(x => x.Score)
-				.HasDefaultValue(0);
 		}
 	}
 }
