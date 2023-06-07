@@ -86,9 +86,8 @@ namespace Eravol.WebApi.Repositories.Categories.Admin
         {
             try
             {
-                IQueryable<Category> query = context.Categories
-                .Include(c => c.Posts)
-                .Include(c => c.Services);
+                IQueryable<Category> query = context.Categories;
+                
                 if (!string.IsNullOrEmpty(request.SearchTerm))
                 {
                     query = query.Where(x => x.CategoryName.Contains(request.SearchTerm) || x.CategoryDesc.Contains(request.SearchTerm));

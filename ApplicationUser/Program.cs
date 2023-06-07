@@ -6,6 +6,7 @@ using Eravol.WebApi.Repositories.Categories.Admin;
 using Eravol.WebApi.Repositories.Categories.Public;
 using Eravol.WebApi.Repositories.Images;
 using Eravol.WebApi.Repositories.Posts.Clients;
+using Eravol.WebApi.Repositories.PostSkills;
 using Eravol.WebApi.Repository.System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -108,6 +109,7 @@ builder.Services.AddTransient<IFileStorageService, FileStorageService>();
 builder.Services.AddTransient<ISkillRepository, SkillRepository>();
 builder.Services.AddTransient<IPublicCategoryRepository, PublicCategoryRepository>();
 builder.Services.AddTransient<IClientsPostRepository, ClientsPostRepository>();
+builder.Services.AddTransient<IPostSkillsRepository, PostSkillsRepository>();
 
 
 var app = builder.Build();

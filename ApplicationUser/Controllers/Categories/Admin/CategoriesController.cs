@@ -24,7 +24,7 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] PagingRequestBase<Category> request)
+        public async Task<IActionResult> GetCategories([FromQuery] PagingRequestBase<Category> request)
         {
             request.SearchTerm = WebUtility.UrlDecode(request.SearchTerm);
 
@@ -37,8 +37,8 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
             return Ok(request);
         }
 
-        [HttpGet("GetCategory")]
-		public async Task<IActionResult> GetProducts(int? CategoryId)
+        [HttpGet("CategoryId")]
+		public async Task<IActionResult> GetCategoryById(int? CategoryId)
 		{
             if (CategoryId is null) return NotFound("Category Id not found");
             Category? category = await manageCategoryService.GetCategoryByIdAsync(CategoryId);
