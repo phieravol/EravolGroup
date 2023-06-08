@@ -19,63 +19,79 @@ namespace Eravol.WebApi.Controllers.Posts.Clients
     [ApiController]
     public class PostsController : ControllerBase
     {
-
+        #region DI Services
         private readonly IClientsPostRepository postsRepository;
         private readonly IPostSkillsRepository skillRequireRepository;
         private readonly UserManager<AppUser> userManager;
+        #endregion
 
+        #region Constructor
         public PostsController(
             IClientsPostRepository postsRepository,
             UserManager<AppUser> userManager,
             IPostSkillsRepository skillRequireRepository
-        )
-        {
+        ) {
             this.postsRepository = postsRepository;
             this.userManager = userManager;
             this.skillRequireRepository = skillRequireRepository;
         }
+        #endregion
 
         /// <summary>
-        /// Get Post in dashboard of clients
+        /// Get Post with paging in dashboard of clients
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetMyPosts([FromQuery] PagingRequestBase<Post> request)
         {
+            //decode URL
             request.SearchTerm = WebUtility.UrlDecode(request.SearchTerm);
+
+            //Get AppUser Id by claim
             string UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            //If User not login then return message
             if (string.IsNullOrEmpty(UserIdStr))
             {
                 return BadRequest("User Can't found in the session");
             }
 
+            //Convert ID from string to GUID
             Guid UserId = Guid.Parse(UserIdStr);
+
+            //Get Posts paging by request
             List<Post> posts = await postsRepository.GetPostSearchPaging(request, UserId);
+
+            //Set total Pages for paging
             request.TotalPages = (int)Math.Ceiling(posts.Count() / (double)request.PageSize);
 
+            //Split Posts into list in each page
             posts = posts.Skip((request.CurrentPage - 1) * request.PageSize).Take(request.PageSize).ToList();
+
+            //set items for Paging ViewModel
             request.Items = posts;
+
             return Ok(request);
         }
 
 
         /// <summary>
-        /// Create Post by CreatePostRequest Model
+        /// Create Post by CreatePostRequest ViewModel send by ajax
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> CreatePost([FromForm] CreatePostRequest request)
+        public async Task<IActionResult> CreatePost(CreatePostRequest request)
         {
+            
             string? UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            AppUser user = await userManager.FindByIdAsync(UserIdStr);
 
             if (UserIdStr == null)
             {
                 return BadRequest("Username can not null");
             }
+            Guid UserId = Guid.Parse(UserIdStr);
             Post post = new Post()
             {
                 PostTitle = request.PostTitle,
@@ -87,20 +103,14 @@ namespace Eravol.WebApi.Controllers.Posts.Clients
                 Budget = request.Budget,
                 ExpirationDate = request.ExpirationDate,
                 LevelRequired = request.LevelRequired,
-                UserId = user.Id
+                UserId = UserId
             };
 
             await postsRepository.CreatePostAsync(post);
             int postId = post.PostId;
             Post? result = await postsRepository.GetPostById(postId);
-
-            
-
             return Created("./Index", result);
         }
-
-        
-
 
         [HttpGet("{PostId}")]
         public async Task<IActionResult> GetPostById(int? PostId)
@@ -144,5 +154,21 @@ namespace Eravol.WebApi.Controllers.Posts.Clients
             await postsRepository.UpdatePostAsync(post);
             return NoContent();
         }
+
+        [HttpDelete("{PostId}")]
+        public async Task<IActionResult> DeletePostById(int? PostId)
+        {
+            if (PostId == null) return BadRequest("PostId can not be empty");
+
+            Post? post = await postsRepository.GetPostById(PostId);
+            if (post == null)
+            {
+                return NotFound("Post not found");
+            }
+
+            await postsRepository.DeletePostAsync(post);
+            return NoContent();
+        }
+
     }
 }

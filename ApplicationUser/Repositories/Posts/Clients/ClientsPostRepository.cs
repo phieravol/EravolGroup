@@ -30,6 +30,19 @@ namespace Eravol.WebApi.Repositories.Posts.Clients
             }
         }
 
+        public async Task DeletePostAsync(Post post)
+        {
+            try
+            {
+                context.Posts.Remove(post);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         public async Task<Post?> GetPostById(int? postId)
         {
             Post? post = new Post();
