@@ -15,6 +15,8 @@ namespace Eravol.UIClient.Pages.Categories.Admin
         const string HTTP_DELETE = "DELETE";
         const string BASE_URL = "https://localhost:7259";
         string RELATIVE_PATH_URL = $"/api/Admin/Categories";
+        string CATEGORY_PATH_URL = $"/api/Admin/Categories";
+        string POST_PATH_URL = $"/api/Admin/Categories";
 
         private readonly IClientsRequestService<PagingRequestBase<Category>> requestService;
 
