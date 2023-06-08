@@ -51,7 +51,7 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
 		}
 
 		[HttpPost]
-        public async Task<IActionResult> CreateCategory([FromForm] CreateCategoryRequest request)
+        public async Task<IActionResult> CreateCategory(CreateCategoryRequest request)
         {
             request.CategoryDesc = WebUtility.UrlDecode(request.CategoryDesc);
             request.CategoryName = WebUtility.UrlDecode(request.CategoryName);
