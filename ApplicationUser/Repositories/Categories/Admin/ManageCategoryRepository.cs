@@ -34,8 +34,7 @@ namespace Eravol.WebApi.Repositories.Categories.Admin
                 {
                     CategoryName = request.CategoryName,
                     CategoryDesc = request.CategoryDesc,
-                    CategoryLevel = request.CategoryLevel,
-                    CategoryParent = request.CategoryParent,
+                    CategoryLevel = 1,
                     isCategoryActive = request.isCategoryActive
                 };
 

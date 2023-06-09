@@ -1,4 +1,4 @@
-using Eravol.UIClient.Repositories.General;
+﻿using Eravol.UIClient.Repositories.General;
 using Eravol.UIClient.ViewModels.General;
 using Eravol.WebApi.ViewModels.Categories;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +9,7 @@ namespace Eravol.UIClient.Pages.Categories.Admin
 	public class CreateModel : PageModel
     {
 		const string BASE_URL = "https://localhost:7259";
-		string RELATIVE_PATH_URL = $"/api/Categories";
+		string RELATIVE_PATH_URL = $"/api/Admin/Categories";
 		const string HTTP_GET = "GET";
 		const string HTTP_PUT = "PUT";
         const string HTTP_POST = "POST";
@@ -17,10 +17,15 @@ namespace Eravol.UIClient.Pages.Categories.Admin
 		const string ROLE_MEMBER = "member";
 
 		private readonly IClientsRequestService<CreateCategoryRequest> requestService;
+		private readonly IHttpClientFactory clientFactory;
 
-		public CreateModel(IClientsRequestService<CreateCategoryRequest> requestService)
+		public CreateModel(
+			IClientsRequestService<CreateCategoryRequest> requestService,
+			IHttpClientFactory clientFactory
+		)
 		{
 			this.requestService = requestService;
+			this.clientFactory = clientFactory;
 		}
 
 		public void OnGet()
@@ -44,7 +49,18 @@ namespace Eravol.UIClient.Pages.Categories.Admin
 				Data = category
 			};
 
-			HttpResponseMessage createResponse = await requestService.HandleClientsRequest<CommonClientsRequest<CreateCategoryRequest>, HttpResponseMessage, CreateCategoryRequest>(posterRequest);
+			var client = clientFactory.CreateClient();
+			client.BaseAddress = new Uri(posterRequest.httpBaseUrl);
+
+			var formData = new MultipartFormDataContent
+			{
+				{ new StreamContent(category.CategoryImage.OpenReadStream()), "CategoryImage", category.CategoryImage.FileName },
+				{ new StringContent(category.CategoryName), "CategoryName" },
+				{ new StringContent(category.isCategoryActive.ToString()), "isCategoryActive" },
+				{ new StringContent(category.CategoryDesc), "CategoryDesc" }
+			};
+
+			var response = await client.PostAsync(posterRequest.httpRelativePath, formData);
 			return RedirectToPage("./Index");
         }
     }

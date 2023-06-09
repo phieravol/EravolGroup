@@ -51,13 +51,14 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
 		}
 
 		[HttpPost]
-        public async Task<IActionResult> CreateCategory([FromForm] CreateCategoryRequest request)
+		[Consumes("multipart/form-data")]
+		public async Task<IActionResult> CreateCategory([FromForm] CreateCategoryRequest category)
         {
-            request.CategoryDesc = WebUtility.UrlDecode(request.CategoryDesc);
-            request.CategoryName = WebUtility.UrlDecode(request.CategoryName);
+			category.CategoryDesc = WebUtility.UrlDecode(category.CategoryDesc);
+            category.CategoryName = WebUtility.UrlDecode(category.CategoryName);
             
-            await manageCategoryService.CreateCategoryAsync(request);
-			return Created("./Index", request);
+            await manageCategoryService.CreateCategoryAsync(category);
+			return Created("./Index", category);
         }
         [HttpPut("{CategoryId}")]
 		public async Task<IActionResult> UpdateMember(int? CategoryId, Category? category)
