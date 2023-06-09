@@ -10,6 +10,6 @@ namespace Eravol.WebApi.Repositories.Categories.Admin
         Task DeleteCategoryAsync(Category category);
         Task<Category> GetCategoryByIdAsync(int? categoryId);
         Task<List<Category>> GetCategorySearchPaging(PagingRequestBase<Category> request);
-        void UpdateCategoryById(Category? category);
+        Task UpdateCategoryById(UpdateCategoryRequest? category);
     }
 }

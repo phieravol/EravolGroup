@@ -1,9 +1,11 @@
 ﻿@page
 @using Eravol.WebApi.Data.Models;
 @using Eravol.WebApi.ViewModels.Categories;
+
 @model Eravol.UIClient.Pages.Categories.Admin.UpdateModel
 @{
-	Category category = Model.category;
+	Category? category = Model.category;
+	IFormFile? categoryImg = Model.categoryImg;
 }
 
 <!--Register Form Start-->
@@ -15,7 +17,7 @@
 					<h2>Add New Category</h2>
 				</div>
 				<div class="wt-dashboardboxcontent">
-					<form method="post" class="wt-formtheme wt-formprojectinfo wt-formcategory">
+					<form method="post" class="wt-formtheme wt-formprojectinfo wt-formcategory" enctype="multipart/form-data">
 						<fieldset>
 							<input type="hidden" asp-for="@category.CategoryId" class="form-control" placeholder="Name">
 							<div class="form-group">
@@ -40,7 +42,8 @@
 								<div class="wt-labelgroup">
 									<label for="file">
 										<span class="wt-btn">Select Files</span>
-										<input type="file" name="file" id="file">
+										<input asp-for="@Model.categoryImg" type="file" accept=".jpg, .jpeg, .png" id="imageCategory" />
+										<input asp-for="@category.CategoryImage" type="hidden" />
 									</label>
 									<span>Drop files here to upload</span>
 									<em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
@@ -52,6 +55,7 @@
 										<span class="uploadprogressbar"></span>
 										<span>Category Icon.jpg</span>
 										<em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
+										<img src=@($"https://localhost:7259/api/Images/{category.CategoryImage}") alt="img description">
 									</li>
 								</ul>
 							</div>

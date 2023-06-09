@@ -1,15 +1,14 @@
-using Eravol.UIClient.Repositories.General;
-using Eravol.UIClient.ViewModels.General;
 using Eravol.WebApi.Data.Models;
 using Eravol.WebApi.ViewModels.Categories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Diagnostics.Metrics;
+using Newtonsoft.Json;
 
 namespace Eravol.UIClient.Pages.Categories.Admin
 {
     public class UpdateModel : PageModel
     {
+
 		const string BASE_URL = "https://localhost:7259";
 		string RELATIVE_PATH_URL = $"/api/Admin/Categories";
 		const string HTTP_GET = "GET";
@@ -18,52 +17,56 @@ namespace Eravol.UIClient.Pages.Categories.Admin
 		const string ROLE_ADMIN = "admin";
 		const string ROLE_MEMBER = "member";
 
-		private readonly IClientsRequestService<Category> requestService;
+		private readonly IHttpClientFactory clientFactory;
 
-		public UpdateModel(IClientsRequestService<Category> requestService)
+		public UpdateModel(IHttpClientFactory clientFactory)
 		{
-			this.requestService = requestService;
+			this.clientFactory = clientFactory;
 		}
 
-		[BindProperty] public Category? category { get; set; }
 		[BindProperty(SupportsGet = true)] public int? CategoryId { get; set; }
+		[BindProperty] public Category? category { get; set; }
+		[BindProperty] public IFormFile? categoryImg { get; set; }
 
 		public async Task<IActionResult> OnGetAsync()
         {
-			if (CategoryId == null)
-			{
-				return NotFound();
-			}
+			var client = clientFactory.CreateClient();
+			client.BaseAddress = new Uri(BASE_URL);
+			string url = $"{RELATIVE_PATH_URL}/CategoryId?CategoryId={CategoryId}";
+			HttpResponseMessage response = await client.GetAsync(url);
+			string dataResponse = await response.Content.ReadAsStringAsync();
+			category = JsonConvert.DeserializeObject<Category>(dataResponse);
 
-			string cateIdStr = $"CategoryId={CategoryId}";
-
-			CommonClientsRequest<Category> getterRequest = new CommonClientsRequest<Category>()
-			{
-				httpBaseUrl = BASE_URL,
-				httpRelativePath = $"{RELATIVE_PATH_URL}/GetCategory?{cateIdStr}",
-				httpMethod = HTTP_GET,
-				id = CategoryId
-			};
-			category = await requestService.HandleClientsRequest<CommonClientsRequest<Category>, Category?, Category>(getterRequest);
-			if (category == null)
-			{
-				return NotFound();
-			}
-			
 			return Page();
-		}
+        }
 
 		public async Task<IActionResult> OnPostAsync()
 		{
-			CommonClientsRequest<Category> posterRequest = new CommonClientsRequest<Category>()
+			var client = clientFactory.CreateClient();
+			client.BaseAddress = new Uri(BASE_URL);
+			string url = $"{RELATIVE_PATH_URL}/{category.CategoryId}";
+
+			UpdateCategoryRequest? updateCategoryRequest = new UpdateCategoryRequest()
 			{
-				httpBaseUrl = BASE_URL,
-				httpRelativePath = $"{RELATIVE_PATH_URL}/{CategoryId}",
-				httpMethod = HTTP_PUT,
-				Data = category
+				CategoryId = category.CategoryId,
+				CategoryName = category.CategoryName,
+				CategoryDesc = category.CategoryDesc,
+				CategoryLevel = 1,
+				isCategoryActive = category.isCategoryActive,
+				CategoryImage = categoryImg
 			};
 
-			HttpResponseMessage createResponse = await requestService.HandleClientsRequest<CommonClientsRequest<Category>, HttpResponseMessage, Category>(posterRequest);
+			var formData = new MultipartFormDataContent
+			{
+				{ new StreamContent(updateCategoryRequest.CategoryImage.OpenReadStream()), "CategoryImage", categoryImg.FileName },
+				{ new StringContent(updateCategoryRequest.CategoryName), "CategoryName" },
+				{ new StringContent(updateCategoryRequest.CategoryId.ToString()), "CategoryId" },
+				{ new StringContent(updateCategoryRequest.isCategoryActive.ToString()), "isCategoryActive" },
+				{ new StringContent(updateCategoryRequest.CategoryDesc), "CategoryDesc" }
+			};
+
+			var response = await client.PutAsync(url, formData);
+
 			return RedirectToPage("./Index");
 		}
     }

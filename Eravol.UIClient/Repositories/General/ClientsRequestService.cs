@@ -44,8 +44,6 @@ namespace Eravol.UIClient.Repositories.General
                 case HTTP_POST:
                     {
 						
-						//var jsonRequest = JsonConvert.SerializeObject(request.Data);
-						//var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 						response = await client.PostAsJsonAsync(request.httpRelativePath, request.Data);
                         break;
                     }

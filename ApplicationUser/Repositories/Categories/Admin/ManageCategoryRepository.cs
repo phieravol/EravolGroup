@@ -100,12 +100,21 @@ namespace Eravol.WebApi.Repositories.Categories.Admin
             return request.Items;
         }
 
-        public void UpdateCategoryById(Category? category)
+        public async Task UpdateCategoryById(UpdateCategoryRequest? request)
         {
-            try
-            {
-                context.Entry<Category>(category).State = EntityState.Modified;
-                context.SaveChanges();
+            Category? currentCategory = await GetCategoryByIdAsync(request.CategoryId);
+            currentCategory.CategoryId = request.CategoryId;
+            currentCategory.CategoryName = request.CategoryName;
+            currentCategory.CategoryDesc = request.CategoryDesc;
+            currentCategory.isCategoryActive = request.isCategoryActive;
+
+			//delete old image
+			string currentImageName = await UpdateCategoryImage(request.CategoryImage, currentCategory.CategoryImage);
+            currentCategory.CategoryImage = currentImageName;
+			try
+			{
+                context.Entry<Category>(currentCategory).State = EntityState.Modified;
+                await context.SaveChangesAsync();
             }
             catch (Exception e)
             {
@@ -113,7 +122,29 @@ namespace Eravol.WebApi.Repositories.Categories.Admin
             }
         }
 
-        private async Task<string> SaveFile(IFormFile file)
+        /// <summary>
+        /// Update Image by current File and old categoryname
+        /// </summary>
+        /// <param name="categoryImage1"></param>
+        /// <param name="categoryImage2"></param>
+        /// <exception cref="NotImplementedException"></exception>
+		private async Task<string> UpdateCategoryImage(IFormFile currentImgage, string? oldImageName)
+		{
+            await storageService.DeleteFileAsync(oldImageName);
+
+			if (currentImgage != null)
+			{
+				return await SaveFile(currentImgage);
+			}
+            return "box.png";
+		}
+
+        /// <summary>
+        /// Create Image and save in user-content
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+		private async Task<string> SaveFile(IFormFile file)
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
