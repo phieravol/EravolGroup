@@ -60,13 +60,19 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
             await manageCategoryService.CreateCategoryAsync(category);
 			return Created("./Index", category);
         }
+        
         [HttpPut("{CategoryId}")]
-		public async Task<IActionResult> UpdateMember(int? CategoryId, Category? category)
+		[Consumes("multipart/form-data")]
+		public async Task<IActionResult> UpdateCategory(int? CategoryId,[FromForm] UpdateCategoryRequest? category)
 		{
 			if (CategoryId is null) return NotFound("Category Id not found");
 			if (CategoryId is null) return NotFound("Category is Empty");
 
-			manageCategoryService.UpdateCategoryById(category);
+            //get category by id
+            Category currentCategory = await manageCategoryService.GetCategoryByIdAsync(CategoryId);
+
+            //update category with image
+            await manageCategoryService.UpdateCategoryById(category);
 
 			return NoContent();
 		}
