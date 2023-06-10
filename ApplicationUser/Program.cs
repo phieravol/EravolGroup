@@ -8,6 +8,8 @@ using Eravol.WebApi.Repositories.Images;
 using Eravol.WebApi.Repositories.Posts.Clients;
 using Eravol.WebApi.Repositories.Posts.Public;
 using Eravol.WebApi.Repositories.PostSkills;
+using Eravol.WebApi.Repositories.Services.Freelancers;
+using Eravol.WebApi.Repositories.Servicestatuses.Freelancers;
 using Eravol.WebApi.Repository.System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -16,12 +18,16 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Cryptography.Xml;
+using Newtonsoft.Json;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+//builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(o => o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(config =>
 {
@@ -112,6 +118,8 @@ builder.Services.AddTransient<IPublicCategoryRepository, PublicCategoryRepositor
 builder.Services.AddTransient<IClientsPostRepository, ClientsPostRepository>();
 builder.Services.AddTransient<IPostSkillsRepository, PostSkillsRepository>();
 builder.Services.AddTransient<IPostsPublicRepository, PostsPublicRepository>();
+builder.Services.AddTransient<IManageServicesRepository, ManageServicesRepository>();
+builder.Services.AddTransient<IServiceStatusesRepository, ServiceStatusesRepository>();
 
 
 var app = builder.Build();
