@@ -21,6 +21,7 @@ using System.Security.Cryptography.Xml;
 using Newtonsoft.Json;
 using System.Text;
 using System.Text.Json.Serialization;
+using Eravol.WebApi.Repositories.ServiceImages.Freelancers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -80,14 +81,19 @@ builder.Services.AddAuthentication(option =>
 {
 	option.SaveToken = true;
 	option.RequireHttpsMetadata = false;
+
 	option.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
 	{
 		ValidateIssuer = true,
 		ValidateAudience = true,
 		ValidAudience = builder.Configuration["JWT:ValidAudience"],
 		ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"])),
+		ValidateLifetime = true,
+		ClockSkew = TimeSpan.FromDays(5)
 	};
+
+
 });
 
 //Regist DbContext Service
@@ -120,6 +126,7 @@ builder.Services.AddTransient<IPostSkillsRepository, PostSkillsRepository>();
 builder.Services.AddTransient<IPostsPublicRepository, PostsPublicRepository>();
 builder.Services.AddTransient<IManageServicesRepository, ManageServicesRepository>();
 builder.Services.AddTransient<IServiceStatusesRepository, ServiceStatusesRepository>();
+builder.Services.AddTransient<IServiceImagesRepository, ServiceImagesRepository>();
 
 
 var app = builder.Build();

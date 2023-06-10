@@ -6,6 +6,7 @@ using Eravol.WebApi.Repositories.Servicestatuses.Freelancers;
 using Eravol.WebApi.ViewModels.Base;
 using Eravol.WebApi.ViewModels.Posts.Clients;
 using Eravol.WebApi.ViewModels.Services.Freelancers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -43,13 +44,14 @@ namespace Eravol.WebApi.Controllers.Services.Freelancers
 		/// <param name="PagingRequestBase<Service>">request</param>
 		/// <returns></returns>
 		[HttpGet]
-		public async Task<ActionResult<Service>> GetServicesPaging([FromQuery] PagingRequestBase<Service> request)
+		[Authorize]
+		public async Task<ActionResult<Service>> GetServicesPaging([FromQuery] ServicePagingRequest request)
 		{
 			//decode URL
 			request.SearchTerm = WebUtility.UrlDecode(request.SearchTerm);
 
 			//Get AppUser Id by claim
-			string UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			string? UserIdStr = request.UserIdStr;
 
 			//If User not login then return message
 			if (string.IsNullOrEmpty(UserIdStr))

@@ -68,6 +68,7 @@ namespace Eravol.WebApi.Repositories.Services.Freelancers
 				services = await context.Services.Include(x => x.Categories)
 					.Include(x => x.AppUser)
 					.Include(x => x.ServiceStatus)
+					.Where(x => x.UserId == userId)
 					.ToListAsync();
 			}
 			catch (Exception e)

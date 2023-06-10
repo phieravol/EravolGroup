@@ -72,6 +72,7 @@ namespace Eravol.WebApi.Controllers.Posts.Clients
             //set items for Paging ViewModel
             request.Items = posts;
 
+
             return Ok(request);
         }
 
