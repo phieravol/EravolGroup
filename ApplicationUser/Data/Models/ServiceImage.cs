@@ -13,9 +13,11 @@ namespace Eravol.WebApi.Data.Models
 		public int? ServiceImageSize { get; set; }
 		#endregion
 
+
 		#region ReferenceKey
 		public string ServiceCode { get; set; }
 		#endregion
+
 
 		#region relationships
 		public virtual Service Service { get; set; }

@@ -3,12 +3,14 @@ using Eravol.WebApi.Data.Models;
 using Eravol.WebApi.Repositories.Categories.Admin;
 using Eravol.WebApi.Repositories.Services.Freelancers;
 using Eravol.WebApi.Repositories.Servicestatuses.Freelancers;
+using Eravol.WebApi.ViewModels.Base;
 using Eravol.WebApi.ViewModels.Posts.Clients;
 using Eravol.WebApi.ViewModels.Services.Freelancers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 using System.Security.Claims;
 
 namespace Eravol.WebApi.Controllers.Services.Freelancers
@@ -36,6 +38,36 @@ namespace Eravol.WebApi.Controllers.Services.Freelancers
 		}
 
 		/// <summary>
+		/// Get Service list of Current freelancer (Login as Freelancer before do this action)
+		/// </summary>
+		/// <param name="PagingRequestBase<Service>">request</param>
+		/// <returns></returns>
+		[HttpGet]
+		public async Task<ActionResult<Service>> GetServicesPaging([FromQuery] PagingRequestBase<Service> request)
+		{
+			//decode URL
+			request.SearchTerm = WebUtility.UrlDecode(request.SearchTerm);
+
+			//Get AppUser Id by claim
+			string UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+			//If User not login then return message
+			if (string.IsNullOrEmpty(UserIdStr))
+			{
+				return BadRequest("User Can't found in the session");
+			}
+
+			//Convert ID from string to GUID
+			Guid UserId = Guid.Parse(UserIdStr);
+
+			//Get Service paging in database
+			List<Service> services = await servicesRepository.GetServicesPaging(request, UserId);
+			request.Items = services;
+			return Ok(request);
+		}
+
+
+		/// <summary>
 		/// Get Service by serviceCode
 		/// </summary>
 		/// <param name="id"></param>
@@ -54,7 +86,7 @@ namespace Eravol.WebApi.Controllers.Services.Freelancers
 				return NotFound();
 			}
 
-			return service;
+			return Ok(service);
 		}
 
 		/// <summary>

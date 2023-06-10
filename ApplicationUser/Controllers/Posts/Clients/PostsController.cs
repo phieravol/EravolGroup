@@ -61,7 +61,7 @@ namespace Eravol.WebApi.Controllers.Posts.Clients
             Guid UserId = Guid.Parse(UserIdStr);
 
             //Get Posts paging by request
-            List<Post> posts = await postsRepository.GetPostSearchPaging(request, UserId);
+            List<Post> posts = await postsRepository.GetServiceSearchPaging(request, UserId);
 
             //Set total Pages for paging
             request.TotalPages = (int)Math.Ceiling(posts.Count() / (double)request.PageSize);

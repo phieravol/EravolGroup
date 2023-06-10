@@ -1,5 +1,7 @@
 ﻿using Eravol.UserWebApi.Data;
 using Eravol.WebApi.Data.Models;
+using Eravol.WebApi.ViewModels.Base;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 
 namespace Eravol.WebApi.Repositories.Services.Freelancers
@@ -49,6 +51,30 @@ namespace Eravol.WebApi.Repositories.Services.Freelancers
 			{
 				throw new Exception(e.Message);
 			}
+		}
+
+		/// <summary>
+		/// Get Services with search paging
+		/// </summary>
+		/// <param name="request"></param>
+		/// <param name="userId"></param>
+		/// <returns></returns>
+		/// <exception cref="NotImplementedException"></exception>
+		public async Task<List<Service>> GetServicesPaging(PagingRequestBase<Service> request, Guid userId)
+		{
+			List<Service> services = new List<Service>();
+			try
+			{
+				services = await context.Services.Include(x => x.Categories)
+					.Include(x => x.AppUser)
+					.Include(x => x.ServiceStatus)
+					.ToListAsync();
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			}
+			return services;
 		}
 	}
 }

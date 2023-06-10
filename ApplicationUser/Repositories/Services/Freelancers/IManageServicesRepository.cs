@@ -1,4 +1,5 @@
 ﻿using Eravol.WebApi.Data.Models;
+using Eravol.WebApi.ViewModels.Base;
 
 namespace Eravol.WebApi.Repositories.Services.Freelancers
 {
@@ -6,5 +7,6 @@ namespace Eravol.WebApi.Repositories.Services.Freelancers
 	{
 		Task CreateServiceAsync(Service service);
 		Task<Service?> GetServiceByCode(string id);
+		Task<List<Service>> GetServicesPaging(PagingRequestBase<Service> request, Guid userId);
 	}
 }
