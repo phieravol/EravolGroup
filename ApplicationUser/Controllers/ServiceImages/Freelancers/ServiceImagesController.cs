@@ -1,4 +1,5 @@
 ﻿using Eravol.WebApi.Repositories.ServiceImages.Freelancers;
+using Eravol.WebApi.ViewModels.PostSkillRequires;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +16,11 @@ namespace Eravol.WebApi.Controllers.ServiceImages.Freelancers
 			this.serviceImagesRepository = serviceImagesRepository;
 		}
 
+		[HttpPost]
+		public async Task<IActionResult> CreatePostSkillRequires(int serviceId, List<IFormFile>? serviceImages)
+		{
+			return Ok();
+		}
 
 	}
 }

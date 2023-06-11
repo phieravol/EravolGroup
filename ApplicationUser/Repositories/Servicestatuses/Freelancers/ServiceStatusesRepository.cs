@@ -13,6 +13,16 @@ namespace Eravol.WebApi.Repositories.Servicestatuses.Freelancers
 		}
 
 		/// <summary>
+		/// Get All ServiceStatuses
+		/// </summary>
+		/// <returns></returns>
+		public List<ServiceStatus> GetAllServiceStatuses()
+		{
+			List<ServiceStatus> serviceStatuses = context.ServiceStatuses.ToList();
+			return serviceStatuses;
+		}
+
+		/// <summary>
 		/// Get Service Status Object by Id
 		/// </summary>
 		/// <param name="serviceStatusId"></param>

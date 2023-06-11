@@ -3,7 +3,7 @@
 	public class CreateServicesRequest
 	{
 		#region Fields
-		public string ServiceCode { get; set; }
+		public string? ServiceCode { get; set; }
 		public string ServiceTitle { get; set; }
 		public string? ServiceIntro { get; set; }
 		public string? ServiceDetails { get; set; }

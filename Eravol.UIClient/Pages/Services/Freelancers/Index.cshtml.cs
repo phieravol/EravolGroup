@@ -36,20 +36,30 @@ namespace Eravol.UIClient.Pages.Services.Freelancers
 		[Authorize]
 		public async Task<IActionResult> OnGetAsync()
         {
+			//Get current UserId by claims
 			string UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 			PagingRequest.UserIdStr = UserIdStr;
 
+			// config endpoint url
 			string searchTermStr = (PagingRequest.SearchTerm != null) ? $"SearchTerm={PagingRequest.SearchTerm}" : "";
 			string currentPageStr = $"CurrentPage={PagingRequest.CurrentPage}";
 			string pageSizeStr = $"PageSize={PagingRequest.PageSize}";
 			string hasNextStr = $"HasNext={PagingRequest.HasNext}";
 			string hasPreStr = $"HasPrevious={PagingRequest.HasPrevious}";
 			string userIdStr = $"UserIdStr={PagingRequest.UserIdStr}";
-
 			string Url = $"{SERVICE_PATH_URL}?{searchTermStr}&{currentPageStr}&{pageSizeStr}&{hasNextStr}&{hasPreStr}&{userIdStr}";
 
+			//Create new client to send request to api
 			var client = clientFactory.CreateClient();
+
+			//get token by session
 			string? token = HttpContext.Session.GetString("AuthToken");
+
+			if (token==null)
+			{
+				return RedirectToPage("/Forbidden");
+			}
+
 			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 			client.BaseAddress = new Uri(BASE_URL);
 			HttpResponseMessage response = await client.GetAsync(Url);

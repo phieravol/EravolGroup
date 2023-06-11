@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="~/css/basictable.css">
 	<link rel="stylesheet" href="~/css/dashboard.css">
 	<link rel="stylesheet" href="~/css/dbresponsive.css">
-	<script src="~/~/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+	<script src="~/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 </head>
 
 <!--Main Start-->
@@ -33,6 +33,7 @@
 				<div class="wt-dashboardbox wt-categorys">
 					<div class="wt-dashboardboxtitle wt-titlewithsearch">
 						<h2>My Services</h2>
+						<a asp-page="./Create" class="wt-btn">Add New Service</a>
 						<form class="wt-formtheme wt-formsearch">
 							<fieldset>
 								<div class="form-group">
@@ -63,32 +64,39 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach (var item in Services)
+								@if (Services != null)
 								{
-									<tr>
-										<td>
-											<span class="wt-checkbox">
-												<input id="wt-namea-@item.ServiceCode" type="checkbox" name="head">
-												<label for="wt-namea-@item.ServiceCode"></label>
-											</span>
-										</td>
-										<td>
-											<figure><img src="~/images/categories/img-09.png" alt="img description"></figure>
-										</td>
-										<td>@item.ServiceCode</td>
-										<td>@item.ServiceTitle</td>
-										<td>@item.TotalStars</td>
-										<td>@item.TotalClients</td>
-										<td>@item.Categories.CategoryName</td>
-										<td>@item.ServiceStatus.ServiceStatusName</td>
-										<td>
-											<div class="wt-actionbtn">
-												<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-												<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-											</div>
-										</td>
-									</tr>
+									@foreach (var item in Services)
+									{
+										<tr>
+											<td>
+												<span class="wt-checkbox">
+													<input id="wt-namea-@item.ServiceCode" type="checkbox" name="head">
+													<label for="wt-namea-@item.ServiceCode"></label>
+												</span>
+											</td>
+											<td>
+												<figure><img src="~/images/categories/img-09.png" alt="img description"></figure>
+											</td>
+											<td>@item.ServiceCode</td>
+											<td>@item.ServiceTitle</td>
+											<td>@item.TotalStars</td>
+											<td>@item.TotalClients</td>
+											<td>@item.Categories.CategoryName</td>
+											<td>@item.ServiceStatus.ServiceStatusName</td>
+											<td>
+												<div class="wt-actionbtn">
+													<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
+													<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
+												</div>
+											</td>
+										</tr>
+									}
+								} else
+								{
+									<h1>You haven's any service'</h1>
 								}
+
 
 							</tbody>
 						</table>

@@ -4,6 +4,7 @@ namespace Eravol.WebApi.Repositories.Servicestatuses.Freelancers
 {
 	public interface IServiceStatusesRepository
 	{
+		List<ServiceStatus> GetAllServiceStatuses();
 		Task<ServiceStatus> GetServiceStatusById(int serviceStatusId);
 	}
 }

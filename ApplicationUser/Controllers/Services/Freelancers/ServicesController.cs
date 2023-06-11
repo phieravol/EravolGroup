@@ -97,6 +97,7 @@ namespace Eravol.WebApi.Controllers.Services.Freelancers
 		/// <param name="request"></param>
 		/// <returns></returns>
 		[HttpPost]
+		[Authorize]
 		public async Task<IActionResult> CreateServices(CreateServicesRequest request)
 		{
 			//Get UserId and User Fullname by claims 

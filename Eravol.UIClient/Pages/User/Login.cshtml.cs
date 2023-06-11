@@ -87,7 +87,7 @@ namespace Eravol.UIClient.Pages.User
 		}
 
 		
-		public async Task<IActionResult> Logout()
+		public async Task<IActionResult> LogoutAsync()
 		{
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 			return RedirectToPage("/Index");
