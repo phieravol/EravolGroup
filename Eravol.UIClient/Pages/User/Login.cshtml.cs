@@ -58,7 +58,7 @@ namespace Eravol.UIClient.Pages.User
 				return new JsonResult(responseData);
 			}
 			var token = response.loginResult;
-
+			HttpContext.Session.SetString("AuthToken", token);
 			var userPrincipal = this.ValidateToken(token);
 
 			var authProperties = new AuthenticationProperties

@@ -108,8 +108,7 @@ namespace Eravol.WebApi.Controllers.Posts.Clients
 
             await postsRepository.CreatePostAsync(post);
             int postId = post.PostId;
-            Post? result = await postsRepository.GetPostById(postId);
-            return Created("./Index", result);
+            return Created("./Index", postId);
         }
 
         [HttpGet("{PostId}")]
