@@ -10,9 +10,31 @@
 	string? SearchTerm = Model.PagingRequest.SearchTerm;
 	List<Post>? Posts = Model.PagingRequest.Items;
 }
-<a asp-page="/Posts/Clients/Create">+ Create post</a>
+<head>
+	<link rel="stylesheet" href="~/css/themify-icons.css">
+	<link rel="stylesheet" href="~/css/basictable.css">
+	<link rel="stylesheet" href="~/css/dashboard.css">
+	<link rel="stylesheet" href="~/css/dbresponsive.css">
+	<script src="~/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+<div class="form-group wt-btnarea">
+	<a asp-page="/Posts/Clients/Create" class="wt-btn">Create post</a>
+</div>
 <main id="wt-main" class="wt-main wt-haslayout">
-	<table>
+	<div class="wt-dashboardbox wt-categorys">
+	<div class="wt-dashboardboxtitle wt-titlewithsearch">
+		<h2>Posts</h2>
+		<form class="wt-formtheme wt-formsearch">
+			<fieldset>
+				<div class="form-group">
+					<input type="text" asp-for="@SearchTerm" class="form-control" placeholder="Search Post">
+					<button type="submit" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	<div class="wt-dashboardboxcontent wt-categoriescontentholder">
+	<table class="wt-tablecategories">
 		<thead>
 			<tr>
 				<th>Tittle</th>
@@ -22,8 +44,8 @@
 				<th>Expiration Date</th>
 				<th>Posted Date</th>
 				<th>Last Updated Date</th>
-				<th>Category Name</th>
-				<th>Post Status Name</th>
+				<th>Category</th>
+				<th>Post Status</th>
 				<th>Level Required</th>
 				<th></th>
 			</tr>
@@ -53,14 +75,13 @@
 						<td>@item.LevelRequired</td>
 						<td>
 							<div class="wt-actionbtn">
-								<a asp-page="/Posts/Clients/Update" asp-route-CategoryId="@item.PostId" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
+								<a asp-page="/Posts/Clients/Update" asp-route-CategoryId="@item.PostId" class="wt-addinfo wt-skillsaddinfo" style="margin-bottom:3px"><i class="lnr lnr-pencil"></i></a><br/>
 								<a href="javascript:void(0)" class="wt-deleteinfo" onclick="confirmDelteCategory(@item.PostId)"><i class="lnr lnr-trash"></i></a>
 							</div>
 						</td>
 					</tr>
 				}
 			}
-
 		</tbody>
 	</table>
 	@if (HasPreviousPage || HasNextPage)
@@ -96,4 +117,6 @@
 			</ul>
 		</nav>
 	}
+	</div>
+	</div>
 	</main>
