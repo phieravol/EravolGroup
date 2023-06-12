@@ -51,8 +51,8 @@ namespace Eravol.WebApi.Controllers.Categories.Admin
 		}
 
 		[HttpPost]
-		[Consumes("multipart/form-data")]
-		public async Task<IActionResult> CreateCategory([FromForm] CreateCategoryRequest category)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> CreateCategory([FromForm] CreateCategoryRequest category)
         {
 			category.CategoryDesc = WebUtility.UrlDecode(category.CategoryDesc);
             category.CategoryName = WebUtility.UrlDecode(category.CategoryName);

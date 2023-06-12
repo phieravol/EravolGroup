@@ -99,42 +99,41 @@
 
 
 							</tbody>
-						</table>
-						@if (HasPreviousPage || HasNextPage)
-						{
-							<nav class="wt-pagination">
-								<ul>
-									<li class="wt-prevpage">
-										<a asp-page="./Index" asp-route-CurrentPage="@CurrentPage-1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">
-											<i class="lnr lnr-chevron-left"></i>
-										</a>
-									</li>
-									@if (TotalPages <= 3)
-									{
-										for (int i = 1; i <= TotalPages; i++)
-										{
-											<li><a asp-route-CurrentPage="@i" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">@i</a></li>
-										}
-									}
-									else
-									{
-										for (int i = 1; i <= TotalPages; i++)
-										{
-											<li><a asp-route-CurrentPage="@i" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">@i</a></li>
-										}
-										<li><a href="javascrip:void(0);">...</a></li>
-										<li><a asp-route-CurrentPage="@TotalPages" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">Last Page</a></li>
-									}
-									<li asp-page="./Index" asp-route-CurrentPage="@CurrentPage+1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize" class="wt-nextpage">
-										<a href="javascrip:void(0);">
-											<i class="lnr lnr-chevron-right"></i>
-										</a>
-									</li>
-								</ul>
-							</nav>
-						}
-					</div>
-				</div>
+                        </table>
+
+                        <nav class="wt-pagination">
+                            <ul>
+                                <li class="wt-prevpage">
+                                    <a asp-page="./Index" asp-route-CurrentPage="@CurrentPage-1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">
+                                        <i class="lnr lnr-chevron-left"></i>
+                                    </a>
+                                </li>
+                                @if (TotalPages <= 3)
+                                {
+                                    for (int i = 1; i <= TotalPages; i++)
+                                    {
+                                        <li><a asp-route-CurrentPage="@i" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">@i</a></li>
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 1; i <= TotalPages; i++)
+                                    {
+                                        <li><a asp-route-CurrentPage="@i" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">@i</a></li>
+                                    }
+                                    <li><a href="javascrip:void(0);">...</a></li>
+                                    <li><a asp-route-CurrentPage="@TotalPages" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">Last Page</a></li>
+                                }
+                                <li asp-page="./Index" asp-route-CurrentPage="@CurrentPage+1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize" class="wt-nextpage">
+                                    <a asp-page="./Index" asp-route-CurrentPage="@CurrentPage+1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">
+                                        <i class="lnr lnr-chevron-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
 			</div>
 		</div>
 	</section>

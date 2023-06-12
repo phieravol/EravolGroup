@@ -64,6 +64,8 @@ namespace Eravol.WebApi.Controllers.Services.Freelancers
 
 			//Get Service paging in database
 			List<Service> services = await servicesRepository.GetServicesPaging(request, UserId);
+			request.TotalPages = (int)Math.Ceiling(services.Count() / (double)request.PageSize);
+			services = services.Skip((request.CurrentPage - 1) * request.PageSize).Take(request.PageSize).ToList();
 			request.Items = services;
 			return Ok(request);
 		}
