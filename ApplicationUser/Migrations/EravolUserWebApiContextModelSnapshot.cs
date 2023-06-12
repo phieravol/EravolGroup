@@ -143,7 +143,7 @@ namespace Eravol.WebApi.Migrations
                             Id = new Guid("aedc1266-b3b5-4323-b10b-f020a31f3359"),
                             AccessFailedCount = 0,
                             Address = "Thai Binh",
-                            ConcurrencyStamp = "28f87290-523e-42ef-a992-05ed82d02b6a",
+                            ConcurrencyStamp = "92cd72ca-d89f-4a46-a2e5-f3809664fcf4",
                             Country = "VietNam",
                             Email = "eravolgroup@gmail.com",
                             EmailConfirmed = false,
@@ -162,7 +162,7 @@ namespace Eravol.WebApi.Migrations
                             Id = new Guid("ae750391-4d11-4e00-8e92-607d18b839cf"),
                             AccessFailedCount = 0,
                             Address = "Yen Bai",
-                            ConcurrencyStamp = "a1108183-71be-4dbd-83b6-05117e9d67e0",
+                            ConcurrencyStamp = "297b333b-e04a-45d3-bab2-61da2ff44c64",
                             Country = "VietNam",
                             Email = "phinqevol@gmail.com",
                             EmailConfirmed = false,
@@ -181,7 +181,7 @@ namespace Eravol.WebApi.Migrations
                             Id = new Guid("01a033a2-ddf4-4986-8cc9-4e117f7c8685"),
                             AccessFailedCount = 0,
                             Address = "Hung Yen",
-                            ConcurrencyStamp = "52430e9e-33b1-4132-9a93-f0c7321cb893",
+                            ConcurrencyStamp = "d37a624c-2b36-4892-a70d-4ad7653c888b",
                             Country = "VietNam",
                             Email = "chitung@gmail.com",
                             EmailConfirmed = false,
@@ -504,6 +504,10 @@ namespace Eravol.WebApi.Migrations
                     b.Property<DateTime?>("DateCreated")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ImageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ServiceCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
@@ -513,8 +517,8 @@ namespace Eravol.WebApi.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
-                    b.Property<int?>("ServiceImageSize")
-                        .HasColumnType("int");
+                    b.Property<long?>("ServiceImageSize")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("isThumbnail")
                         .HasColumnType("bit");
@@ -628,21 +632,21 @@ namespace Eravol.WebApi.Migrations
                         new
                         {
                             Id = new Guid("30a990c6-33c7-4884-9dcb-718ce356eb0d"),
-                            ConcurrencyStamp = "7442dede-2d9d-41bc-b185-28248b7fb246",
+                            ConcurrencyStamp = "133e60b8-a705-41fc-ad17-4c10434e8ed7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("b8fd818f-63f1-49ee-bec5-f7b66cafbfca"),
-                            ConcurrencyStamp = "554e5776-da0a-46b2-b248-f32af8a193b6",
+                            ConcurrencyStamp = "e2f75650-d2be-4e3b-a556-ca1ee7f14d1e",
                             Name = "Freelancer",
                             NormalizedName = "FREELANCER"
                         },
                         new
                         {
                             Id = new Guid("fe0e9c2d-6abd-4f73-a635-63fc58ec700e"),
-                            ConcurrencyStamp = "8c6cbf0d-a0f2-487a-a556-80b1ef24815b",
+                            ConcurrencyStamp = "1040d2ff-4b1e-4373-9c3c-1c91c2a90882",
                             Name = "Client",
                             NormalizedName = "CLIENT"
                         });

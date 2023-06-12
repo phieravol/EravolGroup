@@ -26,6 +26,11 @@ namespace Eravol.WebApi.Controllers.Posts.Public
             this.userManager = userManager;
         }
 
+        /// <summary>
+        /// Get all post of public user
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetPublicPosts([FromQuery] PagingRequestBase<Post> request)
         {
@@ -38,6 +43,11 @@ namespace Eravol.WebApi.Controllers.Posts.Public
             return Ok(posts);
         }
 
+        /// <summary>
+        /// Get Post detail for freelancer
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <returns></returns>
         [HttpGet("{postId}")]
 		public async Task<IActionResult> GetPublicPostById(int? postId)
 		{

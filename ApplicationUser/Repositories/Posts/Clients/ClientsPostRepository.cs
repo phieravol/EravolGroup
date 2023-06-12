@@ -81,7 +81,7 @@ namespace Eravol.WebApi.Repositories.Posts.Clients
             return post;
         }
 
-        public async Task<List<Post>> GetPostSearchPaging(PagingRequestBase<Post> request, Guid UserId)
+        public async Task<List<Post>> GetServiceSearchPaging(PagingRequestBase<Post> request, Guid UserId)
         {
             List<Post> posts = new List<Post>();
             try

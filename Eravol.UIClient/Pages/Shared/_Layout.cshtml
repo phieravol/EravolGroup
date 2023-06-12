@@ -43,70 +43,7 @@
                                             <i class="lnr lnr-menu"></i>
                                         </button>
                                         <div class="collapse navbar-collapse wt-navigation" id="navbarNav">
-                                            <ul class="navbar-nav">
-                                                <li class="menu-item-has-children page_item_has_children">
-                                                    <a href="javascript:void(0);">Main</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item-has-children page_item_has_children">
-                                                            <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
-                                                            <a href="javascript:void(0);">Job Posted</a>
-                                                            <ul class="sub-menu">
-                                                                <li><a asp-page="/Posts/Index">Posted Grid View</a></li>
-                                                                <li><a href="#">Article List (developing)</a></li>
-                                                                <li><a href="#">Article Classic (developing)</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="menu-item-has-children page_item_has_children">
-                                                            <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
-                                                            <a href="javascript:void(0);">Freelancer Services</a>
-                                                            <ul class="sub-menu">
-                                                                <li><a href="companygrid.html">Company Grid</a></li>
-                                                                <li><a href="companysigle.html">Company Sigle</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li>
-                                                            <a href="about.html">About</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="privacypolicy.html">Privacy Policy</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="comingsoon.html">Coming Soon</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="404page.html">404page</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="howitworks.html">How It Works</a>
-                                                </li>
-                                                <li class="menu-item-has-children page_item_has_children">
-                                                    <a href="javascript:void(0);">Browse Jobs</a>
-                                                    <ul class="sub-menu">
-                                                        <li>
-                                                            <a href="joblisting.html">My Services</a>
-                                                        </li>
-                                                        <li class="current-menu-item">
-                                                            <a href="jobsingle.html">My Jobs</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="jobproposal.html">Job Proposal</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item-has-children page_item_has_children">
-                                                    <a href="javascript:void(0);">Views</a>
-                                                    <ul class="sub-menu">
-                                                        <li>
-                                                            <a href="userlisting.html">Top Freelancers</a>
-                                                        </li>
-                                                        <li class="current-menu-item">
-                                                            <a href="usersingle.html">Top Projects</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
+                                            @await Component.InvokeAsync("MenuHeaderComponent")
                                         </div>
                                     </nav>
                                     <div class="wt-loginarea">

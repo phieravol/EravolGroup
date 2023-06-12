@@ -1,4 +1,142 @@
 ﻿@page
+@using Eravol.WebApi.Data.Models;
 @model Eravol.UIClient.Pages.Services.Freelancers.IndexModel
 @{
+	bool HasPreviousPage = Model.PagingRequest.HasPrevious;
+	bool HasNextPage = Model.PagingRequest.HasNext;
+	int TotalPages = Model.PagingRequest.TotalPages;
+	int PageSize = Model.PagingRequest.PageSize;
+	int CurrentPage = Model.PagingRequest.CurrentPage;
+	string? SearchTerm = Model.PagingRequest.SearchTerm;
+	List<Service>? Services = Model.PagingRequest.Items;
 }
+
+<head>
+	<link rel="stylesheet" href="~/css/themify-icons.css">
+	<link rel="stylesheet" href="~/css/basictable.css">
+	<link rel="stylesheet" href="~/css/dashboard.css">
+	<link rel="stylesheet" href="~/css/dbresponsive.css">
+	<script src="~/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+
+<!--Main Start-->
+<main id="wt-main" class="wt-main wt-haslayout">
+
+	<!--Sidebar Start-->
+	@await Component.InvokeAsync("DashboardSideBarComponent")
+	<!--Sidebar Start-->
+
+	<!--Register Form Start-->
+	<section class="wt-haslayout wt-dbsectionspace">
+		<div class="row d-flex justify-content-between">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 float-right">
+				<div class="wt-dashboardbox wt-categorys">
+					<div class="wt-dashboardboxtitle wt-titlewithsearch">
+						<h2>My Services</h2>
+						<a asp-page="./Create" class="wt-btn">Add New Service</a>
+						<form class="wt-formtheme wt-formsearch">
+							<fieldset>
+								<div class="form-group">
+									<input type="text" asp-for="@SearchTerm" class="form-control" placeholder="Search Category">
+									<a href="javascrip:void(0);" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></a>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+					<div class="wt-dashboardboxcontent wt-categoriescontentholder">
+						<table class="wt-tablecategories">
+							<thead>
+								<tr>
+									<th>
+										<span class="wt-checkbox">
+											<input id="wt-name" type="checkbox" name="head">
+											<label for="wt-name"></label>
+										</span>
+									</th>
+									<th>Thumbnail</th>
+									<th>Service Code</th>
+									<th>Title</th>
+									<th>Total Clients</th>
+									<th>Category</th>
+									<th>Status</th>
+									<th>Actions</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								@if (Services != null)
+								{
+									@foreach (var item in Services)
+									{
+										<tr>
+											<td>
+												<span class="wt-checkbox">
+													<input id="wt-namea-@item.ServiceCode" type="checkbox" name="head">
+													<label for="wt-namea-@item.ServiceCode"></label>
+												</span>
+											</td>
+											<td>
+												<figure><img src="~/images/categories/img-09.png" alt="img description"></figure>
+											</td>
+											<td>@item.ServiceCode</td>
+											<td>@item.ServiceTitle</td>
+											<td>@item.TotalStars</td>
+											<td>@item.TotalClients</td>
+											<td>@item.Categories.CategoryName</td>
+											<td>@item.ServiceStatus.ServiceStatusName</td>
+											<td>
+												<div class="wt-actionbtn">
+													<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
+													<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
+												</div>
+											</td>
+										</tr>
+									}
+								} else
+								{
+									<h1>You haven's any service'</h1>
+								}
+
+
+							</tbody>
+                        </table>
+
+                        <nav class="wt-pagination">
+                            <ul>
+                                <li class="wt-prevpage">
+                                    <a asp-page="./Index" asp-route-CurrentPage="@CurrentPage-1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">
+                                        <i class="lnr lnr-chevron-left"></i>
+                                    </a>
+                                </li>
+                                @if (TotalPages <= 3)
+                                {
+                                    for (int i = 1; i <= TotalPages; i++)
+                                    {
+                                        <li><a asp-route-CurrentPage="@i" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">@i</a></li>
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 1; i <= TotalPages; i++)
+                                    {
+                                        <li><a asp-route-CurrentPage="@i" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">@i</a></li>
+                                    }
+                                    <li><a href="javascrip:void(0);">...</a></li>
+                                    <li><a asp-route-CurrentPage="@TotalPages" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">Last Page</a></li>
+                                }
+                                <li asp-page="./Index" asp-route-CurrentPage="@CurrentPage+1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize" class="wt-nextpage">
+                                    <a asp-page="./Index" asp-route-CurrentPage="@CurrentPage+1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">
+                                        <i class="lnr lnr-chevron-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+			</div>
+		</div>
+	</section>
+	<!--Register Form End-->
+</main>
+<!--Main End-->	
