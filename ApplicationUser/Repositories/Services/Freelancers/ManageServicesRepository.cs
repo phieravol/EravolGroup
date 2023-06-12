@@ -65,11 +65,17 @@ namespace Eravol.WebApi.Repositories.Services.Freelancers
 			List<Service> services = new List<Service>();
 			try
 			{
-				services = await context.Services.Include(x => x.Categories)
+				var query = context.Services.Include(x => x.Categories)
 					.Include(x => x.AppUser)
 					.Include(x => x.ServiceStatus)
-					.Where(x => x.UserId == userId)
-					.ToListAsync();
+					.Where(x => x.UserId == userId);
+
+				if (!string.IsNullOrEmpty(request.SearchTerm))
+				{
+                    query = query.Where(x => x.ServiceTitle.Contains(request.SearchTerm) || x.ServiceTitle.Contains(request.SearchTerm));
+				}
+
+				services = await query.ToListAsync();
 			}
 			catch (Exception e)
 			{
