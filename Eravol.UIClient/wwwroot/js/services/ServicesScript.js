@@ -125,13 +125,51 @@ function createServiceByFormData(formData) {
         },
         contentType: 'application/json',
         success: function (response) {
-            console.log(response);
-            console.log("response ok");
+            createServiceImages(response.serviceCode);
         },
         error: function (xhr, status, error) {
             console.log(status);
             console.log(xhr);
             console.log(error);
+        }
+    });
+}
+
+
+/**
+ * Create Service by service code
+ * */
+function createServiceImages(serviceCode) {
+
+    //declare url
+    var serviceImageUrl = "https://localhost:7259/api/ServiceImages/";
+
+    //Get Service Images
+    var serviceImageInput = document.getElementById('filep');
+    var serviceImages = serviceImageInput.files;
+
+    //Add Images to formdata
+    var formData = new FormData();
+    for (var i = 0; i < serviceImages.length; i++) {
+        formData.append("serviceImages", serviceImages[i]);
+    }
+
+    console.log(serviceImageUrl + serviceCode);
+    $.ajax({
+        url: serviceImageUrl + serviceCode,
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            console.log("image response: " + response);
+        },
+        error: function (xhr, status, error) {
+            console.log(status);
+            console.log(xhr);
+            console.log(xhr);
+
+            // Xử lý lỗi
         }
     });
 }

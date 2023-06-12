@@ -1,4 +1,5 @@
-﻿using Eravol.WebApi.Repositories.ServiceImages.Freelancers;
+﻿using Eravol.WebApi.Data.Models;
+using Eravol.WebApi.Repositories.ServiceImages.Freelancers;
 using Eravol.WebApi.ViewModels.PostSkillRequires;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,32 @@ namespace Eravol.WebApi.Controllers.ServiceImages.Freelancers
 			this.serviceImagesRepository = serviceImagesRepository;
 		}
 
-		[HttpPost]
-		public async Task<IActionResult> CreatePostSkillRequires(int serviceId, List<IFormFile>? serviceImages)
+		[HttpGet("{serviceCode}")]
+		public async Task<IActionResult> GetServiceImgaesByCode(string serviceCode)
 		{
-			return Ok();
+			if (serviceCode == null)
+			{
+				return BadRequest("Service code is required!");
+			}
+
+			List<ServiceImage> serviceImagesList = await serviceImagesRepository.GetSeviceImagesByCodeAsync(serviceCode);
+			return Ok(serviceImagesList);
 		}
+
+
+		[HttpPost("{serviceCode}")]
+		public async Task<IActionResult> CreatePostSkillRequires(string serviceCode, List<IFormFile>? serviceImages)
+		{
+			if (serviceCode == null)
+			{
+				return BadRequest("Service code is required!");
+			}
+
+			List<ServiceImage> serviceImagesList =  await serviceImagesRepository.CreateServiceImages(serviceCode, serviceImages);
+
+			return CreatedAtAction("GetServiceImgaesByCode", new { ServiceCode = serviceCode }, serviceImagesList);
+		}
+
 
 	}
 }
