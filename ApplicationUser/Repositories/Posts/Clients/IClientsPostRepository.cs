@@ -9,7 +9,7 @@ namespace Eravol.WebApi.Repositories.Posts.Clients
         Task CreatePostAsync(Post post);
         Task DeletePostAsync(Post post);
         Task<Post?> GetPostById(int? postId);
-        Task<List<Post>> GetPostSearchPaging(PagingRequestBase<Post> request, Guid UserId);
+        Task<List<Post>> GetServiceSearchPaging(PagingRequestBase<Post> request, Guid UserId);
         Task UpdatePostAsync(Post post);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Eravol.UIClient.ViewModels.General;
 using Newtonsoft.Json;
-using System.Text;
 
 namespace Eravol.UIClient.Repositories.General
 {
@@ -35,15 +34,15 @@ namespace Eravol.UIClient.Repositories.General
 
                 case HTTP_PUT:
                     {
-						var jsonRequest = JsonConvert.SerializeObject(request.Data);
-						var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-						response = await client.PutAsJsonAsync(request.httpRelativePath, content);
+                        response = await client.PutAsJsonAsync(request.httpRelativePath, request.Data);
                         break;
                     }
 
                 case HTTP_POST:
                     {
 						
+						//var jsonRequest = JsonConvert.SerializeObject(request.Data);
+						//var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 						response = await client.PostAsJsonAsync(request.httpRelativePath, request.Data);
                         break;
                     }

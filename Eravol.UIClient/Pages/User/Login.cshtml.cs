@@ -59,11 +59,12 @@ namespace Eravol.UIClient.Pages.User
 			}
 			var token = response.loginResult;
 			HttpContext.Session.SetString("AuthToken", token);
+
 			var userPrincipal = this.ValidateToken(token);
 
 			var authProperties = new AuthenticationProperties
 			{
-				ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60),
+				ExpiresUtc = DateTimeOffset.UtcNow.AddDays(60),
 				IsPersistent = true
 			};
 
@@ -73,6 +74,7 @@ namespace Eravol.UIClient.Pages.User
 				authProperties);
 
 			var jsonData = new {
+				userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value,
 				loginStatus = "true",
 				username = User.Identity?.Name,
 				fullname = User.FindFirst(ClaimTypes.GivenName)?.Value,
@@ -85,7 +87,7 @@ namespace Eravol.UIClient.Pages.User
 		}
 
 		
-		public async Task<IActionResult> Logout()
+		public async Task<IActionResult> LogoutAsync()
 		{
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 			return RedirectToPage("/Index");
