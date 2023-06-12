@@ -1,4 +1,122 @@
 ﻿@page
+@using Eravol.WebApi.Data.Models;
 @model Eravol.UIClient.Pages.Posts.Clients.IndexModel
 @{
+	bool HasPreviousPage = Model.PagingRequest.HasPrevious;
+	bool HasNextPage = Model.PagingRequest.HasNext;
+	int TotalPages = Model.PagingRequest.TotalPages;
+	int PageSize = Model.PagingRequest.PageSize;
+	int CurrentPage = Model.PagingRequest.CurrentPage;
+	string? SearchTerm = Model.PagingRequest.SearchTerm;
+	List<Post>? Posts = Model.PagingRequest.Items;
 }
+<head>
+	<link rel="stylesheet" href="~/css/themify-icons.css">
+	<link rel="stylesheet" href="~/css/basictable.css">
+	<link rel="stylesheet" href="~/css/dashboard.css">
+	<link rel="stylesheet" href="~/css/dbresponsive.css">
+	<script src="~/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+<div class="form-group wt-btnarea">
+	<a asp-page="/Posts/Clients/Create" class="wt-btn">Create post</a>
+</div>
+<main id="wt-main" class="wt-main wt-haslayout">
+	<div class="wt-dashboardbox wt-categorys">
+	<div class="wt-dashboardboxtitle wt-titlewithsearch">
+		<h2>Posts</h2>
+		<form class="wt-formtheme wt-formsearch">
+			<fieldset>
+				<div class="form-group">
+					<input type="text" asp-for="@SearchTerm" class="form-control" placeholder="Search Post">
+					<button type="submit" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	<div class="wt-dashboardboxcontent wt-categoriescontentholder">
+	<table class="wt-tablecategories">
+		<thead>
+			<tr>
+				<th>Tittle</th>
+				<th>Sort Desccription</th>
+				<th>Details</th>
+				<th>Budget</th>
+				<th>Expiration Date</th>
+				<th>Posted Date</th>
+				<th>Last Updated Date</th>
+				<th>Category</th>
+				<th>Post Status</th>
+				<th>Level Required</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (Posts != null)
+			{
+				@foreach (var item in Posts)
+				{
+					<tr>
+						<td>@item.PostTitle</td>
+						<td>@item.SortDesc</td>
+						<td>@item.PostDetails</td>
+						<td>@item.Budget</td>
+						<td>@item.ExpirationDate</td>
+						<td>@item.PostedDate</td>
+						@if(item.LastUpdatedDate != null)
+						{
+							<td>@item.LastUpdatedDate</td>
+						}
+						else
+						{
+							<td>There is no update history</td>
+						}
+						<td>@item.Categories.CategoryName</td>
+						<td>@item.PostStatus.PostStatusName</td>
+						<td>@item.LevelRequired</td>
+						<td>
+							<div class="wt-actionbtn">
+								<a asp-page="/Posts/Clients/Update" asp-route-CategoryId="@item.PostId" class="wt-addinfo wt-skillsaddinfo" style="margin-bottom:3px"><i class="lnr lnr-pencil"></i></a><br/>
+								<a href="javascript:void(0)" class="wt-deleteinfo" onclick="confirmDelteCategory(@item.PostId)"><i class="lnr lnr-trash"></i></a>
+							</div>
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+	@if (HasPreviousPage || HasNextPage)
+	{
+		<nav class="wt-pagination">
+			<ul>
+				<li class="wt-prevpage">
+					<a asp-page="./Index" asp-route-CurrentPage="@CurrentPage-1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">
+						<i class="lnr lnr-chevron-left"></i>
+					</a>
+				</li>
+				@if (TotalPages <= 3)
+				{
+					for (int i = 1; i <= TotalPages; i++)
+					{
+						<li><a asp-route-CurrentPage="@i" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">@i</a></li>
+					}
+				}
+				else
+				{
+					for (int i = 1; i <= TotalPages; i++)
+					{
+						<li><a asp-route-CurrentPage="@i" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">@i</a></li>
+					}
+					<li><a href="javascrip:void(0);">...</a></li>
+					<li><a asp-route-CurrentPage="@TotalPages" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">Last Page</a></li>
+				}
+				<li asp-page="./Index" asp-route-CurrentPage="@CurrentPage+1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize" class="wt-nextpage">
+					<a href="javascrip:void(0);">
+						<i class="lnr lnr-chevron-right"></i>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	}
+	</div>
+	</div>
+	</main>
