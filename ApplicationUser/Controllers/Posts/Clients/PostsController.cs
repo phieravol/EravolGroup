@@ -72,7 +72,6 @@ namespace Eravol.WebApi.Controllers.Posts.Clients
             //set items for Paging ViewModel
             request.Items = posts;
 
-
             return Ok(request);
         }
 
@@ -85,14 +84,19 @@ namespace Eravol.WebApi.Controllers.Posts.Clients
         [HttpPost]
         public async Task<IActionResult> CreatePost(CreatePostRequest request)
         {
-            
+            //Get UserId by claims
             string? UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
+            //return error message if UserIdStr not found
             if (UserIdStr == null)
             {
                 return BadRequest("Username can not null");
             }
+
+            //Parse User ID into GUID
             Guid UserId = Guid.Parse(UserIdStr);
+
+            //Create new post object
             Post post = new Post()
             {
                 PostTitle = request.PostTitle,
@@ -107,41 +111,66 @@ namespace Eravol.WebApi.Controllers.Posts.Clients
                 UserId = UserId
             };
 
+            //Create new post into database
             await postsRepository.CreatePostAsync(post);
+
+            //Response postId
             int postId = post.PostId;
             return Created("./Index", postId);
         }
 
-
+        /// <summary>
+        /// Get Post by Post ID
+        /// </summary>
+        /// <param name="PostId"></param>
+        /// <returns></returns>
         [HttpGet("{PostId}")]
         public async Task<IActionResult> GetPostById(int? PostId)
         {
+            //Return error message if post ID is null
             if (PostId == null) return BadRequest("PostId can not be empty");
 
+            //Get Post by post ID from database
             Post? post = await postsRepository.GetPostById(PostId);
+
+            //return error message if post not found
             if (post == null) return BadRequest("Post Not Found");
 
             return Ok(post);
         }
 
+        /// <summary>
+        /// Update Post by PostId
+        /// </summary>
+        /// <param name="PostId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPut("{PostId}")]
         public async Task<IActionResult> UpdatePostById(int? PostId, UpdatePostRequest request)
         {
+            //return error message if postID not found
             if (PostId == null) return BadRequest("PostId can not be empty");
             
+            //Find UserId by claims
             string? UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
+            //return error message if userID not found
             if (string.IsNullOrEmpty(UserIdStr))
             {
                 return NotFound("User is not login, please login");
             }
+
+            //Parse UserId into GUID
             Guid UserId = Guid.Parse(UserIdStr);
 
+            //Get Post by PostID from Database
             Post? post = await postsRepository.GetPostById(PostId);
             if (post == null)
             {
                 return NotFound("Post not found");
             }
+
+            //Update Post Information
             post.PostId = request.PostId;
             post.PostStatusId= request.PostStatusId;
             post.PostTitle= request.PostTitle;
@@ -156,6 +185,11 @@ namespace Eravol.WebApi.Controllers.Posts.Clients
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete Post By Post Id
+        /// </summary>
+        /// <param name="PostId"></param>
+        /// <returns></returns>
         [HttpDelete("{PostId}")]
         public async Task<IActionResult> DeletePostById(int? PostId)
         {
