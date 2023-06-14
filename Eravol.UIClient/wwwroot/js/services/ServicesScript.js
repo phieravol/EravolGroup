@@ -40,6 +40,35 @@
         }
     });
 
+    //Display thumbnail images after select from computer
+    $("#filew").change(function () {
+        var fileInput = document.getElementById('filew');
+        var file = fileInput.files[0];
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var imageUrl = e.target.result;
+
+                // Hiển thị ảnh trên frontend
+                var html = '<li class="wt-uploadingholder wt-companyimg-uploading">' +
+                    '<div class="wt-uploadingbox">' +
+                    '<figure><img src="' + imageUrl + '" alt="img description"></figure>' +
+                    '<div class="wt-uploadingbar wt-uploading">' +
+                    '<span class="uploadprogressbar"></span>' +
+                    '<span>Profile Photo.jpg</span>' +
+                    '<em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>' +
+                    '</div>' +
+                    '</div>' +
+                    '</li>';
+                // Thêm khối thẻ HTML vào phần tử mục tiêu
+                $("#service-thumbnail-img").append(html);
+                console.log($("#service-thumbnail-img"))
+            };
+
+            reader.readAsDataURL(file);
+       
+    });
+
     // Add event listener when user click create services
     $("#createServiceBtn_Js").click(function () {
 
@@ -125,6 +154,11 @@ function createServiceByFormData(formData) {
         },
         contentType: 'application/json',
         success: function (response) {
+
+            //create service Thumbnail
+            createServiceThumbnail(response.serviceCode)
+
+            //create service images
             createServiceImages(response.serviceCode);
         },
         error: function (xhr, status, error) {
@@ -155,6 +189,41 @@ function createServiceImages(serviceCode) {
     }
 
     console.log(serviceImageUrl + serviceCode);
+    $.ajax({
+        url: serviceImageUrl + serviceCode,
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            console.log("image response: " + response);
+        },
+        error: function (xhr, status, error) {
+            console.log(status);
+            console.log(xhr);
+            console.log(xhr);
+
+            // Xử lý lỗi
+        }
+    });
+}
+
+
+/**
+ * Create Service thumbnail by service code
+ * */
+function createServiceThumbnail(serviceCode) {
+    //declare url
+    var serviceImageUrl = "https://localhost:7259/api/ServiceImages/thumbnail/";
+    //Get Service Images
+    var serviceImageInput = document.getElementById('filew');
+    var serviceImages = serviceImageInput.files;
+
+    //Add Images to formdata
+    var formData = new FormData();
+    
+    formData.append("thumbnail", serviceImages[0]);
+
     $.ajax({
         url: serviceImageUrl + serviceCode,
         type: "POST",

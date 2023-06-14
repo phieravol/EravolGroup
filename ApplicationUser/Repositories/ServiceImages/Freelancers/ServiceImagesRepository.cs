@@ -81,5 +81,42 @@ namespace Eravol.WebApi.Repositories.ServiceImages.Freelancers
 			}
 			return servicesImages;
 		}
+
+		public async Task<ServiceImage> CreateServiceThumbnail(string serviceCode, IFormFile? thumbnail)
+		{
+			if (thumbnail == null)
+			{
+				return null;
+			}
+
+			ServiceImage ServiceImage = new ServiceImage()
+			{
+				DateCreated = DateTime.Now,
+				ServiceCode = serviceCode,
+				isThumbnail = true,
+				ServiceImageSize = thumbnail.Length
+			};
+
+			ServiceImage.ImageName = await SaveFile(thumbnail);
+			ServiceImage.ServiceImagePath = "/" + USER_CONTENT_FOLDER_NAME + "/" + ServiceImage.ImageName;
+
+			try
+			{
+				context.ServicesImages.Add(ServiceImage);
+				await context.SaveChangesAsync();
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			}
+			return ServiceImage;
+		}
+
+		public async Task<ServiceImage> GetServiceThumbnail(string serviceCode)
+		{
+			var query = context.ServicesImages.Where(x => x.ServiceCode.Equals(serviceCode));
+			ServiceImage serviceImage= await query.FirstOrDefaultAsync();
+			return serviceImage;
+		}
 	}
 }
