@@ -101,10 +101,6 @@
 												<textarea id="serviceDetails_Js" name="serviceDetails" class="form-control" placeholder="Service Details"></textarea>
                                             </div>
 
-                                            <div class="wt-updatall">
-                                                <i class="ti-announcement"></i>
-												<input class="wt-btn" type="button" value="Save &amp; Update" />
-                                            </div>
                                         </fieldset>
                                     </form>
 								</div>
@@ -143,23 +139,23 @@
 									</div>
 									<div class="wt-profilephotocontent">
 										<div class="wt-description">
-											<p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua aut enim ad minim veniamac quis nostrud exercitation ullamco laboris.</p>
+											<p>Add your Service Thumbnail.</p>
 										</div>
-										<form class="wt-formtheme wt-formprojectinfo wt-formcategory">
+										<form class="wt-formtheme wt-formprojectinfo wt-formcategory" enctype="multipart/form-data">
 											<fieldset>
 												<div class="form-group form-group-label">
 													<div class="wt-labelgroup">
 														<label for="filew">
 															<span class="wt-btn">Select Files</span>
-															<input type="file" name="file" id="filew">
+															<input type="file" name="file" id="filew" accept=".jpg, .jpeg, .png">
 														</label>
 														<span>Drop files here to upload</span>
 														<em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
 													</div>
 												</div>
 												<div class="form-group">
-													<ul class="wt-attachfile wt-attachfilevtwo">
-														<li class="wt-uploadingholder">
+													<ul class="wt-attachfile wt-attachfilevtwo" id="service-thumbnail-img">
+														@*<li class="wt-uploadingholder">
 															<div class="wt-uploadingbox">
 																<div class="wt-designimg">
 																	<input id="demoq" type="radio" name="employees" value="company" checked="">
@@ -171,478 +167,14 @@
 																	<em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
 																</div>
 															</div>
-														</li>
+														</li>*@
 													</ul>
 												</div>
 											</fieldset>
 										</form>
 									</div>
 								</div>
-								<div class="wt-location wt-tabsinfo">
-									<div class="wt-tabscontenttitle">
-										<h2>Your Location</h2>
-									</div>
-									<form class="wt-formtheme wt-userform">
-										<fieldset>
-											<div class="form-group form-group-half">
-												<span class="wt-select">
-													<select>
-														<option value="">United States</option>
-														<option value="">China</option>
-														<option value="">India</option>
-													</select>
-												</span>
-											</div>
-											<div class="form-group form-group-half">
-												<input type="text" name="address" class="form-control" placeholder="Your Address">
-											</div>
-											<div class="form-group wt-formmap">
-												<div id="wt-locationmap" class="wt-locationmap"></div>
-											</div>
-											<div class="form-group form-group-half">
-												<input type="text" name="text" class="form-control" placeholder="Enter Longitude (Optional)">
-											</div>
-											<div class="form-group form-group-half">
-												<input type="text" name="text" class="form-control" placeholder="Enter Latitude (Optional)">
-											</div>
-										</fieldset>
-									</form>
-								</div>
-								<div class="wt-tabcompanyinfo wt-tabsinfo">
-									<div class="wt-tabscontenttitle">
-										<h2>Company Details</h2>
-									</div>
-									<div class="wt-accordiondetails">
-										<div class="wt-radioboxholder">
-											<div class="wt-title">
-												<h4>No. of employees you have</h4>
-											</div>
-											<span class="wt-radio">
-												<input id="wt-just" type="radio" name="employees" value="company" checked>
-												<label for="wt-just">It's just me</label>
-											</span>
-											<span class="wt-radio">
-												<input id="wt-employees" type="radio" name="employees" value="company">
-												<label for="wt-employees">2 - 9 employees</label>
-											</span>
-											<span class="wt-radio">
-												<input id="wt-employees1" type="radio" name="employees" value="company">
-												<label for="wt-employees1">10 - 99 employees</label>
-											</span>
-											<span class="wt-radio">
-												<input id="wt-employees2" type="radio" name="employees" value="company">
-												<label for="wt-employees2">100 - 499 employees</label>
-											</span>
-											<span class="wt-radio">
-												<input id="wt-employees3" type="radio" name="employees" value="company">
-												<label for="wt-employees3">500 - 1000 employees</label>
-											</span>
-											<span class="wt-radio">
-												<input id="wt-employees4" type="radio" name="employees" value="company">
-												<label for="wt-employees4">More than 1000 employees</label>
-											</span>
-										</div>
-										<div class="wt-radioboxholder">
-											<div class="wt-title">
-												<h4>Your Department?</h4>
-											</div>
-											<span class="wt-radio">
-												<input id="wt-department" type="radio" name="department" value="department" checked>
-												<label for="wt-department">Customer Service or Operations</label>
-											</span>
-											<span class="wt-radio">
-												<input id="wt-department1" type="radio" name="department" value="department">
-												<label for="wt-department1">Finance or Legal</label>
-											</span>
-											<span class="wt-radio">
-												<input id="wt-department2" type="radio" name="department" value="department">
-												<label for="wt-department2">Engineering or Product Management</label>
-											</span>
-											<span class="wt-radio">
-												<input id="wt-department3" type="radio" name="department" value="department">
-												<label for="wt-department3">Marketing or Sales</label>
-											</span>
-											<span class="wt-radio">
-												<input id="wt-department4" type="radio" name="department" value="department">
-												<label for="wt-department4">Human Resources</label>
-											</span>
-											<span class="wt-radio">
-												<input id="wt-department5" type="radio" name="department" value="department">
-												<label for="wt-department5">Other</label>
-											</span>
-										</div>
-									</div>
-								</div>
-								<div class="wt-skills">
-									<div class="wt-tabscontenttitle">
-										<h2>My Skills</h2>
-									</div>
-									<div class="wt-skillscontent-holder">
-										<form class="wt-formtheme wt-skillsform">
-											<fieldset>
-												<div class="form-group">
-													<div class="form-group-holder">
-														<span class="wt-select">
-															<select>
-																<option value="">Select Your Skill</option>
-																<option value="">HTML</option>
-																<option value="">PHP</option>
-																<option value="">JQUERY</option>
-															</select>
-														</span>
-														<input type="number" name="rate" class="form-control" placeholder="Rate Your Skill (0% to 100%)">
-													</div>
-												</div>
-												<div class="form-group wt-btnarea">
-													<a href="javascript:void(0);" class="wt-btn">Add Skills</a>
-												</div>
-											</fieldset>
-										</form>
-										<div class="wt-myskills">
-											<ul class="sortable list">
-												<li>
-													<div class="wt-dragdroptool">
-														<a href="javascript:void(0)" class="lnr lnr-menu"></a>
-													</div>
-													<span class="skill-dynamic-html">PHP (<em class="skill-val">90</em>%)</span>
-													<span class="skill-dynamic-field">
-														<input type="text" name="skills[1][percentage]" value="90">
-													</span>
-													<div class="wt-rightarea">
-														<a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-														<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-													</div>
-												</li>
-												<li>
-													<div class="wt-dragdroptool"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-													<span class="skill-dynamic-html">Website Design (<em class="skill-val">55</em>%)</span>
-													<span class="skill-dynamic-field">
-														<input type="text" name="skills[1][percentage]" value="90">
-													</span>
-													<div class="wt-rightarea">
-														<a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-														<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-													</div>
-												</li>
-												<li>
-													<div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-													<span class="skill-dynamic-html">HTML 5 (<em class="skill-val">90</em>%)</span>
-													<span class="skill-dynamic-field">
-														<input type="text" name="skills[1][percentage]" value="90">
-													</span>
-													<div class="wt-rightarea">
-														<a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-														<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-													</div>
-												</li>
-												<li>
-													<div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-													<span class="skill-dynamic-html">Graphic Design (<em class="skill-val">80</em>%)</span>
-													<span class="skill-dynamic-field">
-														<input type="text" name="skills[1][percentage]" value="90">
-													</span>
-													<div class="wt-rightarea">
-														<a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-														<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-													</div>
-												</li>
-												<li>
-													<div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-													<span class="skill-dynamic-html">Rate Your Skill (<em class="skill-val">10</em>%)</span>
-													<span class="skill-dynamic-field">
-														<input type="text" name="skills[1][percentage]" value="90">
-													</span>
-													<div class="wt-rightarea">
-														<a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-														<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-													</div>
-												</li>
-												<li>
-													<div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-													<span class="skill-dynamic-html">SEO (<em class="skill-val">35</em>%)</span>
-													<span class="skill-dynamic-field">
-														<input type="text" name="skills[1][percentage]" value="90">
-													</span>
-													<div class="wt-rightarea">
-														<a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-														<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-													</div>
-												</li>
-												<li>
-													<div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-													<span class="skill-dynamic-html">My SQL (<em class="skill-val">40</em>%)</span>
-													<span class="skill-dynamic-field">
-														<input type="text" name="skills[1][percentage]" value="90">
-													</span>
-													<div class="wt-rightarea">
-														<a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-														<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-													</div>
-												</li>
-												<li>
-													<div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-													<span class="skill-dynamic-html">Content Writing (<em class="skill-val">80</em>%)</span>
-													<span class="skill-dynamic-field">
-														<input type="text" name="skills[1][percentage]" value="90">
-													</span>
-													<div class="wt-rightarea">
-														<a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-														<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-													</div>
-												</li>
-												<li>
-													<div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-													<span class="skill-dynamic-html">CSS (<em class="skill-val">80</em>%)</span>
-													<span class="skill-dynamic-field">
-														<input type="text" name="skills[1][percentage]" value="90">
-													</span>
-													<div class="wt-rightarea">
-														<a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-														<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-													</div>
-												</li>
-												<li>
-													<div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-													<span class="skill-dynamic-html">Jquery (<em class="skill-val">75</em>%)</span>
-													<span class="skill-dynamic-field">
-														<input type="text" name="skills[1][percentage]" value="90">
-													</span>
-													<div class="wt-rightarea">
-														<a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-														<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-													</div>
-												</li>
-												<li>
-													<div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-													<span class="skill-dynamic-html">Bootstrap (<em class="skill-val">96</em>%)</span>
-													<span class="skill-dynamic-field">
-														<input type="text" name="skills[1][percentage]" value="90">
-													</span>
-													<div class="wt-rightarea">
-														<a href="javascript:void(0);" class="wt-addinfo"><i class="lnr lnr-pencil"></i></a>
-														<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-													</div>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="wt-educationholder tab-pane fade" id="wt-education">
-								<div class="wt-userexperience wt-tabsinfo">
-									<div class="wt-tabscontenttitle wt-addnew">
-										<h2>Add Your Experience</h2>
-										<a href="javascript:void(0);">Add New</a>
-									</div>
-									<ul class="wt-experienceaccordion accordion">
-										<li>
-											<div class="wt-accordioninnertitle">
-												<span id="accordioninnertitle" data-toggle="collapse" data-target="#innertitle">Web &amp; Apps Project Manager<em>(Jun 2017 - Jul 2018)</em></span>
-												<div class="wt-rightarea">
-													<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" id="accordioninnertitle" data-toggle="collapse" data-target="#innertitle" aria-expanded="true"><i class="lnr lnr-pencil"></i></a>
-													<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-												</div>
-											</div>
-											<div class="wt-collapseexp collapse show" id="innertitle" aria-labelledby="accordioninnertitle" data-parent="#accordion">
-												<form class="wt-formtheme wt-userform">
-													<fieldset>
-														<div class="form-group form-group-half">
-															<input type="text" name="Company Title" class="form-control" placeholder="Company Title">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="text" name="Starting Date" class="form-control" placeholder="Starting Date">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="email" name="Ending Date" class="form-control" placeholder="Ending Date *">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="number" name="Job Title" class="form-control" placeholder="Your Job Title">
-														</div>
-														<div class="form-group">
-															<textarea name="message" class="form-control" placeholder="Your Job Description"></textarea>
-														</div>
-														<div class="form-group">
-															<span>* Leave ending date empty if its your current job</span>
-														</div>
-													</fieldset>
-												</form>
-											</div>
-										</li>
-										<li>
-											<div class="wt-accordioninnertitle">
-												<span id="accordioninnertitlea" data-toggle="collapse" data-target="#innertitlea">Sr. PHP &amp; Laravel Developer<em>(Jun 2017 - Jul 2018)</em></span>
-												<div class="wt-rightarea">
-													<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" id="accordioninnertitlea" data-toggle="collapse" data-target="#innertitlea" aria-expanded="true"><i class="lnr lnr-pencil"></i></a>
-													<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-												</div>
-											</div>
-											<div class="wt-collapseexp collapse hide" id="innertitlea" aria-labelledby="accordioninnertitleaa" data-parent="#accordion">
-												<form class="wt-formtheme wt-userform">
-													<fieldset>
-														<div class="form-group form-group-half">
-															<input type="text" name="Company Title" class="form-control" placeholder="Company Title">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="text" name="Starting Date" class="form-control" placeholder="Starting Date">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="email" name="Ending Date" class="form-control" placeholder="Ending Date *">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="number" name="Job Title" class="form-control" placeholder="Your Job Title">
-														</div>
-														<div class="form-group">
-															<textarea name="message" class="form-control" placeholder="Your Job Description"></textarea>
-														</div>
-														<div class="form-group">
-															<span>* Leave ending date empty if its your current job</span>
-														</div>
-													</fieldset>
-												</form>
-											</div>
-										</li>
-										<li>
-											<div class="wt-accordioninnertitle">
-												<span id="accordioninnertitleb" data-toggle="collapse" data-target="#innertitleb">PHP &amp; Laravel Developer <em>(Apr 2016 - Jul 2017)</em></span>
-												<div class="wt-rightarea">
-													<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" id="accordioninnertitleb" data-toggle="collapse" data-target="#innertitleb" aria-expanded="true"><i class="lnr lnr-pencil"></i></a>
-													<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-												</div>
-											</div>
-											<div class="wt-collapseexp collapse hide" id="innertitleb" aria-labelledby="accordioninnertitleb" data-parent="#accordion">
-												<form class="wt-formtheme wt-userform">
-													<fieldset>
-														<div class="form-group form-group-half">
-															<input type="text" name="Company Title" class="form-control" placeholder="Company Title">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="text" name="Starting Date" class="form-control" placeholder="Starting Date">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="email" name="Ending Date" class="form-control" placeholder="Ending Date *">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="number" name="Job Title" class="form-control" placeholder="Your Job Title">
-														</div>
-														<div class="form-group">
-															<textarea name="message" class="form-control" placeholder="Your Job Description"></textarea>
-														</div>
-														<div class="form-group">
-															<span>* Leave ending date empty if its your current job</span>
-														</div>
-													</fieldset>
-												</form>
-											</div>
-										</li>
-									</ul>
-								</div>
-								<div class="wt-userexperience">
-									<div class="wt-tabscontenttitle wt-addnew">
-										<h2>Add Your Education</h2>
-										<a href="javascript:void(0);">Add New</a>
-									</div>
-									<ul class="wt-experienceaccordion accordion">
-										<li>
-											<div class="wt-accordioninnertitle">
-												<span id="accordioninnertitle1" data-toggle="collapse" data-target="#innertitle1">Web &amp; Apps Project Manager<em>(Jun 2017 - Jul 2018)</em></span>
-												<div class="wt-rightarea">
-													<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" id="accordioninnertitle1" data-toggle="collapse" data-target="#innertitle1" aria-expanded="true"><i class="lnr lnr-pencil"></i></a>
-													<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-												</div>
-											</div>
-											<div class="wt-collapseexp collapse show" id="innertitle1" aria-labelledby="accordioninnertitle1" data-parent="#accordion">
-												<form class="wt-formtheme wt-userform">
-													<fieldset>
-														<div class="form-group form-group-half">
-															<input type="text" name="Company Title" class="form-control" placeholder="Company Title">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="text" name="Starting Date" class="form-control" placeholder="Starting Date">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="email" name="Ending Date" class="form-control" placeholder="Ending Date *">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="number" name="Job Title" class="form-control" placeholder="Your Job Title">
-														</div>
-														<div class="form-group">
-															<textarea name="message" class="form-control" placeholder="Your Job Description"></textarea>
-														</div>
-														<div class="form-group">
-															<span>* Leave ending date empty if its your current job</span>
-														</div>
-													</fieldset>
-												</form>
-											</div>
-										</li>
-										<li>
-											<div class="wt-accordioninnertitle">
-												<span id="accordioninnertitlea2" data-toggle="collapse" data-target="#innertitlea2">Sr. PHP &amp; Laravel Developer<em>(Jun 2017 - Jul 2018)</em></span>
-												<div class="wt-rightarea">
-													<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" id="accordioninnertitlea2" data-toggle="collapse" data-target="#innertitlea2" aria-expanded="true"><i class="lnr lnr-pencil"></i></a>
-													<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-												</div>
-											</div>
-											<div class="wt-collapseexp collapse hide" id="innertitlea2" aria-labelledby="accordioninnertitleaa" data-parent="#accordion">
-												<form class="wt-formtheme wt-userform">
-													<fieldset>
-														<div class="form-group form-group-half">
-															<input type="text" name="Company Title" class="form-control" placeholder="Company Title">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="text" name="Starting Date" class="form-control" placeholder="Starting Date">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="email" name="Ending Date" class="form-control" placeholder="Ending Date *">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="number" name="Job Title" class="form-control" placeholder="Your Job Title">
-														</div>
-														<div class="form-group">
-															<textarea name="message" class="form-control" placeholder="Your Job Description"></textarea>
-														</div>
-														<div class="form-group">
-															<span>* Leave ending date empty if its your current job</span>
-														</div>
-													</fieldset>
-												</form>
-											</div>
-										</li>
-										<li>
-											<div class="wt-accordioninnertitle">
-												<span id="accordioninnertitleb3" data-toggle="collapse" data-target="#innertitleb3">PHP &amp; Laravel Developer <em>(Apr 2016 - Jul 2017)</em></span>
-												<div class="wt-rightarea">
-													<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" id="accordioninnertitleb" data-toggle="collapse" data-target="#innertitleb" aria-expanded="true"><i class="lnr lnr-pencil"></i></a>
-													<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-												</div>
-											</div>
-											<div class="wt-collapseexp collapse hide" id="innertitleb3" aria-labelledby="accordioninnertitleb3" data-parent="#accordion">
-												<form class="wt-formtheme wt-userform">
-													<fieldset>
-														<div class="form-group form-group-half">
-															<input type="text" name="Company Title" class="form-control" placeholder="Company Title">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="text" name="Starting Date" class="form-control" placeholder="Starting Date">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="email" name="Ending Date" class="form-control" placeholder="Ending Date *">
-														</div>
-														<div class="form-group form-group-half">
-															<input type="number" name="Job Title" class="form-control" placeholder="Your Job Title">
-														</div>
-														<div class="form-group">
-															<textarea name="message" class="form-control" placeholder="Your Job Description"></textarea>
-														</div>
-														<div class="form-group">
-															<span>* Leave ending date empty if its your current job</span>
-														</div>
-													</fieldset>
-												</form>
-											</div>
-										</li>
-									</ul>
-								</div>
+								
 							</div>
 							
 						</div>
@@ -695,7 +227,7 @@
 
 	<script>
 		tinymce.init({
-			selector: '#wt-ckeditor',
+			selector: '#serviceDetails_Js',
 			plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
 			toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
 			tinycomments_mode: 'embedded',

@@ -29,9 +29,14 @@ namespace Eravol.WebApi.Controllers.ServiceImages.Freelancers
 			return Ok(serviceImagesList);
 		}
 
-
+		/// <summary>
+		/// Create List image of service by service code
+		/// </summary>
+		/// <param name="serviceCode"></param>
+		/// <param name="serviceImages"></param>
+		/// <returns></returns>
 		[HttpPost("{serviceCode}")]
-		public async Task<IActionResult> CreatePostSkillRequires(string serviceCode, List<IFormFile>? serviceImages)
+		public async Task<IActionResult> CreateServiceImages(string serviceCode, List<IFormFile>? serviceImages)
 		{
 			if (serviceCode == null)
 			{
@@ -44,5 +49,23 @@ namespace Eravol.WebApi.Controllers.ServiceImages.Freelancers
 		}
 
 
+		/// <summary>
+		/// Create Service thumbnail by serviceCode & image from ajax
+		/// </summary>
+		/// <param name="serviceCode"></param>
+		/// <param name="serviceImages"></param>
+		/// <returns></returns>
+		[HttpPost("thumbnail/{serviceCode}")]
+		public async Task<IActionResult> CreateServiceThumbnail(string serviceCode, IFormFile? thumbnail)
+		{
+			if (serviceCode == null)
+			{
+				return BadRequest("Service code is required!");
+			}
+
+			ServiceImage serviceThumbnail = await serviceImagesRepository.CreateServiceThumbnail(serviceCode, thumbnail);
+
+			return CreatedAtAction("GetServiceImgaesByCode", new { ServiceCode = serviceCode }, serviceThumbnail);
+		}
 	}
 }

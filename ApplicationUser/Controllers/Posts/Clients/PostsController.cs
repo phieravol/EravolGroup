@@ -112,6 +112,7 @@ namespace Eravol.WebApi.Controllers.Posts.Clients
             return Created("./Index", postId);
         }
 
+
         [HttpGet("{PostId}")]
         public async Task<IActionResult> GetPostById(int? PostId)
         {
