@@ -73,6 +73,7 @@ namespace Eravol.WebApi.Repositories.ServiceImages.Freelancers
 			{
 				servicesImages = await context.ServicesImages
 					.Where(x => x.ServiceCode == serviceCode)
+					.Where(x => x.isThumbnail == false)
 					.ToListAsync();
 			}
 			catch (Exception e)
@@ -114,9 +115,36 @@ namespace Eravol.WebApi.Repositories.ServiceImages.Freelancers
 
 		public async Task<ServiceImage> GetServiceThumbnail(string serviceCode)
 		{
-			var query = context.ServicesImages.Where(x => x.ServiceCode.Equals(serviceCode));
+			var query = context.ServicesImages
+				.Where(x => x.ServiceCode.Equals(serviceCode))
+				.Where(x =>x.isThumbnail);
 			ServiceImage serviceImage= await query.FirstOrDefaultAsync();
 			return serviceImage;
+		}
+
+		public async Task<ServiceImage> GetServiceImageByImgName(string serviceImgName)
+		{
+			ServiceImage? image = await context.ServicesImages.FirstOrDefaultAsync(x => x.ImageName.Equals(serviceImgName));
+			return image;
+		}
+
+		/// <summary>
+		/// Remove Service Image from database
+		/// </summary>
+		/// <param name="serviceImgName"></param>
+		/// <returns></returns>
+		/// <exception cref="Exception"></exception>
+		public async Task RemoveServiceImage(ServiceImage serviceImgName)
+		{
+			try
+			{
+				context.ServicesImages.Remove(serviceImgName);
+				await context.SaveChangesAsync();
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			}
 		}
 	}
 }

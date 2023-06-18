@@ -53,7 +53,7 @@ namespace Eravol.WebApi.Controllers.PostSkills
         }
 
         /// <summary>
-        /// Update Post Skill Require by Ajax
+        /// UpdateServiceRequest Post Skill Require by Ajax
         /// </summary>
         /// <param name="skillRequireId"></param>
         /// <param name="skillRequires"></param>

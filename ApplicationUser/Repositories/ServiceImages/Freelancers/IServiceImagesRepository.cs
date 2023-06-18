@@ -6,7 +6,9 @@ namespace Eravol.WebApi.Repositories.ServiceImages.Freelancers
 	{
 		Task<List<ServiceImage>> CreateServiceImages(string serviceCode, List<IFormFile>? serviceImages);
 		Task<ServiceImage> CreateServiceThumbnail(string serviceCode, IFormFile? thumbnail);
+		Task<ServiceImage> GetServiceImageByImgName(string serviceImgName);
 		Task<ServiceImage> GetServiceThumbnail(string serviceCode);
 		Task<List<ServiceImage>> GetSeviceImagesByCodeAsync(string serviceCode);
+		Task RemoveServiceImage(ServiceImage serviceImgName);
 	}
 }

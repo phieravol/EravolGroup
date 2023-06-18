@@ -222,19 +222,24 @@
 
 @section Scripts {
     <script src="~/js/services/servicesscript.js"></script>
-	<script src="https://cdn.tiny.cloud/1/gz99x7mqye1wwd402tpad6bowpogtqysbxyxa4n3620b17ih/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+	<script src="https://cdn.tiny.cloud/1/xb41srbe20jwghubvngbzc8fnb6m02d3nomv82zvyw5srhia/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	<script>
-		tinymce.init({
-			selector: '#serviceDetails_Js',
-			plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
-			toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-			tinycomments_mode: 'embedded',
-			tinycomments_author: 'Author name',
-			mergetags_list: [
-				{ value: 'First.Name', title: 'First Name' },
-				{ value: 'Email', title: 'Email' },
+        tinymce.init({
+            selector: '#serviceDetails_Js',
+            init_instance_callback: function (editor) {
+                // Gọi hàm getContent() khi trình soạn thảo đã khởi tạo
+                var content = editor.getContent();
+                // Gửi dữ liệu đến máy chủ bằng AJAX hoặc xử lý dữ liệu theo nhu cầu
+            },
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
 			]
 		});
 	</script>

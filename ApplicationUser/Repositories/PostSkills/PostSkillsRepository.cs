@@ -54,7 +54,7 @@ namespace Eravol.WebApi.Repositories.PostSkills
         }
 
         /// <summary>
-        /// Update PostSkillRequire by current object
+        /// UpdateServiceRequest PostSkillRequire by current object
         /// </summary>
         /// <param name="skillRequire"></param>
         /// <returns></returns>
