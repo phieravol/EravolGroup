@@ -148,6 +148,48 @@ namespace Eravol.WebApi.Controllers.Services.Freelancers
 			return CreatedAtAction("GetService", new { id = service.ServiceCode }, service);
 		}
 
-		
+		/// <summary>
+		/// Update current service
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
+		[HttpPut]
+		[Authorize]
+		public async Task<IActionResult> UpdateServices(UpdateServiceRequest? request)
+		{
+			//return error message if request is null
+			if (request == null)
+			{
+				return BadRequest("All update service information is required!");
+			}
+
+			//Get current service before update in database
+			Service? service = await servicesRepository.GetServiceByCode(request.ServiceCode);
+			if (service == null)
+			{
+				return NotFound("No service with corresponding service code");
+			}
+
+			//Get Category By CategoryId
+			Category category = await categoryRepository.GetCategoryByIdAsync(request.CategoryId);
+
+			//get ServiceStatus by ServiceStatusId
+			ServiceStatus serviceStatus = await serviceStatusRepository.GetServiceStatusById(request.ServiceStatusId);
+
+			service.ServiceTitle = request.ServiceTitle;
+			service.ServiceIntro = request.ServiceIntro;
+			service.ServiceDetails = request.ServiceDetails;
+			service.CategoryId = request.CategoryId;
+			service.ServiceStatusId = request.ServiceStatusId;
+			service.Categories = category;
+			service.ServiceStatus = serviceStatus;
+
+
+			//Update current service in database
+			Service currentService = await servicesRepository.UpdateService(service);
+
+			return Ok();
+		}
+
 	}
 }

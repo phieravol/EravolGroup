@@ -86,8 +86,8 @@
 											<td>@item.ServiceStatus.ServiceStatusName</td>
 											<td>
 												<div class="wt-actionbtn">
-													<a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-													<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
+													<a asp-page="./Update" asp-route-serviceId="@item.ServiceCode" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
+													<a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash" onclick="deleteServiceInfo('@item.ServiceCode')"></i></a>
 												</div>
 											</td>
 										</tr>
@@ -140,3 +140,7 @@
 	<!--Register Form End-->
 </main>
 <!--Main End-->	
+
+@section Scripts {
+    <script src="~/js/services/deleteservicescript.js"></script>
+}

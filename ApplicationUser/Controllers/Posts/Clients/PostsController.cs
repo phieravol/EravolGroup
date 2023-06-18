@@ -140,7 +140,7 @@ namespace Eravol.WebApi.Controllers.Posts.Clients
         }
 
         /// <summary>
-        /// Update Post by PostId
+        /// UpdateServiceRequest Post by PostId
         /// </summary>
         /// <param name="PostId"></param>
         /// <param name="request"></param>
@@ -170,7 +170,7 @@ namespace Eravol.WebApi.Controllers.Posts.Clients
                 return NotFound("Post not found");
             }
 
-            //Update Post Information
+            //UpdateServiceRequest Post Information
             post.PostId = request.PostId;
             post.PostStatusId= request.PostStatusId;
             post.PostTitle= request.PostTitle;

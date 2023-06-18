@@ -8,12 +8,16 @@
 
   <ItemGroup>
     <Compile Remove="Repositories\User\Public\**" />
+    <Compile Remove="Utilities\**" />
     <Compile Remove="ViewModels\Users\**" />
     <Content Remove="Repositories\User\Public\**" />
+    <Content Remove="Utilities\**" />
     <Content Remove="ViewModels\Users\**" />
     <EmbeddedResource Remove="Repositories\User\Public\**" />
+    <EmbeddedResource Remove="Utilities\**" />
     <EmbeddedResource Remove="ViewModels\Users\**" />
     <None Remove="Repositories\User\Public\**" />
+    <None Remove="Utilities\**" />
     <None Remove="ViewModels\Users\**" />
   </ItemGroup>
 
@@ -39,10 +43,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Utilities\" />
   </ItemGroup>
 
 </Project>

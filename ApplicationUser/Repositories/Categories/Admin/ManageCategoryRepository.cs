@@ -123,7 +123,7 @@ namespace Eravol.WebApi.Repositories.Categories.Admin
         }
 
         /// <summary>
-        /// Update Image by current File and old categoryname
+        /// UpdateServiceRequest Image by current File and old categoryname
         /// </summary>
         /// <param name="categoryImage1"></param>
         /// <param name="categoryImage2"></param>

@@ -17,6 +17,11 @@ namespace Eravol.WebApi.Controllers.ServiceImages.Freelancers
 			this.serviceImagesRepository = serviceImagesRepository;
 		}
 
+		/// <summary>
+		/// Get Service images by service Code
+		/// </summary>
+		/// <param name="serviceCode"></param>
+		/// <returns></returns>
 		[HttpGet("{serviceCode}")]
 		public async Task<IActionResult> GetServiceImgaesByCode(string serviceCode)
 		{
@@ -27,6 +32,18 @@ namespace Eravol.WebApi.Controllers.ServiceImages.Freelancers
 
 			List<ServiceImage> serviceImagesList = await serviceImagesRepository.GetSeviceImagesByCodeAsync(serviceCode);
 			return Ok(serviceImagesList);
+		}
+		
+		[HttpGet("thumbnail/{serviceCode}")]
+		public async Task<IActionResult> GetServiceThumbnail(string serviceCode)
+		{
+			if (serviceCode == null)
+			{
+				return BadRequest("Service code is required!");
+			}
+
+			ServiceImage? thumbnail = await serviceImagesRepository.GetServiceThumbnail(serviceCode);
+			return Ok(thumbnail);
 		}
 
 		/// <summary>

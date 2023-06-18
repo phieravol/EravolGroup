@@ -83,5 +83,25 @@ namespace Eravol.WebApi.Repositories.Services.Freelancers
 			}
 			return services;
 		}
+
+		/// <summary>
+		/// Update service into database
+		/// </summary>
+		/// <param name="service"></param>
+		/// <returns></returns>
+		/// <exception cref="Exception"></exception>
+		public async Task<Service> UpdateService(Service service)
+		{
+			try
+			{
+				context.Entry<Service>(service).State = EntityState.Modified;
+				await context.SaveChangesAsync();
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			}
+			return service;
+		}
 	}
 }

@@ -135,7 +135,7 @@ function createServiceByFormData(formData) {
     var categoryId = $("#categoryId_Js").val();
     var serviceStatusId = $("#serviceStatusId_Js").val();
     var serviceIntro = $("#serviceIntro_Js").val();
-    var serviceDetails = $("#serviceDetails_Js").val();
+    var serviceDetails = tinymce.get('serviceDetails_Js').getContent();
 
     $.ajax({
         url: serviceUrl,
@@ -202,8 +202,6 @@ function createServiceImages(serviceCode) {
             console.log(status);
             console.log(xhr);
             console.log(xhr);
-
-            // Xử lý lỗi
         }
     });
 }
@@ -237,8 +235,6 @@ function createServiceThumbnail(serviceCode) {
             console.log(status);
             console.log(xhr);
             console.log(xhr);
-
-            // Xử lý lỗi
         }
     });
 }
