@@ -84,6 +84,19 @@ namespace Eravol.WebApi.Repositories.Services.Freelancers
 			return services;
 		}
 
+		public async Task RemoveServicesSelected(List<Service> servicesSelected)
+		{
+			try
+			{
+				context.Services.RemoveRange(servicesSelected);
+				await context.SaveChangesAsync();
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			}
+		}
+
 		/// <summary>
 		/// Update service into database
 		/// </summary>

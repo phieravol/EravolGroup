@@ -1,6 +1,8 @@
 ﻿using Eravlol.UserWebApi.Data.Models;
 using Eravol.WebApi.Data.Models;
 using Eravol.WebApi.Repositories.Categories.Admin;
+using Eravol.WebApi.Repositories.Images;
+using Eravol.WebApi.Repositories.ServiceImages.Freelancers;
 using Eravol.WebApi.Repositories.Services.Freelancers;
 using Eravol.WebApi.Repositories.Servicestatuses.Freelancers;
 using Eravol.WebApi.ViewModels.Base;
@@ -24,18 +26,24 @@ namespace Eravol.WebApi.Controllers.Services.Freelancers
         private readonly IManageCategoryRepository categoryRepository;
         private readonly IServiceStatusesRepository serviceStatusRepository;
 		private readonly UserManager<AppUser> userManager;
+		private readonly IFileStorageService fileStorageRepository;
+		private readonly IServiceImagesRepository serviceImagesRepository;
 
 		public ServicesController(
 			IManageServicesRepository servicesRepository,
 			IManageCategoryRepository categoryRepository,
 			IServiceStatusesRepository serviceStatusRepository,
-			UserManager<AppUser> userManager
+			UserManager<AppUser> userManager,
+			IFileStorageService fileStorageRepository,
+			IServiceImagesRepository serviceImagesRepository
 		)
 		{
 			this.servicesRepository = servicesRepository;
 			this.categoryRepository = categoryRepository;
 			this.serviceStatusRepository = serviceStatusRepository;
 			this.userManager = userManager;
+			this.fileStorageRepository = fileStorageRepository;
+			this.serviceImagesRepository = serviceImagesRepository;
 		}
 
 		/// <summary>
@@ -189,6 +197,34 @@ namespace Eravol.WebApi.Controllers.Services.Freelancers
 			Service currentService = await servicesRepository.UpdateService(service);
 
 			return Ok();
+		}
+
+		[HttpDelete]
+		public async Task<IActionResult> DeleteSeletedServices(List<string>? request)
+		{
+			if (request == null) return BadRequest("request is null");
+			List<Service> servicesSelected = new List<Service>();
+			foreach (var serviceCode in request)
+			{
+				Service? service = await servicesRepository.GetServiceByCode(serviceCode);
+				if (service != null)
+				{
+					List<ServiceImage> serviceImages = await serviceImagesRepository.GetImagesByServiceCode(serviceCode);
+					if (serviceImages != null)
+					{
+						foreach (var image in serviceImages)
+						{
+							await fileStorageRepository.DeleteFileAsync(image.ImageName);
+						}
+						await serviceImagesRepository.RemoveMultiServiceImages(serviceImages);
+					}
+					
+					servicesSelected.Add(service);
+				}
+			}
+
+			await servicesRepository.RemoveServicesSelected(servicesSelected);
+			return NoContent();
 		}
 
 	}

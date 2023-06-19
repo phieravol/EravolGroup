@@ -126,7 +126,6 @@ function setStateServiceCodeElement(selectedValue) {
 function createServiceByFormData(formData) {
     const serviceUrl = "https://localhost:7259/api/Services";
     var token = $("#token_Js").val();
-    console.log("token: " + token);
 
     //Get Service informations
     var serviceTitle = $("#serviceTitle_Js").val();

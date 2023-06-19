@@ -8,6 +8,7 @@ namespace Eravol.WebApi.Repositories.Services.Freelancers
 		Task CreateServiceAsync(Service service);
 		Task<Service?> GetServiceByCode(string id);
 		Task<List<Service>> GetServicesPaging(PagingRequestBase<Service> request, Guid userId);
+		Task RemoveServicesSelected(List<Service> servicesSelected);
 		Task<Service> UpdateService(Service service);
 	}
 }
