@@ -12,6 +12,8 @@ namespace Eravol.WebApi.Data.Models
 		public int? TotalStars { get; set; }
 		public int? TotalClients { get; set; }
 		public string ServiceAuthor { get; set; }
+		public string PriceType { get; set; }
+		public decimal Price { get; set; }
 		#endregion
 
 

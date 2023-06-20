@@ -148,6 +148,8 @@ namespace Eravol.WebApi.Controllers.Services.Freelancers
 				ServiceStatus= serviceStatus,
 				TotalClients = 0,
 				TotalStars = 0,
+				PriceType = request.PriceType,
+				Price = request.Price
 			};
 
 			// Add Service to Database
@@ -191,6 +193,8 @@ namespace Eravol.WebApi.Controllers.Services.Freelancers
 			service.ServiceStatusId = request.ServiceStatusId;
 			service.Categories = category;
 			service.ServiceStatus = serviceStatus;
+			service.PriceType = request.PriceType;
+			service.Price = request.Price;
 
 
 			//Update current service in database

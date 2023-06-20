@@ -199,6 +199,8 @@ function updateServiceInfo() {
     var serviceStatusId = $('#serviceStatusId_Js').val();
     var serviceIntro = $('#serviceIntro_Js').val();
     var serviceDetails = tinymce.get('serviceDetails_Js').getContent();
+    var priceType = $("#price-type").val();
+    var price = $("#price-amount").val();
     var token = $('#token_Js').val();
 
     var baseUrl = 'https://localhost:7259/';
@@ -213,7 +215,9 @@ function updateServiceInfo() {
             serviceIntro: serviceIntro,
             serviceDetails: serviceDetails,
             categoryId: categoryId,
-            serviceStatusId: serviceStatusId
+            serviceStatusId: serviceStatusId,
+            priceType: priceType,
+            price: price
         }),
         headers: {
             'Authorization': 'Bearer ' + token

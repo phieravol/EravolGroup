@@ -80,6 +80,10 @@
         var serviceStatusId = $("#serviceStatusId_Js").val();
         var serviceIntro = $("#serviceIntro_Js").val();
         var serviceDetails = $("#serviceDetails_Js").val();
+        var priceType = $("#price-type").val();
+        var priceAmount = $("#price-amount").val();
+
+        
 
         //Get Service Images
         var serviceImageInput = document.getElementById('filep');
@@ -135,6 +139,9 @@ function createServiceByFormData(formData) {
     var serviceStatusId = $("#serviceStatusId_Js").val();
     var serviceIntro = $("#serviceIntro_Js").val();
     var serviceDetails = tinymce.get('serviceDetails_Js').getContent();
+    var priceType = $("#price-type").val();
+    var price = $("#price-amount").val();
+
 
     $.ajax({
         url: serviceUrl,
@@ -146,7 +153,9 @@ function createServiceByFormData(formData) {
             serviceDetails: serviceDetails,
             isGenerateCode: IsGenerateCode,
             categoryId: categoryId,
-            serviceStatusId: serviceStatusId
+            serviceStatusId: serviceStatusId,
+            priceType: priceType,
+            price: price
         }),
         headers: {
             'Authorization': 'Bearer ' + token
