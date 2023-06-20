@@ -22,6 +22,7 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Text.Json.Serialization;
 using Eravol.WebApi.Repositories.ServiceImages.Freelancers;
+using Eravol.WebApi.Repositories.Services.Publics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -127,7 +128,7 @@ builder.Services.AddTransient<IPostsPublicRepository, PostsPublicRepository>();
 builder.Services.AddTransient<IManageServicesRepository, ManageServicesRepository>();
 builder.Services.AddTransient<IServiceStatusesRepository, ServiceStatusesRepository>();
 builder.Services.AddTransient<IServiceImagesRepository, ServiceImagesRepository>();
-
+builder.Services.AddTransient<IServicesPublicRepository, ServicesPublicRepository>();
 
 var app = builder.Build();
 
