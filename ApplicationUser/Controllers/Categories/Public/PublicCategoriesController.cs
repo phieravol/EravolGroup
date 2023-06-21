@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace Eravol.WebApi.Controllers.Categories
+namespace Eravol.WebApi.Controllers.Categories.Public
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -25,5 +25,13 @@ namespace Eravol.WebApi.Controllers.Categories
             List<Category> Categories = publicCategoryService.GetAllCategories();
             return Ok(Categories);
         }
-    }
+
+        [HttpGet("{keyword}")]
+		public async Task<IActionResult> GetCategoriesBySearchTerm(string? keyword)
+		{
+            List<Category> categories = publicCategoryService.GetCategoriesBySearchTerm(keyword);
+            return Ok(categories);
+		}
+
+	}
 }
