@@ -252,27 +252,44 @@ function sendPublicServicePagingReques(categories, serviceStatuses, currentPage)
     }
 
     var Url = baseUrl + apiUrl;
-    console.log(Url);
     $.ajax({
         url: Url,
         method: "GET",
         success: function (response) {
-            console.log(response);
-            var servicesList = response.items;
-            $("#services-container").empty();
-            
-            servicesList["$values"].forEach(function (service) {
-                var serviceType = "";
-                if (service.priceType == "anyType") {
-                    serviceType = "Any Price Type";
-                } else if (service.priceType == "hourly") {
-                    serviceType = "Hourly Price";
-                } else if (service.priceType == "fixed") {
-                    serviceType = "Fix Price";
-                }
-                
-                var html =
-                    `<div class="wt-userlistinghold wt-featured wt-userlistingholdvtwo">
+            //display service response
+            displayServiceResponse(response);
+            //Display pageIndex response
+            displayPagingIndexesItems(response);
+            //Display total result item
+            displayTotalResultItems(response);
+        },
+        error: function (xhr, status, error) {
+            // Xử lý lỗi khi yêu cầu thất bại
+            console.log("Lỗi: " + error);
+        }
+    });
+}
+
+
+/**
+ * Display services response
+ * */
+function displayServiceResponse(response) {
+    var servicesList = response.items;
+    $("#services-container").empty();
+
+    servicesList["$values"].forEach(function (service) {
+        var serviceType = "";
+        if (service.priceType == "anyType") {
+            serviceType = "Any Price Type";
+        } else if (service.priceType == "hourly") {
+            serviceType = "Hourly Price";
+        } else if (service.priceType == "fixed") {
+            serviceType = "Fix Price";
+        }
+
+        var html =
+            `<div class="wt-userlistinghold wt-featured wt-userlistingholdvtwo">
 						<span class="wt-featuredtag"><img src="/images/featured.png" alt="img description" data-tipso="Plus Member" class="template-content tipso_style"></span>
 						<div class="wt-userlistingcontent">
 							<div class="wt-contenthead">
@@ -299,31 +316,34 @@ function sendPublicServicePagingReques(categories, serviceStatuses, currentPage)
 						</div>
 					</div>`;
 
-                $("#services-container").append(html);
+        $("#services-container").append(html);
 
-                
-            });
+    });
+    
+}
 
-            var pageIndexes = ``;
-            
-            for (var i = 0; i < response.totalPages; i++) {
-                pageIndexes += `<li> <a onclick="handleFilter(${i + 1})">${i + 1}</a></li>`;
-            }
-            var pagingHtml = `
+/**
+ * Display pageIndex response
+ * */
+function displayPagingIndexesItems(response) {
+    var pageIndexes = ``;
+
+    for (var i = 0; i < response.totalPages; i++) {
+        pageIndexes += `<li> <a onclick="handleFilter(${i + 1})">${i + 1}</a></li>`;
+    }
+    var pagingHtml = `
                     <li class="wt-prevpage"><a href="javascrip:void(0);"><i class="lnr lnr-chevron-left"></i></a></li>
 					    ${pageIndexes}
 					<li class="wt-nextpage"><a href="javascrip:void(0);"><i class="lnr lnr-chevron-right"></i></a></li>`;
-            console.log(pagingHtml);
-            $("#nav-paging_index").empty();
-            $("#nav-paging_index").append(pagingHtml);
+    $("#nav-paging_index").empty();
+    $("#nav-paging_index").append(pagingHtml);
+}
 
-            $("#span-total_result").empty();
-            var totalResultHtml = `<span>${response.items["$values"].length} results found</span>`;
-            $("#span-total_result").append(totalResultHtml);
-        },
-        error: function (xhr, status, error) {
-            // Xử lý lỗi khi yêu cầu thất bại
-            console.log("Lỗi: " + error);
-        }
-    });
+/**
+ * Display total result item
+ * */
+function displayTotalResultItems(response) {
+    $("#span-total_result").empty();
+    var totalResultHtml = `<span>${response.items["$values"].length} results found</span>`;
+    $("#span-total_result").append(totalResultHtml);
 }
