@@ -3,7 +3,7 @@ using Eravol.WebApi.ViewModels.Base;
 
 namespace Eravol.WebApi.ViewModels.Services.Public
 {
-	public class PublicServicePagingRequest: PagingRequestBase<Service>
+	public class PublicServicePagingRequest: PagingRequestBase<ServiceViewModel>
 	{
 		public string PriceType { get; set; } = "anyType";
 		public decimal? MinPrice { get; set; }

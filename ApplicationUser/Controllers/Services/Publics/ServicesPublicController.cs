@@ -26,8 +26,10 @@ namespace Eravol.WebApi.Controllers.Services.Publics
 		/// <param name="request"></param>
 		/// <returns></returns>
 		[HttpGet]
-		public async Task<ActionResult<Service>> GetServicesPaging([FromQuery] PublicServicePagingRequest? request)
+		public async Task<IActionResult> GetServicesPaging([FromQuery] PublicServicePagingRequest? request)
 		{
+			//Get public service paging request
+			List<ServiceViewModel> Services = await servicesPublicRepository.GetPublicServices(request);
 			return Ok(request);
 		}
 
