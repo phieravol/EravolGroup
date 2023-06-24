@@ -106,18 +106,16 @@ function getServiceStatuses() {
  * Handle filter
  * */
 function handleFilter(currentPage) {
-    //Get list of category filter
-    categories = getCategoryFilters();
-    //Get list of service statuses filter
-    serviceStatuses = getServiceStatusFilters();
-
-    //display category filter lable
-    displayCategoryLable(categories);
-    //display service statuses filter label
-    displayServiceStatusesLabel(serviceStatuses);
-
-    //Send ajax request
-    sendPublicServicePagingReques(categories, serviceStatuses, currentPage);
+    
+    categories = getCategoryFilters();  //Get list of category filter
+    
+    serviceStatuses = getServiceStatusFilters();   //Get list of service statuses filter
+    
+    displayCategoryLable(categories);   //display category filter lable
+    
+    displayServiceStatusesLabel(serviceStatuses);   //display service statuses filter label
+    
+    sendPublicServicePagingReques(categories, serviceStatuses, currentPage); //Send ajax to paging services
 }
 
 /**
@@ -158,8 +156,6 @@ function getServiceStatusFilters() {
         serviceStatuses.push(serviceStatus);
 
     });
-
-    
     return serviceStatuses;
 }
 
@@ -256,16 +252,15 @@ function sendPublicServicePagingReques(categories, serviceStatuses, currentPage)
         url: Url,
         method: "GET",
         success: function (response) {
-            //display service response
-            displayServiceResponse(response);
-            //Display pageIndex response
-            displayPagingIndexesItems(response);
-            //Display total result item
-            displayTotalResultItems(response);
+            displayServiceResponse(response);   //Display service list items
+            displayPagingIndexesItems(response);    //Display pageIndex list items
+            displayTotalResultItems(response);  //Display total result item
         },
         error: function (xhr, status, error) {
             // Xử lý lỗi khi yêu cầu thất bại
-            console.log("Lỗi: " + error);
+            console.log("error: " + error);
+            console.log("status: " + status);
+            console.log("xhr: " + xhr);
         }
     });
 }
