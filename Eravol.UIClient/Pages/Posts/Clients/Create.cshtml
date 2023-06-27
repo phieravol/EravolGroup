@@ -1,6 +1,14 @@
 ﻿@page
+@using Eravol.UserWebApi.Data.Models;
+@using Eravol.WebApi.Data.Models;
+@using Eravol.WebApi.ViewModels.Posts.Clients;
 @model Eravol.UIClient.Pages.Posts.Clients.CreateModel
 @{
+    List<Category> Categories = Model.Categories;
+    List<PostSkillRequired> PostSkillRequired = Model.PostSkillRequireds;
+    List<Skill> Skills = Model.Skills;
+    CreatePostRequest CreateRequest = Model.CreatePostRequest;
+    string? token = Model.token;
 }
 
 <head>
@@ -8,7 +16,7 @@
     <link rel="stylesheet" href="~/css/basictable.css">
     <link rel="stylesheet" href="~/css/dashboard.css">
     <link rel="stylesheet" href="~/css/dbresponsive.css">
-    <script src="~/~/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <script src="~/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 </head>
 
 <!--Main Start-->
@@ -32,40 +40,30 @@
                             <form class="wt-formtheme wt-userform wt-userformvtwo">
                                 <fieldset>
                                     <div class="form-group">
-                                        <input type="text" name="title" class="form-control" placeholder="Job Title">
+                                        <input type="text" name="postTitle" id="postTitle_Js" class="form-control" placeholder="Job Title">
+                                        <input type="hidden" name="postTitle" value="@token" id="token_Js">
                                     </div>
                                     <div class="form-group form-group-half wt-formwithlabel">
-                                        <span class="wt-select">
-                                            <label for="selectoption">Require Level:</label>
-                                            <select>
-                                                <option value="">Beginner</option>
-                                                <option value="">Intermediate</option>
-                                                <option value="">Profesional</option>
-                                                <option value="">Expert</option>
-                                                <option value="">Enterprise</option>
-                                            </select>
-                                        </span>
-                                    </div>
-                                    <div class="form-group form-group-half wt-formwithlabel">
-                                        
+
                                         <span>
-                                            <input type="date" name="expire" class="form-control"></input>
+                                            <input type="date" id="expirationDate_JS" name="expirationDate" class="form-control" placeholder="Expiration Date"></input>
                                         </span>
                                     </div>
                                     <div class="form-group form-group-half wt-formwithlabel">
                                         <span class="wt-select">
                                             <label for="selectoption">Category:</label>
-                                            <select>
-                                                <option value="">Category 1</option>
-                                                <option value="">Category 2</option>
-                                                <option value="">Category 3</option>
-                                                <option value="">Category 4</option>
+                                            <select required id="categoryId_Js" name="categoryId">
+                                                <option value=""> Select Category</option>
+                                                @foreach (var item in Categories)
+                                                {
+                                                    <option value="@item.CategoryId">@item.CategoryName</option>
+                                                }
                                             </select>
                                         </span>
                                     </div>
                                     <div class="form-group form-group-half wt-formwithlabel">
                                         <span class="wt-input d-flex flex-column">
-                                            <input type="text" name="budget" class="form-control" placeholder="Input Budget:"></input>
+                                            <input type="text" name="budget" id="budget_Js" class="form-control" placeholder="Input Budget:"></input>
                                         </span>
                                     </div>
                                 </fieldset>
@@ -78,7 +76,7 @@
                             <form class="wt-formtheme wt-userform wt-userformvtwo">
                                 <fieldset>
                                     <div class="form-group">
-                                        <textarea placeholder="Add Job Detail Here" style="width: 100%;height:200px;"></textarea>
+                                        <textarea placeholder="Add Job Detail Here" id="sortDesc_Js" name="sortDesc" style="width: 100%;height:200px;"></textarea>
                                     </div>
                                 </fieldset>
                             </form>
@@ -90,7 +88,7 @@
                             <form class="wt-formtheme wt-userform wt-userformvtwo">
                                 <fieldset>
                                     <div class="form-group">
-                                        <textarea id="wt-ckeditor" style="height: 300px" class="wt-tinymceeditor" placeholder="Add Job Detail Here"></textarea>
+                                        <textarea id="wt-ckeditor" style="height: 300px" name="postDetails" class="wt-tinymceeditor" placeholder="Add Job Detail Here"></textarea>
                                     </div>
                                 </fieldset>
                             </form>
@@ -102,17 +100,12 @@
                             <form class="wt-formtheme wt-userform wt-userformvtwo">
                                 <fieldset>
                                     <div class="form-group">
-                                        <select class="chosen-select Skills" data-placeholder="Skills" name="Skills" multiple>
-                                            <option value="Website Design">Website Design</option>
-                                            <option value="PHP">PHP</option>
-                                            <option value="HTML 5">HTML 5</option>
-                                            <option value="Graphic Design">Graphic Design</option>
-                                            <option value="SEO">SEO</option>
-                                            <option value="Bootstrap">Bootstrap</option>
+                                        <select class="chosen-select Skills" data-placeholder="Skills" name="SkillsId" multiple id="postSkillId_Js">
+                                            @foreach (var item in Skills)
+                                            {
+                                                <option value="@item.Id" onclick="GetSkillId(@item.Id)">@item.SkillName</option>
+                                            }
                                         </select>
-                                    </div>
-                                    <div class="form-group wt-btnarea">
-                                        <a href="javascript:void(0);" class="wt-btn">Add Skills</a>
                                     </div>
                                     <div class="form-group wt-myskills">
                                         <ul class="">
@@ -120,7 +113,7 @@
                                                 <div class="wt-dragdroptool">
                                                     <a href="javascript:void(0)" class="lnr lnr-menu"></a>
                                                 </div>
-                                                <span class="skill-dynamic-html">PHP (<em class="skill-val">90</em>%)</span>
+                                                <span class="skill-dynamic-html">php (<em class="skill-val">90</em>%)</span>
                                                 <span class="skill-dynamic-field">
                                                     <input type="text" name="skills[1][percentage]" value="90">
                                                 </span>
@@ -230,10 +223,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="wt-updatall">
+                <div class="wt-updatall" id="submit-container" onclick="handleSubmitPosts()">
                     <i class="ti-announcement"></i>
                     <span>Post job by just clicking on “Post Job Now” button.</span>
-                    <a class="wt-btn" href="javascript:void(0);">Post Job Now</a>
+                    <a class="wt-btn" href="javascript:void(0);" id="create-post-button">Post Job Now</a>
                 </div>
             </div>
         </div>
@@ -242,9 +235,10 @@
 </main>
 <!--Main End-->
 @section scripts{
-    <script src="https://cdn.tiny.cloud/1/gz99x7mqye1wwd402tpad6bowpogtqysbxyxa4n3620b17ih/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <script src="https://cdn.tiny.cloud/1/xb41srbe20jwghubvngbzc8fnb6m02d3nomv82zvyw5srhia/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="~/js/posts/postscript.js"></script>
     <script>
         tinymce.init({
             selector: '#wt-ckeditor',
