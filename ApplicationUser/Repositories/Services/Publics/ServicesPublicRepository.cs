@@ -19,15 +19,58 @@ namespace Eravol.WebApi.Repositories.Services.Publics
 			this.context = context;
 		}
 
-		
-
 		/// <summary>
-		/// Filter service paging
+		/// Get a service by service code
 		/// </summary>
-		/// <param name="request"></param>
+		/// <param name="serviceCode"></param>
 		/// <returns></returns>
-		/// <exception cref="Exception"></exception>
-		public async Task<List<ServiceViewModel>> GetPublicServices(PublicServicePagingRequest? request)
+		/// <exception cref="NotImplementedException"></exception>
+        public async Task<ServiceViewModel> GetDetailServiceAsync(string? serviceCode)
+        {
+            var query = from s in context.Services
+                        join u in context.AppUsers on s.UserId equals u.Id
+                        join c in context.Categories on s.CategoryId equals c.CategoryId into usJoined
+                        from c in usJoined.DefaultIfEmpty()
+                        join status in context.ServiceStatuses on s.ServiceStatusId equals status.ServiceStatusId into statusJoined
+                        from status in statusJoined.DefaultIfEmpty()
+						where s.ServiceCode == serviceCode
+                        select new
+                        {
+                            s,
+                            u,
+                            c,
+                            status
+                        };
+            ServiceViewModel? service = await query.Select(x => new ServiceViewModel()
+            {
+                ServiceCode = x.s.ServiceCode,
+                ServiceTitle = x.s.ServiceTitle,
+                CategoryId = x.c.CategoryId,
+                CategoryImage = x.c.CategoryImage,
+                CategoryName = x.c.CategoryName,
+                FreelancerName = $"{x.u.FirstName} {x.u.LastName}",
+                Price = x.s.Price,
+				PriceType = x.s.PriceType,
+                ServiceAuthor = $"{x.u.FirstName} {x.u.LastName}",
+                ServiceDetails = x.s.ServiceDetails,
+                ServiceIntro = x.s.ServiceIntro,
+                ServiceStatusId = x.s.ServiceStatusId,
+                ServiceStatusName = x.status.ServiceStatusName,
+                TotalClients = x.s.TotalClients,
+                TotalStars = x.s.TotalStars,
+                UserId = x.s.UserId
+            }).FirstOrDefaultAsync();
+
+			return service;
+        }
+
+        /// <summary>
+        /// Filter service paging
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<List<ServiceViewModel>> GetPublicServices(PublicServicePagingRequest? request)
 		{
 			List<ServiceViewModel> services = new List<ServiceViewModel>();
 			try

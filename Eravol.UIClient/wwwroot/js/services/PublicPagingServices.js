@@ -305,7 +305,7 @@ function displayServiceResponse(response) {
 									<li><span><i class="far fa-clock wt-viewjobclock"></i>Status: ${service.serviceStatusName}</span ></li >
 									<li><span><i class="fa fa-tag wt-viewjobtag"></i>Job ID: ${service.serviceCode}</span></li>
 									<li><a href="javascript:void(0);" class="wt-clicklike wt-clicksave"><i class="fa fa-heart"></i> Save</a></li>
-									<li class="wt-btnarea"><a href="userlisting.html" class="wt-btn">View Job</a></li>
+									<li class="wt-btnarea"><a href="./Services/details?ServiceCode=${service.serviceCode}" class="wt-btn">View Job</a></li>
 								</ul>
 							</div>
 						</div>

@@ -5,6 +5,7 @@ namespace Eravol.WebApi.Repositories.Services.Publics
 {
 	public interface IServicesPublicRepository
 	{
-		Task<List<ServiceViewModel>> GetPublicServices(PublicServicePagingRequest? request);
+        Task<ServiceViewModel> GetDetailServiceAsync(string? serviceCode);
+        Task<List<ServiceViewModel>> GetPublicServices(PublicServicePagingRequest? request);
 	}
 }
