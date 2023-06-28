@@ -53,7 +53,7 @@ function createServiceByFormData() {
                 createSkillRequires.push(skill);
             });
             createPostSkillRequired(createSkillRequires);
-            
+            location.href = "https://localhost:7053/Posts/Clients";
         },
         error: function (xhr, status, error) {
             console.log(status);

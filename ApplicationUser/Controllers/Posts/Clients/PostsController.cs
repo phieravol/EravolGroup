@@ -46,10 +46,10 @@ namespace Eravol.WebApi.Controllers.Posts.Clients
         public async Task<IActionResult> GetMyPosts([FromQuery] PagingRequestBase<Post> request)
         {
             //decode URL
-            request.SearchTerm = WebUtility.UrlDecode(request.SearchTerm);
+           request.SearchTerm = WebUtility.UrlDecode(request.SearchTerm);
 
             //Get AppUser Id by claim
-            string UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            string? UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             //If User not login then return message
             if (string.IsNullOrEmpty(UserIdStr))
@@ -63,11 +63,14 @@ namespace Eravol.WebApi.Controllers.Posts.Clients
             //Get Posts paging by request
             List<Post> posts = await postsRepository.GetServiceSearchPaging(request, UserId);
 
-            //Set total Pages for paging
-            request.TotalPages = (int)Math.Ceiling(posts.Count() / (double)request.PageSize);
+			//set page size for paging
+			request.PageSize = 5;
 
-            //Split Posts into list in each page
-            posts = posts.Skip((request.CurrentPage - 1) * request.PageSize).Take(request.PageSize).ToList();
+			//Set total Pages for paging
+			request.TotalPages = (int)Math.Ceiling(posts.Count() / (double)request.PageSize);
+
+			//Split Posts into list in each page
+			posts = posts.Skip((request.CurrentPage - 1) * request.PageSize).Take(request.PageSize).ToList();
 
             //set items for Paging ViewModel
             request.Items = posts;
