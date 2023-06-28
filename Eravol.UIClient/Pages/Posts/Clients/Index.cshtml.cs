@@ -11,9 +11,6 @@ namespace Eravol.UIClient.Pages.Posts.Clients
 {
     public class IndexModel : PageModel
     {
-
-        public void OnGet()
-
         const string HTTP_GET = "GET";
         const string HTTP_PUT = "PUT";
         const string HTTP_POST = "POST";
