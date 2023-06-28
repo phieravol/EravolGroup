@@ -21,11 +21,13 @@ namespace Eravol.UIClient.Pages.User
     {
 		private readonly ILoginApiClient loginApiClient;
 		private readonly IConfiguration configuration;
+		private readonly IAuthenticationSchemeProvider authenticationSchemeProvider;
 
-		public LoginModel(ILoginApiClient loginApiClient, IConfiguration configuration)
+		public LoginModel(ILoginApiClient loginApiClient, IConfiguration configuration, IAuthenticationSchemeProvider authenticationSchemeProvider)
 		{
 			this.loginApiClient = loginApiClient;
 			this.configuration = configuration;
+			this.authenticationSchemeProvider = authenticationSchemeProvider;
 		}
 
 		public async Task<IActionResult> OnGetAsync(string username, string password)
@@ -58,35 +60,62 @@ namespace Eravol.UIClient.Pages.User
 				return new JsonResult(responseData);
 			}
 			var token = response.loginResult;
-			HttpContext.Session.SetString("AuthToken", token);
 
-			var userPrincipal = this.ValidateToken(token);
+			var tokenHandler = new JwtSecurityTokenHandler();
+			var jwtToken = tokenHandler.ReadJwtToken(token);
 
-			var authProperties = new AuthenticationProperties
+			UserInforViewModes? userInfo = new UserInforViewModes()
 			{
-				ExpiresUtc = DateTimeOffset.UtcNow.AddDays(60),
-				IsPersistent = true
+				UserId = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value,
+				UserName = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value,
+				Email = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
+				FullName = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value,
+				PhoneNumber = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.MobilePhone)?.Value,
+				Role = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value,
+				IsLoginSuccess = true
 			};
 
-			await HttpContext.SignInAsync(
-				CookieAuthenticationDefaults.AuthenticationScheme,
-				userPrincipal,
-				authProperties);
+			SetSessionUser(userInfo, token);
 
-			var jsonData = new {
-				userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value,
-				loginStatus = "true",
-				username = User.Identity?.Name,
-				fullname = User.FindFirst(ClaimTypes.GivenName)?.Value,
-				email = User.FindFirst(ClaimTypes.Email)?.Value,
-				phoneNumber = User.FindFirst(ClaimTypes.MobilePhone)?.Value,
-				roles = User.FindFirst(ClaimTypes.Role)?.Value
-			};
-
-			return new JsonResult(jsonData);
+			switch (userInfo.Role)
+			{
+				case "Admin":
+					{
+						return RedirectToPage("/dashboard/insight/admin/index");
+					}
+				case "Client":
+					{
+						return RedirectToPage("/dashboard/insight/clients/index");
+					}
+				case "Freelancer":
+					{
+						return RedirectToPage("/dashboard/insight/freelancers/index");
+					}
+				default:
+					{
+						return Page();
+					}
+			}
 		}
 
-		
+		/// <summary>
+		/// Set session information of user
+		/// </summary>
+		/// <param name="token"></param>
+		private void SetSessionUser(UserInforViewModes userInfo, string token)
+		{
+			
+			HttpContext.Session.SetString("AuthToken", token);
+			HttpContext.Session.SetString("UserId", userInfo.UserId);
+			HttpContext.Session.SetString("LoginStatus", userInfo.IsLoginSuccess.ToString());
+			HttpContext.Session.SetString("Username", userInfo.UserName);
+			HttpContext.Session.SetString("Fullname", userInfo.FullName);
+			HttpContext.Session.SetString("Email", userInfo.Email);
+			HttpContext.Session.SetString("PhoneNumber", userInfo.PhoneNumber);
+			HttpContext.Session.SetString("Roles", userInfo.Role);
+
+		}
+
 		public async Task<IActionResult> LogoutAsync()
 		{
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
