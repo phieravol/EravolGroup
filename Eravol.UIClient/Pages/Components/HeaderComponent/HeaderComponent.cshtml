@@ -24,19 +24,18 @@
 													<span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
 													<a href="javascript:void(0);">Jobs Public</a>
 													<ul class="sub-menu">
-														<li><a asp-page="/Posts/Public/Index">Posted Grid View</a></li>
-														<li><a href="#">Article List (developing)</a></li>
-														<li><a href="#">Article Classic (developing)</a></li>
+														<li><a asp-page="/Posts/Public/Index">Posts Grid View</a></li>
+														<li><a href="#">Posts List (developing)</a></li>
+														<li><a href="#">Posts Classic (developing)</a></li>
 													</ul>
 												</li>
 												<li class="menu-item-has-children page_item_has_children">
 													<span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
-													<a href="javascript:void(0);">Company</a>
+													<a href="javascript:void(0);">Freelancer Services</a>
 													<ul class="sub-menu">
-														<li><a href="companygrid.html">Company Grid</a></li>
-														<li><a href="companysigle.html">Company Sigle</a></li>
+														<li><a asp-page="/Services/Index">View all Services</a></li>
 													</ul>
-												</li>
+												</li>	
 												<li>
 													<a href="about.html">About</a>
 												</li>
@@ -253,19 +252,18 @@ else if (Model.Role == "Freelancer")
 												
 												<li class="menu-item-has-children page_item_has_children">
 													<span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
-													<a href="javascript:void(0);">Article</a>
+													<a href="javascript:void(0);">Jobs Public</a>
 													<ul class="sub-menu">
-														<li><a asp-page="/Posts/Public/Index">Posted Grid View</a></li>
-														<li><a href="#">Article List (developing)</a></li>
-														<li><a href="#">Article Classic (developing)</a></li>
+														<li><a asp-page="/Posts/Public/Index">Posts Grid View</a></li>
+														<li><a href="#">Posts List (developing)</a></li>
+														<li><a href="#">Posts Classic (developing)</a></li>
 													</ul>
 												</li>
 												<li class="menu-item-has-children page_item_has_children">
 													<span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
-													<a href="javascript:void(0);">Company</a>
+													<a href="javascript:void(0);">Freelancer Services</a>
 													<ul class="sub-menu">
-														<li><a href="companygrid.html">Company Grid</a></li>
-														<li><a href="companysigle.html">Company Sigle</a></li>
+														<li><a asp-page="/Services/Index">View all Services</a></li>
 													</ul>
 												</li>
 												<li>
@@ -286,16 +284,19 @@ else if (Model.Role == "Freelancer")
 											<a href="howitworks.html">How It Works</a>
 										</li>
 										<li class="menu-item-has-children page_item_has_children">
-											<a href="javascript:void(0);">Browse Jobs</a>
+											<a href="javascript:void(0);">Manage Jobs</a>
 											<ul class="sub-menu">
 												<li>
-													<a href="joblisting.html">Job Listing</a>
+													<a asp-page="/Services/Freelancers/Index">My Services</a>
 												</li>
 												<li class="current-menu-item">
-													<a href="jobsingle.html">Job Single</a>
+													<a asp-page="/WorkSpaces/Freelancers/Index">My Workspace</a>
 												</li>
 												<li>
-													<a href="jobproposal.html">Job Proposal</a>
+													<a asp-page="/Proposals/Freelancers/Index">My Proposal</a>
+												</li>
+												<li>
+													<a asp-page="/Offers/Freelancers/Index">View Clients Offer</a>
 												</li>
 											</ul>
 										</li>
@@ -484,24 +485,23 @@ else if (Model.Role == "Client")
 												
 												<li class="menu-item-has-children page_item_has_children">
 													<span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
-													<a href="javascript:void(0);">Article</a>
+													<a href="javascript:void(0);">Jobs Public</a>
 													<ul class="sub-menu">
-														<li><a asp-page="/Posts/Public/Index">Posted Grid View</a></li>
-														<li><a href="#">Article List (developing)</a></li>
-														<li><a href="#">Article Classic (developing)</a></li>
+														<li><a asp-page="/Posts/Public/Index">Posts Grid View</a></li>
+														<li><a href="#">Posts List (developing)</a></li>
+														<li><a href="#">Posts Classic (developing)</a></li>
 													</ul>
-												</li>
-												<li class="menu-item-has-children page_item_has_children">
-													<span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
-													<a href="javascript:void(0);">Company</a>
-													<ul class="sub-menu">
-														<li><a href="companygrid.html">Company Grid</a></li>
-														<li><a href="companysigle.html">Company Sigle</a></li>
-													</ul>
-												</li>
-												<li>
-													<a href="about.html">About</a>
-												</li>
+                                                </li>
+                                                <li class="menu-item-has-children page_item_has_children">
+                                                    <span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
+                                                    <a href="javascript:void(0);">Freelancer Services</a>
+                                                    <ul class="sub-menu">
+                                                        <li><a asp-page="/Services/Index">View all Services</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="about.html">About</a>
+                                                </li>
 												<li>
 													<a href="privacypolicy.html">Privacy Policy</a>
 												</li>
@@ -520,10 +520,10 @@ else if (Model.Role == "Client")
 											<a href="javascript:void(0);">Browse Jobs</a>
 											<ul class="sub-menu">
 												<li>
-													<a href="joblisting.html">Job Listing</a>
+													<a asp-page="/posts/clients/Index">My Posts</a>
 												</li>
-												<li class="current-menu-item">
-													<a href="jobsingle.html">Job Single</a>
+												<li>
+													<a href="jobproposal.html">Proposal Reiceived</a>
 												</li>
 												<li>
 													<a href="jobproposal.html">Job Proposal</a>
@@ -624,9 +624,9 @@ else if (Model.Role == "Client")
 												<span>All Jobs</span>
 											</a>
 											<ul class="sub-menu">
-												<li><a asp-page="/Posts/Public/Index">Posted Grid View</a></li>
-												<li><a href="#">Article List (developing)</a></li>
-												<li><a href="#">Article Classic (developing)</a></li>
+												<li><a asp-page="/Posts/Public/Index">Posts Grid View</a></li>
+												<li><a href="#">Posts List (developing)</a></li>
+												<li><a href="#">Posts Classic (developing)</a></li>
 											</ul>
 										</li>
 										<li>
@@ -714,19 +714,18 @@ else
 												
 												<li class="menu-item-has-children page_item_has_children">
 													<span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
-													<a href="javascript:void(0);">Article</a>
+													<a href="javascript:void(0);">Jobs Public</a>
 													<ul class="sub-menu">
-														<li><a asp-page="/Posts/Public/Index">Posted Grid View</a></li>
-														<li><a href="#">Article List (developing)</a></li>
-														<li><a href="#">Article Classic (developing)</a></li>
+														<li><a asp-page="/Posts/Public/Index">Posts Grid View</a></li>
+														<li><a href="#">Posts List (developing)</a></li>
+														<li><a href="#">Posts Classic (developing)</a></li>
 													</ul>
 												</li>
 												<li class="menu-item-has-children page_item_has_children">
 													<span class="wt-dropdowarrow"><i class="lnr lnr-chevron-right"></i></span>
-													<a href="javascript:void(0);">Company</a>
+													<a href="javascript:void(0);">Freelancer Services</a>
 													<ul class="sub-menu">
-														<li><a href="companygrid.html">Company Grid</a></li>
-														<li><a href="companysigle.html">Company Sigle</a></li>
+														<li><a asp-page="/Services/Index">View all Services</a></li>
 													</ul>
 												</li>
 												<li>

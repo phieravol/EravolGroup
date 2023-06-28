@@ -85,11 +85,11 @@ namespace Eravol.UIClient.Pages.User
 					}
 				case "Client":
 					{
-						return RedirectToPage("/dashboard/insight/clients/index");
+						return RedirectToPage("/dashboard/insight/client/index");
 					}
 				case "Freelancer":
 					{
-						return RedirectToPage("/dashboard/insight/freelancers/index");
+						return RedirectToPage("/dashboard/insight/freelancer/index");
 					}
 				default:
 					{

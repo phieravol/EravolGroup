@@ -55,11 +55,11 @@ namespace Eravol.WebApi.Controllers.Services.Freelancers
 		[Authorize]
 		public async Task<ActionResult<Service>> GetServicesPaging([FromQuery] ServicePagingRequest request)
 		{
+			//Get AppUser Id by claim
+			string UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
 			//decode URL
 			request.SearchTerm = WebUtility.UrlDecode(request.SearchTerm);
-
-			//Get AppUser Id by claim
-			string? UserIdStr = request.UserIdStr;
 
 			//If User not login then return message
 			if (string.IsNullOrEmpty(UserIdStr))
