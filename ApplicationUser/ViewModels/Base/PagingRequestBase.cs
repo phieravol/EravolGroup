@@ -17,7 +17,7 @@
         {
             get
             {
-                return (CurrentPage < TotalPages);
+                return (CurrentPage > 0);
             }
         }
         public List<T>? Items { get; set; }
