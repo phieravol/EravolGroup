@@ -97,6 +97,33 @@
 													</select>
 												</span>
 											</div>
+
+											<div class="form-group form-group-half">
+												<span class="wt-select">
+													<select id="price-type" name="priceType">
+														@if (service.PriceType == "fixPrice")
+														{
+															<option value="fixPrice" selected>Fix Price</option>
+														} else
+														{
+															<option value="fixPrice">Fix Price</option>
+														}
+
+														@if (service.PriceType == "hourPrice")
+														{
+															<option value="hourPrice" selected>Hour Price</option>
+														} else
+														{
+															<option value="hourPrice">Hour Price</option>
+														}
+														
+													</select>
+												</span>
+											</div>
+
+											<div class="form-group form-group-half">
+												<input type="number" name="price" value="@service.Price" id="price-amount" class="form-control" placeholder="Your Service Price ($)">
+											</div>
 											
 											<div class="form-group">
 												<textarea id="serviceIntro_Js" name="serviceIntro" class="form-control" placeholder="Service Introduction">@service.ServiceIntro</textarea>

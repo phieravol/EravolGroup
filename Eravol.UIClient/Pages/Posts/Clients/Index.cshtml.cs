@@ -11,6 +11,9 @@ namespace Eravol.UIClient.Pages.Posts.Clients
 {
     public class IndexModel : PageModel
     {
+
+        public void OnGet()
+
         const string HTTP_GET = "GET";
         const string HTTP_PUT = "PUT";
         const string HTTP_POST = "POST";
@@ -29,6 +32,7 @@ namespace Eravol.UIClient.Pages.Posts.Clients
         public PagingRequestBase<Post>? PagingRequest { get; set; }
 
         public async Task<ActionResult> OnGetAsync()
+
         {
 			//get token by session
 			string? token = HttpContext.Session.GetString("AuthToken");

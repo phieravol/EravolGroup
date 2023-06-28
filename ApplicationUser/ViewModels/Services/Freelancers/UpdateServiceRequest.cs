@@ -9,6 +9,8 @@
 		public string? ServiceDetails { get; set; }
 		public int? CategoryId { get; set; }
 		public int ServiceStatusId { get; set; }
+		public string PriceType { get; set; }
+		public decimal Price { get; set; }
 		#endregion
 	}
 }

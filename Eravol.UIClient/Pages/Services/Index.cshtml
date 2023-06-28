@@ -2,3 +2,126 @@
 @model Eravol.UIClient.Pages.Services.IndexModel
 @{
 }
+
+<!--Main Start-->
+<main id="wt-main" class="wt-main wt-haslayout wt-innerbgcolor">
+	<div class="wt-haslayout wt-main-section">
+		<!-- User Listing Start-->
+		<div class="wt-haslayout">
+			<div class="container">
+				<div class="row">
+					<div id="wt-twocolumns" class="wt-twocolumns wt-haslayout">
+						<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-4 float-left">
+							<aside id="wt-sidebar" class="wt-sidebar">
+								<div class="wt-widget wt-effectiveholder">
+									<div class="wt-widgettitle">
+										<h2>Search Service</h2>
+									</div>
+									<div class="wt-widgetcontent">
+										<div class="wt-formtheme wt-formsearch">
+											<fieldset>
+												<div class="form-group">
+													<input type="text" id="serviceSearch_Js" name="serviceSearch" class="form-control" placeholder="Search Name or Description">
+												</div>
+											</fieldset>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="wt-widget wt-effectiveholder">
+									<div class="wt-widgettitle">
+										<h2>Categories</h2>
+									</div>
+									<div class="wt-widgetcontent">
+										<div class="wt-formtheme wt-formsearch">
+											<fieldset>
+												<div class="form-group">
+													<input type="text" id="categorySearch_Js" name="categorySearch" class="form-control" placeholder="Search Category">
+												</div>
+											</fieldset>
+											<fieldset>
+												<div class="wt-checkboxholder wt-verticalscrollbar" id="category-container">
+													
+												</div>
+											</fieldset>
+										</div>
+									</div>
+								</div>
+								
+								<div class="wt-widget wt-effectiveholder">
+									<div class="wt-widgettitle">
+										<h2>Project Type</h2>
+									</div>
+									<div class="wt-widgetcontent">
+										<form class="wt-formtheme wt-formsearch">
+											<fieldset>
+												<div class="wt-checkboxholder">
+													<span class="wt-radio">
+														<input id="anyType" type="radio" name="serviceType" value="anyType" checked>
+														<label for="anyType"> Any Project Type</label>
+													</span>
+													<span class="wt-radio">
+														<input id="hourly" type="radio" name="serviceType" value="hourly">
+														<label for="hourly"> Hourly Based Project</label>
+													</span>
+													<div id="wt-productrangeslider" class="wt-productrangeslider wt-themerangeslider"></div>
+													<div class="wt-amountbox">
+														<input type="text" id="wt-consultationfeeamount" readonly>
+													</div>
+													<span class="wt-radio">
+														<input id="fixed" type="radio" name="serviceType" value="fixed">
+														<label for="fixed"> Fixed Price Project</label>
+													</span>
+												</div>
+											</fieldset>
+										</form>
+									</div>
+								</div>
+								
+								<div class="wt-widget wt-effectiveholder">
+									<div class="wt-widgettitle">
+										<h2>Service status</h2>
+									</div>
+									<div class="wt-widgetcontent">
+										<div class="wt-formtheme wt-formsearch">
+											<fieldset>
+												<div class="wt-checkboxholder" id="service-status_Js">
+													
+												</div>
+											</fieldset>
+										</div>
+									</div>
+								</div>
+
+							</aside>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-left">
+							<div class="wt-userlistingholder wt-haslayout">
+								<div class="wt-userlistingtitle" id="span-total_result">
+								</div>
+								<div class="wt-filterholder">
+									<ul class="wt-filtertag" id="category-filtertag">	
+									</ul>
+									<ul class="wt-filtertag" id="status-filtertag">
+									</ul>
+								</div>
+								<div id="services-container">
+								</div>
+								<nav class="wt-pagination">
+									<ul id="nav-paging_index">
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- User Listing End-->
+	</div>
+</main>
+<!--Main End-->
+@section Scripts {
+    <script src="~/js/services/publicpagingservices.js"></script>
+}

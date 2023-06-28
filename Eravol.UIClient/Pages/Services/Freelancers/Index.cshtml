@@ -33,7 +33,11 @@
 				<div class="wt-dashboardbox wt-categorys">
 					<div class="wt-dashboardboxtitle wt-titlewithsearch">
 						<h2>My Services</h2>
-						<a asp-page="./Create" class="wt-btn">Add New Service</a>
+						<a asp-page="./Create" class="wt-btn" >Add New Service</a>
+						<button class="wt-btn" onclick="deleteSelectedService()" id="btn-selected_delete" style="display: none">
+							Remove Selected
+							<i class="lnr lnr-trash"></i>
+						</button>
 						<form class="wt-formtheme wt-formsearch">
 							<fieldset>
 								<div class="form-group">
@@ -56,8 +60,8 @@
 									<th>Thumbnail</th>
 									<th>Service Code</th>
 									<th>Title</th>
-									<th>Total Clients</th>
-									<th>Category</th>
+									<th>Type</th>
+									<th>Price</th>
 									<th>Status</th>
 									<th>Actions</th>
 									
@@ -70,8 +74,8 @@
 									{
 										<tr>
 											<td>
-												<span class="wt-checkbox">
-													<input id="wt-namea-@item.ServiceCode" type="checkbox" name="head">
+												<span class="wt-checkbox btn-selected">
+													<input id="wt-namea-@item.ServiceCode" type="checkbox" name="checkedService" value="@item.ServiceCode" onclick="handleCheckbox(this)">
 													<label for="wt-namea-@item.ServiceCode"></label>
 												</span>
 											</td>
@@ -80,8 +84,8 @@
 											</td>
 											<td>@item.ServiceCode</td>
 											<td>@item.ServiceTitle</td>
-											<td>@item.TotalStars</td>
-											<td>@item.TotalClients</td>
+											<td>@item.PriceType</td>
+											<td>@item.Price</td>
 											<td>@item.Categories.CategoryName</td>
 											<td>@item.ServiceStatus.ServiceStatusName</td>
 											<td>

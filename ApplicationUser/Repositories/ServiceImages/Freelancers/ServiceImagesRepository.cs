@@ -146,5 +146,45 @@ namespace Eravol.WebApi.Repositories.ServiceImages.Freelancers
 				throw new Exception(e.Message);
 			}
 		}
+
+		/// <summary>
+		/// Get all ServiceImages by current service code
+		/// </summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
+		/// <exception cref="Exception"></exception>
+		public async Task<List<ServiceImage>> GetImagesByServiceCode(string item)
+		{
+			try
+			{
+				List<ServiceImage> serviceImages = await context.ServicesImages
+					.Where(x => x.ServiceCode.Equals(item))
+					.ToListAsync();
+				return serviceImages;
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			}
+		}
+
+		/// <summary>
+		/// Remove all ServiceImages
+		/// </summary>
+		/// <param name="serviceImages"></param>
+		/// <returns></returns>
+		/// <exception cref="Exception"></exception>
+		public async Task RemoveMultiServiceImages(List<ServiceImage> serviceImages)
+		{
+			try
+			{
+				context.ServicesImages.RemoveRange(serviceImages);
+				await context.SaveChangesAsync();
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			}
+		}
 	}
 }
