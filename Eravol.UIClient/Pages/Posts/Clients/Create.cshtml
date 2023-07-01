@@ -16,6 +16,18 @@
     <link rel="stylesheet" href="~/css/basictable.css">
     <link rel="stylesheet" href="~/css/dashboard.css">
     <link rel="stylesheet" href="~/css/dbresponsive.css">
+    <head>
+        <style>
+            .expanded {
+                transform: scaleY(1);
+            }
+
+            .collapsed {
+                transform: scaleY(0);
+                transform-origin: top;
+            }
+        </style>
+    </head>
     <script src="~/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 </head>
 
@@ -97,84 +109,35 @@
                             <div class="wt-tabscontenttitle">
                                 <h2>Skills Required</h2>
                             </div>
-                            <form class="wt-formtheme wt-userform wt-userformvtwo">
-                                <fieldset>
-                                    <div class="form-group">
-                                        <select class="chosen-select Skills" data-placeholder="Skills" name="SkillsId" multiple id="postSkillId_Js">
-                                            @foreach (var item in Skills)
-                                            {
-                                                <option value="@item.Id" onclick="GetSkillId(@item.Id)">@item.SkillName</option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <div class="form-group wt-myskills">
-                                        <ul class="">
-                                            <li>
-                                                <div class="wt-dragdroptool">
-                                                    <a href="javascript:void(0)" class="lnr lnr-menu"></a>
-                                                </div>
-                                                <span class="skill-dynamic-html">php (<em class="skill-val">90</em>%)</span>
-                                                <span class="skill-dynamic-field">
-                                                    <input type="text" name="skills[1][percentage]" value="90">
+                            <div class="wt-skillscontent-holder">
+                                <form class="wt-formtheme wt-skillsform">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <div class="form-group-holder">
+                                                <input type="text" id="searchSkillInput" placeholder="Search" class="form-control">
+                                                <span class="wt-select">
+                                                    <select id="select-skill_display">
+                                                        <option value="">Select Your Skill</option>
+                                                        @foreach (var skill in Skills)
+                                                        {
+                                                            <option value="@skill.Id">@skill.SkillName</option>
+                                                        }
+                                                    </select>
+                                                    
                                                 </span>
-                                                <div class="wt-rightarea">
-                                                    <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                                </div>
-                                            </li>
-                                            <li class="">
-                                                <div class="wt-dragdroptool"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-                                                <span class="skill-dynamic-html">Website Design (<em class="skill-val">90</em>%)</span>
-                                                <span class="skill-dynamic-field">
-                                                    <input type="text" name="skills[1][percentage]" value="90">
-                                                </span>
-                                                <div class="wt-rightarea">
-                                                    <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-                                                <span class="skill-dynamic-html">HTML 5 (<em class="skill-val">90</em>%)</span>
-                                                <span class="skill-dynamic-field">
-                                                    <input type="text" name="skills[1][percentage]" value="90">
-                                                </span>
-                                                <div class="wt-rightarea">
-                                                    <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-                                                <span class="skill-dynamic-html">Graphic Design (<em class="skill-val">80</em>%)</span>
-                                                <span class="skill-dynamic-field">
-                                                    <input type="text" name="skills[1][percentage]" value="90">
-                                                </span>
-                                                <div class="wt-rightarea">
-                                                    <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-                                                <span class="skill-dynamic-html">Rate Your Skill (<em class="skill-val">10</em>%)</span>
-                                                <span class="skill-dynamic-field">
-                                                    <input type="text" name="skills[1][percentage]" value="90">
-                                                </span>
-                                                <div class="wt-rightarea">
-                                                    <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="wt-dragdroptool handle"><a href="javascript:void(0)" class="lnr lnr-menu"></a></div>
-                                                <span class="skill-dynamic-html">SEO (<em class="skill-val">35</em>%)</span>
-                                                <span class="skill-dynamic-field">
-                                                    <input type="text" name="skills[1][percentage]" value="90">
-                                                </span>
-                                                <div class="wt-rightarea">
-                                                    <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </fieldset>
-                            </form>
+                                            </div>
+                                        </div>
+                                        <div class="form-group wt-btnarea">
+                                            <button type="button" id="btn-skill_add" class="wt-btn">Add Skills</button>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                                <div class="wt-myskills">
+                                    <ul class="sortable list" id="ul-skill_list">
+                                        
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <div class="wt-attachmentsholder">
                             <div class="wt-tabscontenttitle">
@@ -187,43 +150,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <form class="wt-formtheme wt-formprojectinfo wt-formcategory">
-                                <fieldset>
-                                    <div class="form-group form-group-label">
-                                        <div class="wt-labelgroup">
-                                            <label for="file">
-                                                <span class="wt-btn">Select Files</span>
-                                                <input type="file" name="file" id="file">
-                                            </label>
-                                            <span>Drop files here to upload</span>
-                                            <em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <ul class="wt-attachfile">
-                                            <li class="wt-uploading">
-                                                <span class="uploadprogressbar"></span>
-                                                <span>Wireframe Document.doc</span>
-                                                <em>File size: 512 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                            </li>
-                                            <li>
-                                                <span class="uploadprogressbar"></span>
-                                                <span>Requirments.pdf</span>
-                                                <em>File size: 110 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                            </li>
-                                            <li class="wt-uploaded">
-                                                <span class="uploadprogressbar"></span>
-                                                <span>Company Intro.docx</span>
-                                                <em>File size: 224 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </fieldset>
-                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="wt-updatall" id="submit-container" onclick="handleSubmitPosts()">
+                <div class="wt-updatall" id="submit-container" >
                     <i class="ti-announcement"></i>
                     <span>Post job by just clicking on “Post Job Now” button.</span>
                     <a class="wt-btn" href="javascript:void(0);" id="create-post-button">Post Job Now</a>
