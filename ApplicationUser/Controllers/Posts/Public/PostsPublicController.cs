@@ -5,6 +5,7 @@ using Eravol.WebApi.ViewModels.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using System.Net;
 using System.Security.Claims;
 
@@ -43,12 +44,19 @@ namespace Eravol.WebApi.Controllers.Posts.Public
             return Ok(posts);
         }
 
-        /// <summary>
-        /// Get Post detail for freelancer
-        /// </summary>
-        /// <param name="postId"></param>
-        /// <returns></returns>
-        [HttpGet("{postId}")]
+		[HttpGet]
+		public async Task<IActionResult> GetFilterPagingPublicPosts([FromQuery] PagingRequestBase<Post> request)
+		{
+			return Ok();
+		}
+
+
+		/// <summary>
+		/// Get Post detail for freelancer
+		/// </summary>
+		/// <param name="postId"></param>
+		/// <returns></returns>
+		[HttpGet("{postId}")]
 		public async Task<IActionResult> GetPublicPostById(int? postId)
 		{
             if (postId == null)

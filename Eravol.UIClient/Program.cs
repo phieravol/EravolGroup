@@ -1,4 +1,5 @@
 ﻿using Eravlol.UserWebApi.Data.Models;
+using Eravol.UIClient.Repositories.Categories;
 using Eravol.UIClient.Repositories.General;
 using Eravol.UIClient.Repositories.Posts.Clients;
 using Eravol.UIClient.Repositories.Services.Freelancers;
@@ -27,6 +28,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddTransient<ILoginApiClient, LoginApiClient>();
 builder.Services.AddTransient<IFreelancerServices, FreelancerServices>();
 builder.Services.AddTransient<IClientPostsRepository, ClientPostsRepository>();
+builder.Services.AddTransient<IPublicCategoryService, PublicCategoryService>();
 builder.Services.AddTransient<IPublicServices, PublicServices>();
 builder.Services.AddTransient(typeof(IClientsRequestService<>), typeof(ClientsRequestService<>));
 
