@@ -1,4 +1,195 @@
 ﻿@page
 @model Eravol.UIClient.Pages.Posts.Clients.UpdateModel
+@using Eravol.UserWebApi.Data.Models;
+@using Eravol.WebApi.Data.Models;
+@using Eravol.WebApi.ViewModels.PostSkillRequires;
+@using Eravol.WebApi.ViewModels.Posts.Clients;
+
 @{
+    List<Category> Categories = Model.Categories;
+    List<PostSkillRequired> PostSkillRequired = Model.PostSkillRequireds;
+    List<Skill> Skills = Model.Skills;
+    string? token = Model.token;
+    Post? post = Model.CurrentPost;
+    List<PostSkillRequireViewModel>? postSkills = Model.SkillsRequire;
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/themify-icons.css">
+    <link rel="stylesheet" href="~/css/basictable.css">
+    <link rel="stylesheet" href="~/css/dashboard.css">
+    <link rel="stylesheet" href="~/css/dbresponsive.css">
+    <head>
+        <style>
+            .expanded {
+                transform: scaleY(1);
+            }
+
+            .collapsed {
+                transform: scaleY(0);
+                transform-origin: top;
+            }
+        </style>
+    </head>
+    <script src="~/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+
+<!--Main Start-->
+<main id="wt-main" class="wt-main wt-haslayout">
+    <!--Sidebar Start-->
+    @await Component.InvokeAsync("DashboardSideBarComponent")
+    <!--Sidebar Start-->
+    <!--Register Form Start-->
+    <section class="wt-haslayout wt-dbsectionspace">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-6 float-left">
+                <div class="wt-dashboardbox">
+                    <div class="wt-dashboardboxtitle">
+                        <h2>Post a Job</h2>
+                    </div>
+                    <div class="wt-dashboardboxcontent">
+                        <div class="wt-jobdescription wt-tabsinfo">
+                            <div class="wt-tabscontenttitle">
+                                <h2>Job Description</h2>
+                            </div>
+                            <form class="wt-formtheme wt-userform wt-userformvtwo">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <input type="text" name="postTitle" id="postTitle_Js" value="@post.PostTitle" class="form-control" placeholder="Job Title">
+                                        <input type="hidden" name="token" value="@token" id="token_Js">
+                                        <input type="hidden" name="postId" value="@post.PostId" id="postId_JS">
+                                    </div>
+                                    <div class="form-group form-group-half wt-formwithlabel">
+
+                                        <span>
+                                            <input type="date" id="expirationDate_JS" name="expirationDate" value="@post.ExpirationDate.ToString("yyyy-MM-dd")" class="form-control"></input>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-group-half wt-formwithlabel">
+                                        <span class="wt-select">
+                                            <label for="selectoption">Category:</label>
+                                            <select required id="categoryId_Js" name="categoryId">
+                                                <option value=""> Select Category</option>
+                                                @foreach (var item in Categories)
+                                                {
+                                                    @if (item.CategoryId == post.CategoryId)
+                                                    {
+                                                        <option value="@item.CategoryId" selected>@item.CategoryName</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@item.CategoryId">@item.CategoryName</option>
+                                                    }
+                                                    
+                                                }
+                                            </select>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-group-half wt-formwithlabel">
+                                        <span class="wt-input d-flex flex-column">
+                                            <input type="text" name="budget" id="budget_Js" value="@post.Budget" class="form-control" placeholder="Input Budget:"></input>
+                                        </span>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="wt-jobdetails wt-tabsinfo">
+                            <div class="wt-tabscontenttitle">
+                                <h2>Job Description</h2>
+                            </div>
+                            <form class="wt-formtheme wt-userform wt-userformvtwo">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <textarea placeholder="Add Job Detail Here" id="sortDesc_Js" name="sortDesc" style="width: 100%;height:200px;">@post.SortDesc</textarea>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="wt-jobdetails wt-tabsinfo">
+                            <div class="wt-tabscontenttitle">
+                                <h2>Job Details</h2>
+                            </div>
+                            <form class="wt-formtheme wt-userform wt-userformvtwo">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <textarea id="wt-ckeditor" style="height: 300px" name="postDetails" class="wt-tinymceeditor" placeholder="Add Job Detail Here">@post.PostDetails</textarea>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="wt-jobskills wt-tabsinfo">
+                            <div class="wt-tabscontenttitle">
+                                <h2>Skills Required</h2>
+                            </div>
+                            <div class="wt-skillscontent-holder">
+                                <form class="wt-formtheme wt-skillsform">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <div class="form-group-holder">
+                                                <input type="text" id="searchSkillInput" placeholder="Search" class="form-control">
+                                                <span class="wt-select">
+                                                    <select id="select-skill_display">
+                                                        <option value="">Select Your Skill</option>
+                                                        @foreach (var skill in Skills)
+                                                        {
+                                                            <option value="@skill.Id">@skill.SkillName</option>
+                                                        }
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                                <div class="wt-myskills">
+                                    <ul class="sortable list" id="ul-skill_list">
+                                        @foreach (var skill in postSkills)
+                                        {
+                                            <li class="li-skill_list">
+                                                <div class="wt-dragdroptool">
+                                                    <a href="javascript:void(0)" class="lnr lnr-menu"></a>
+                                                </div>
+                                                <input type="hidden" value="@skill.SkillId" />
+                                                
+                                                <span class="skill-dynamic-html">@skill.SkillName</span>
+                                                <div class="wt-rightarea" onclick="removeSkillById(@skill.SkillId, '@skill.SkillName')">
+                                                    <button class="wt-deleteinfo"><i class="lnr lnr-trash"></i></button>
+                                                </div>
+                                            </li>
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wt-updatall" id="submit-container">
+                    <i class="ti-announcement"></i>
+                    <span>Update job by just clicking on “Update job now” button.</span>
+                    <button class="wt-btn" type="button" id="update-post-button">Update job now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Register Form End-->
+</main>
+<!--Main End-->
+@section scripts{
+    <script src="~/js/posts/UpdatePostScript.js"></script>
+    <script src="https://cdn.tiny.cloud/1/gz99x7mqye1wwd402tpad6bowpogtqysbxyxa4n3620b17ih/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script>
+        tinymce.init({
+            selector: '#wt-ckeditor',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ]
+        });
+    </script>
 }

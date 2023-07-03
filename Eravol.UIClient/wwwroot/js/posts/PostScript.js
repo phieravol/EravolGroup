@@ -66,7 +66,7 @@ function removeSkillById(id) {
     selectedSkills = $.grep(selectedSkills, function (skill) {
         return skill.skillId != id;
     });
-    displaySkillList(selectedSkills)
+    displaySkillList(selectedSkills);
 }
 
 

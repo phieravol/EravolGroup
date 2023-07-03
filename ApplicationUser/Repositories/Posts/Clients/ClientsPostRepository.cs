@@ -81,7 +81,7 @@ namespace Eravol.WebApi.Repositories.Posts.Clients
             return post;
         }
 
-        public async Task<List<Post>> GetServiceSearchPaging(PagingRequestBase<Post> request, Guid UserId)
+        public async Task<List<Post>> GetPostsSearchPaging(PagingRequestBase<Post> request, Guid UserId)
         {
             List<Post> posts = new List<Post>();
             try
@@ -112,6 +112,7 @@ namespace Eravol.WebApi.Repositories.Posts.Clients
                     Categories= x.cateJoined,
                     CategoryId= x.p.CategoryId,
                     ExpirationDate= x.p.ExpirationDate,
+                    LastUpdatedDate = x.p.LastUpdatedDate,
                     LevelRequired= x.p.LevelRequired,
                     PostedDate= x.p.PostedDate,
                     PostSkillRequired= x.p.PostSkillRequired,
