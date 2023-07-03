@@ -1,6 +1,9 @@
 ﻿@page
+@using Eravol.WebApi.Data.Models;
 @model Eravol.UIClient.Pages.Posts.IndexModel
+
 @{
+	List<Category> Categories = Model.Categories;
 }
 
 <!--Inner Home Banner Start-->
@@ -23,860 +26,131 @@
 
 <div class="wt-categoriesslider-holder wt-haslayout">
 	<div class="wt-title">
-		<h2>Browse Top Job Categories:</h2>
+		<h2>Job Categories:</h2>
 	</div>
 	<div id="wt-categoriesslider" class="wt-categoriesslider owl-carousel owl-loaded owl-drag">
-
-		<div class="wt-categoryslidercontent item">
-			<figure><img src="images/categories/slider/img-04.png" alt="image description"></figure>
+		@foreach (var category in Categories)
+		{
+			<div class="wt-categoryslidercontent item">
+				<figure><img src=@($"https://localhost:7259/api/Images/{category.CategoryImage}") alt="image description"></figure>
 			<div class="wt-cattitle">
-				<h3><a href="javascrip:void(0);">Video &amp; Animation</a></h3>
+				<h3><a href="javascrip:void(0);">@category.CategoryName</a></h3>
 				<span>Items: 421,305</span>
 			</div>
 		</div>
+		}
+		
 
     </div>
 </div>
 
 <!--Main Start-->
+<!--Main Start-->
 <main id="wt-main" class="wt-main wt-haslayout wt-innerbgcolor">
-	<!--Categories Start-->
 	<div class="wt-haslayout wt-main-section">
-		<div class="container">
-			<div class="row justify-content-md-center">
-				<div class="col-12 col-sm-12 col-md-12 col-lg-12 float-left">
-					<div class="wt-articletabshold">
-						<ul class="wt-navarticletab nav navbar-nav">
-							<li class="nav-item">
-								<a class="active" id="all-tab" data-toggle="tab" href="#alltab">All</a>
-							</li>
-							<li class="nav-item">
-								<a id="business-tab" data-toggle="tab" href="#business">Business</a>
-							</li>
-							<li class="nav-item">
-								<a id="trading-tab" data-toggle="tab" href="#trading">Trading</a>
-							</li>
-							<li class="nav-item">
-								<a id="economics-tab" data-toggle="tab" href="#economics">Economics</a>
-							</li>
-							<li class="nav-item">
-								<a id="marketing-tab" data-toggle="tab" href="#marketing">Marketing</a>
-							</li>
-						</ul>
-						<div class="tab-content wt-haslayout">
-							<div class="wt-contentarticle tab-pane active fade show" id="alltab">
-								<div class="row">
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-01.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>Who Else Wants To Be Successful With Business</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Marina Groth</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
+		<!-- User Listing Start-->
+		<div class="wt-haslayout">
+			<div class="container">
+				<div class="row">
+					<div id="wt-twocolumns" class="wt-twocolumns wt-haslayout">
+						<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-4 float-left">
+							<aside id="wt-sidebar" class="wt-sidebar">
+								<div class="wt-widget wt-effectiveholder">
+									<div class="wt-widgettitle">
+										<h2>Search Service</h2>
 									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-02.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>20 Top Tips For Business</h2>
+									<div class="wt-widgetcontent">
+										<div class="wt-formtheme wt-formsearch">
+											<fieldset>
+												<div class="form-group">
+													<input type="text" id="serviceSearch_Js" name="serviceSearch" class="form-control" placeholder="Search Name or Description">
 												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Louanne Mattioli</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-03.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>7 Ways To Keep Your Business Growing Without Burning The Midnight Oil</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Soraya Roloff</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-04.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>Clear And Unbiased Facts About Business (Without All the Hype)</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-05.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>Business And Love Have 4 Things In Common</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Jasper Kinney</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-06.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>BUSINESS 2.0 - The Next Step</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Kaye Medley</span>
-														</a>
-													</li>
-												</ul>
-											</div>
+											</fieldset>
+
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="wt-contentarticle tab-pane fade" id="business">
-								<div class="row">
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-01.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>Who Else Wants To Be Successful With Business</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
+
+								<div class="wt-widget wt-effectiveholder">
+									<div class="wt-widgettitle">
+										<h2>Categories</h2>
 									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-06.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>BUSINESS 2.0 - The Next Step</h2>
+									<div class="wt-widgetcontent">
+										<div class="wt-formtheme wt-formsearch">
+											<fieldset>
+												<div class="form-group">
+													<input type="text" id="categorySearch_Js" name="categorySearch" class="form-control" placeholder="Search Category">
 												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-02.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>20 Top Tips For Business</h2>
+											</fieldset>
+											<fieldset>
+												<div class="wt-checkboxholder wt-verticalscrollbar" id="category-container">
+
 												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-03.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>7 Ways To Keep Your Business Growing Without Burning The Midnight Oil</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-04.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>Clear And Unbiased Facts About Business (Without All the Hype)</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-05.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>Business And Love Have 4 Things In Common</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
+											</fieldset>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="wt-contentarticle tab-pane fade" id="trading">
-								<div class="row">
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-01.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>Who Else Wants To Be Successful With Business</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
+
+								<div class="wt-widget wt-effectiveholder">
+									<div class="wt-widgettitle">
+										<h2>Project Budget</h2>
 									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-02.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>20 Top Tips For Business</h2>
+									<div class="wt-widgetcontent">
+										<form class="wt-formtheme wt-formsearch">
+											<fieldset>
+												<div class="wt-checkboxholder">
+													
+													<div id="wt-productrangeslider" class="wt-productrangeslider wt-themerangeslider"></div>
+													<div class="wt-amountbox">
+														<input type="text" id="wt-consultationfeeamount" readonly>
+													</div>
+													
 												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
+											</fieldset>
+										</form>
 									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-03.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>7 Ways To Keep Your Business Growing Without Burning The Midnight Oil</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
+								</div>
+
+								<div class="wt-widget wt-effectiveholder">
+									<div class="wt-widgettitle">
+										<h2>Service status</h2>
 									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-04.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>Clear And Unbiased Facts About Business (Without All the Hype)</h2>
+									<div class="wt-widgetcontent">
+										<div class="wt-formtheme wt-formsearch">
+											<fieldset>
+												<div class="wt-checkboxholder" id="service-status_Js">
+
 												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-05.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>Business And Love Have 4 Things In Common</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-06.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>BUSINESS 2.0 - The Next Step</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
+											</fieldset>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="wt-contentarticle tab-pane fade" id="economics">
-								<div class="row">
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-01.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>Who Else Wants To Be Successful With Business</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-02.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>20 Top Tips For Business</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-03.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>7 Ways To Keep Your Business Growing Without Burning The Midnight Oil</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-04.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>Clear And Unbiased Facts About Business (Without All the Hype)</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-05.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>Business And Love Have 4 Things In Common</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-06.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>BUSINESS 2.0 - The Next Step</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
+
+							</aside>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-left">
+							<div class="wt-userlistingholder wt-haslayout">
+								<div class="wt-userlistingtitle" id="span-total_result">
 								</div>
-							</div>
-							<div class="wt-contentarticle tab-pane fade" id="marketing">
-								<div class="row">
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-01.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>Who Else Wants To Be Successful With Business</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-02.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>20 Top Tips For Business</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-03.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>7 Ways To Keep Your Business Growing Without Burning The Midnight Oil</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-04.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>Clear And Unbiased Facts About Business (Without All the Hype)</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-05.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>Business And Love Have 4 Things In Common</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-										<div class="wt-article">
-											<figure>
-												<img src="images/article/img-06.jpg" alt="img description">
-											</figure>
-											<div class="wt-articlecontent">
-												<div class="wt-title">
-													<h2>BUSINESS 2.0 - The Next Step</h2>
-												</div>
-												<ul class="wt-postarticlemeta">
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-clock"></i>
-															<span>June 27, 2018</span>
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0);">
-															<i class="lnr lnr-user"></i>
-															<span>Willis Wainright</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
+								<div class="wt-filterholder">
+									<ul class="wt-filtertag" id="category-filtertag">	
+									</ul>
+									<ul class="wt-filtertag" id="status-filtertag">
+									</ul>
 								</div>
+								<div id="services-container">
+								</div>
+								<nav class="wt-pagination">
+									<ul id="nav-paging_index">
+									</ul>
+								</nav>
 							</div>
-							<nav class="wt-pagination">
-								<ul>
-									<li class="wt-prevpage"><a href="javascrip:void(0);"><i class="lnr lnr-chevron-left"></i></a></li>
-									<li><a href="javascrip:void(0);"><i class="lnr lnr-list"></i></a></li>
-									<li class="wt-nextpage"><a href="javascrip:void(0);"><i class="lnr lnr-chevron-right"></i></a></li>
-								</ul>
-							</nav>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- User Listing End-->
 	</div>
-	<!--Limitless Experience End-->
 </main>
 <!--Main End-->
