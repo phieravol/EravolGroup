@@ -14,7 +14,7 @@ namespace Eravol.WebApi.Data.Configuration
             builder.HasOne(ps => ps.Post)
                 .WithMany(p => p.PostSkillRequired)
                 .HasForeignKey(ps => ps.PostId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(ps => ps.Skill)
                 .WithMany(s => s.PostSkillRequired)
                 .HasForeignKey(ps => ps.SkillId)

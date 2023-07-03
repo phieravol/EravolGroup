@@ -24,6 +24,24 @@ namespace Eravol.WebApi.Controllers.PostSkills
         #endregion
 
         /// <summary>
+        /// Get Post skill require by post ID
+        /// </summary>
+        /// <param name="PostId"></param>
+        /// <returns></returns>
+        [HttpGet("{PostId}")]
+        public async Task<IActionResult> GetSkillRequireByPostId(int? PostId)
+        {
+            if (PostId == null)
+            {
+                return BadRequest("Post Id can not null");
+            }
+
+            List<PostSkillRequireViewModel> postSkills = await skillRequireRepository.GetSkillRequireByPostId(PostId);
+            return Ok(postSkills);
+        }
+
+
+        /// <summary>
         /// Create PostSkillRequires by List of SkillRequires from Ajax
         /// </summary>
         /// <param name="skillRequires"></param>
@@ -51,6 +69,25 @@ namespace Eravol.WebApi.Controllers.PostSkills
 
             return Ok(skillRequires);
         }
+
+        [HttpPost("SpecifiedPost")]
+        public async Task<IActionResult> CreateSpecifiedSkillRequires(CreateSkillRequiresRequest? skillRequire)
+        {
+            if (skillRequire == null)
+            {
+                return BadRequest("Skill require data empty");
+            }
+
+            PostSkillRequired skillRequired = new PostSkillRequired()
+            {
+                SkillId = skillRequire.SkillId,
+                PostId = skillRequire.PostId
+            };
+
+            await skillRequireRepository.CreateSpecifySkillRequireAsync(skillRequired);
+            return NoContent();
+        }
+
 
         /// <summary>
         /// UpdateServiceRequest Post Skill Require by Ajax
@@ -82,6 +119,25 @@ namespace Eravol.WebApi.Controllers.PostSkills
             //process update PostSkillRequire
             await skillRequireRepository.UpdateSkillRequire(postSkillRequired);
             return Ok(skillRequire);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeletePostSkillRequire([FromQuery] int? skillRequireId, [FromQuery] int? postId)
+        {
+            if (skillRequireId==null) 
+            { 
+                return BadRequest("Please enter post skill require id");
+            }
+
+            PostSkillRequired? skillRequired = await skillRequireRepository.GetSpecificSkillRequire(skillRequireId, postId);
+            if (skillRequired == null)
+            {
+                return NotFound("This skill require not found");
+            }
+
+            await skillRequireRepository.DeleteSkillRequire(skillRequired);
+
+            return Ok(skillRequired);
         }
 
     }
