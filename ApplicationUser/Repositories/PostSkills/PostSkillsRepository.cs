@@ -8,20 +8,24 @@ namespace Eravol.WebApi.Repositories.PostSkills
 {
     public class PostSkillsRepository : IPostSkillsRepository
     {
-        private readonly EravolUserWebApiContext context;
+		#region DbContext Dependency injection
+		private readonly EravolUserWebApiContext context;
+		#endregion
 
-        public PostSkillsRepository(EravolUserWebApiContext context)
+		#region Constructor
+		public PostSkillsRepository(EravolUserWebApiContext context)
         {
             this.context = context;
         }
+		#endregion
 
-        /// <summary>
-        /// Create Multiple SkillRequires in Db by List of PostSkillRequired
-        /// </summary>
-        /// <param name="skillRequires"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
-        public async Task CreateSkillsRequireAsync(List<PostSkillRequired> skillRequires)
+		/// <summary>
+		/// Create Multiple SkillRequires in Db by List of PostSkillRequired
+		/// </summary>
+		/// <param name="skillRequires"></param>
+		/// <returns></returns>
+		/// <exception cref="Exception"></exception>
+		public async Task CreateSkillsRequireAsync(List<PostSkillRequired> skillRequires)
         {
             try
             {
@@ -115,14 +119,48 @@ namespace Eravol.WebApi.Repositories.PostSkills
                 throw new Exception(e.Message);
             }
         }
+
         /// <summary>
-        /// Get skill require by skillId and postId
+        /// Get skill require by search term
         /// </summary>
-        /// <param name="skillRequireId"></param>
-        /// <param name="postId"></param>
+        /// <param name="searchTerm"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<PostSkillRequired?> GetSpecificSkillRequire(int? skillRequireId, int? postId)
+		public List<PostSkillRequireViewModel>? GetSkillRequireBySearchTerm(string? searchTerm)
+		{
+			try
+			{
+                var query = from skill in context.Skills
+                            select skill;
+
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    query = query.Where(x => x.SkillName.Contains(searchTerm));
+                }
+
+                List<PostSkillRequireViewModel>? skills = query.Select(x => new PostSkillRequireViewModel()
+                {
+                    SkillId = x.Id,
+                    SkillName = x.SkillName,
+                }).ToList();
+
+                return skills;
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			};
+
+		}
+
+		/// <summary>
+		/// Get skill require by skillId and postId
+		/// </summary>
+		/// <param name="skillRequireId"></param>
+		/// <param name="postId"></param>
+		/// <returns></returns>
+		/// <exception cref="NotImplementedException"></exception>
+		public async Task<PostSkillRequired?> GetSpecificSkillRequire(int? skillRequireId, int? postId)
         {
             try
             {

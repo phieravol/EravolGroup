@@ -10,7 +10,8 @@ namespace Eravol.WebApi.Repositories.PostSkills
         Task DeleteSkillRequire(PostSkillRequired skillRequired);
         Task<PostSkillRequired> GetSkillRequireById(int? skillRequireId);
         Task<List<PostSkillRequireViewModel>> GetSkillRequireByPostId(int? postId);
-        Task<PostSkillRequired?> GetSpecificSkillRequire(int? skillRequireId, int? postId);
+		List<PostSkillRequireViewModel>? GetSkillRequireBySearchTerm(string? searchTerm);
+		Task<PostSkillRequired?> GetSpecificSkillRequire(int? skillRequireId, int? postId);
         Task UpdateSkillRequire(PostSkillRequired skillRequire);
     }
 }

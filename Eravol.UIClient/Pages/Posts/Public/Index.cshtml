@@ -12,10 +12,11 @@
 		<div class="row justify-content-md-center">
 			<div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-6 push-lg-3">
 				<div class="wt-innerbannercontent">
-					<div class="wt-title"><h2>New Articles</h2></div>
+					<div class="wt-title"><h2>Popular Jobs</h2></div>
 					<ol class="wt-breadcrumb">
 						<li><a href="index-2.html">Home</a></li>
-						<li class="wt-active">Articles</li>
+						<li class="wt-active">Posts</li>
+						<li class="wt-active">Public</li>
 					</ol>
 				</div>
 			</div>
@@ -39,8 +40,6 @@
 			</div>
 		</div>
 		}
-		
-
     </div>
 </div>
 
@@ -63,10 +62,9 @@
 										<div class="wt-formtheme wt-formsearch">
 											<fieldset>
 												<div class="form-group">
-													<input type="text" id="serviceSearch_Js" name="serviceSearch" class="form-control" placeholder="Search Name or Description">
+													<input type="text" id="postSearch_Js" name="serviceSearch" class="form-control" placeholder="Search Name or Description">
 												</div>
 											</fieldset>
-
 										</div>
 									</div>
 								</div>
@@ -99,12 +97,10 @@
 										<form class="wt-formtheme wt-formsearch">
 											<fieldset>
 												<div class="wt-checkboxholder">
-													
 													<div id="wt-productrangeslider" class="wt-productrangeslider wt-themerangeslider"></div>
 													<div class="wt-amountbox">
 														<input type="text" id="wt-consultationfeeamount" readonly>
 													</div>
-													
 												</div>
 											</fieldset>
 										</form>
@@ -113,32 +109,35 @@
 
 								<div class="wt-widget wt-effectiveholder">
 									<div class="wt-widgettitle">
-										<h2>Service status</h2>
+										<h2>Skill Require</h2>
 									</div>
 									<div class="wt-widgetcontent">
 										<div class="wt-formtheme wt-formsearch">
 											<fieldset>
-												<div class="wt-checkboxholder" id="service-status_Js">
-
+												<div class="form-group">
+													<input type="text" id="skillSearch_Js" name="skillSearch" class="form-control" placeholder="Search Skill">
+												</div>
+											</fieldset>
+											<fieldset>
+												<div class="wt-checkboxholder wt-verticalscrollbar" id="post-skill_Js">
 												</div>
 											</fieldset>
 										</div>
 									</div>
 								</div>
-
-							</aside>
-						</div>
-						<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-left">
-							<div class="wt-userlistingholder wt-haslayout">
+                            </aside>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-left">
+                            <div class="wt-userlistingholder wt-haslayout">
 								<div class="wt-userlistingtitle" id="span-total_result">
 								</div>
 								<div class="wt-filterholder">
 									<ul class="wt-filtertag" id="category-filtertag">	
 									</ul>
-									<ul class="wt-filtertag" id="status-filtertag">
+									<ul class="wt-filtertag" id="skill-filtertag">
 									</ul>
 								</div>
-								<div id="services-container">
+								<div id="posts-container">
 								</div>
 								<nav class="wt-pagination">
 									<ul id="nav-paging_index">
@@ -154,3 +153,7 @@
 	</div>
 </main>
 <!--Main End-->
+@section scripts{
+	<script src="~/js/posts/publicpostpagingscript.js"></script>
+}
+

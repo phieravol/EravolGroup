@@ -2,6 +2,7 @@
 using Eravol.WebApi.Data.Models;
 using Eravol.WebApi.Repositories.Posts.Public;
 using Eravol.WebApi.ViewModels.Base;
+using Eravol.WebApi.ViewModels.Posts.Public;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -44,10 +45,16 @@ namespace Eravol.WebApi.Controllers.Posts.Public
             return Ok(posts);
         }
 
-		[HttpGet]
-		public async Task<IActionResult> GetFilterPagingPublicPosts([FromQuery] PagingRequestBase<Post> request)
+        /// <summary>
+        /// Get filter paging post public
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+		[HttpGet("FilterPost")]
+		public async Task<IActionResult> GetFilterPagingPublicPosts([FromQuery] PostPublicFilterPaging request)
 		{
-			return Ok();
+            List<PostPublicViewModel> Posts = await postsPublicRepository.GetPostFilterPaging(request);
+			return Ok(request);
 		}
 
 

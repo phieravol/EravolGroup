@@ -1,4 +1,5 @@
-﻿using Eravol.WebApi.Data.Models;
+﻿using Eravol.UserWebApi.Data.Models;
+using Eravol.WebApi.Data.Models;
 using Eravol.WebApi.Repositories.PostSkills;
 using Eravol.WebApi.ViewModels.PostSkillRequires;
 using Microsoft.AspNetCore.Http;
@@ -40,13 +41,24 @@ namespace Eravol.WebApi.Controllers.PostSkills
             return Ok(postSkills);
         }
 
-
         /// <summary>
-        /// Create PostSkillRequires by List of SkillRequires from Ajax
+        /// Get Skill Require by search term
         /// </summary>
-        /// <param name="skillRequires"></param>
+        /// <param name="SearchTerm"></param>
         /// <returns></returns>
-        [HttpPost]
+		[HttpGet("SearchTerm")]
+		public async Task<IActionResult> GetSkillRequireBySearchTerm(string? SearchTerm)
+		{
+            List<PostSkillRequireViewModel>? Skills = skillRequireRepository.GetSkillRequireBySearchTerm(SearchTerm);
+			return Ok(Skills);
+		}
+
+		/// <summary>
+		/// Create PostSkillRequires by List of SkillRequires from Ajax
+		/// </summary>
+		/// <param name="skillRequires"></param>
+		/// <returns></returns>
+		[HttpPost]
         public async Task<IActionResult> CreatePostSkillRequires(List<CreateSkillRequiresRequest>? skillRequires)
         {
             if (skillRequires == null || skillRequires.Count == 0)
