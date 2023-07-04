@@ -19,7 +19,6 @@ namespace Eravol.UIClient.Pages.Posts
 		public async Task<IActionResult> OnGetAsync()
         {
 			Categories = await categoryService.GetAllPublicCategory();
-
 			return Page();
         }
     }

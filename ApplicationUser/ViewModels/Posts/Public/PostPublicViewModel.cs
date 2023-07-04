@@ -1,4 +1,7 @@
-﻿namespace Eravol.WebApi.ViewModels.Posts.Public
+﻿using Eravol.UserWebApi.Data.Models;
+using Eravol.WebApi.ViewModels.PostSkillRequires;
+
+namespace Eravol.WebApi.ViewModels.Posts.Public
 {
 	public class PostPublicViewModel
 	{
@@ -10,9 +13,14 @@
 		public DateTime ExpirationDate { get; set; }
 		public DateTime PostedDate { get; set; }
 		public DateTime? LastUpdatedDate { get; set; }
-		public int CategoryId { get; set; }
+		public int? CategoryId { get; set; }
+		public string? CategoryName { get; set; }
 		public Guid UserId { get; set; }
-		public int PostStatusId { get; set; }
-		public string LevelRequired { get; set; }
+		public string? FullName { get; set; }
+		public string? Username { get; set; }
+		public string? Country { get; set; }
+		public int? PostStatusId { get; set; }
+		public string? LevelRequired { get; set; }
+		public List<PostSkillRequireViewModel>? SkillRequire { get; set; }
 	}
 }
