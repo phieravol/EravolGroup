@@ -276,15 +276,13 @@ function displayPostResponse(response) {
         console.log(expireDate);
         console.log(now);
         var timeDifference = expireDate - now;
-        
+
         if (timeDifference > 1) {
             const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
             timeDifference = `${hoursDifference} days`;
-        }
-        else if (timeDifference > 0 && expireDate < 1) {
+        } else if (timeDifference > 0 && expireDate < 1) {
             timeDifference = "One day left"
-        }
-        else{
+        } else {
             timeDifference = 'Expired';
         }
         var skillString = "";
@@ -317,7 +315,7 @@ function displayPostResponse(response) {
 							<li><span><i class="far fa-clock wt-viewjobclock"></i>Remain: ${timeDifference}</span></li>
 							<li><span><i class="fa fa-tag wt-viewjobtag"></i> ${post.categoryName}</span></li>
 							<li><a href="javascript:void(0);" class="wt-clicklike"><i class="fa fa-heart"></i> Click to Save</a></li>
-							<li class="wt-btnarea"><a href="userlisting.html" class="wt-btn">View Job</a></li>
+							<li class="wt-btnarea"><a href="https://localhost:7053/Posts/Public/Details?PostId=${post.postId}" class="wt-btn">View Job</a></li>
 						</ul>
 					</div>
 				</div>

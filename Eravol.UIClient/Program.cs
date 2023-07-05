@@ -2,6 +2,7 @@
 using Eravol.UIClient.Repositories.Categories;
 using Eravol.UIClient.Repositories.General;
 using Eravol.UIClient.Repositories.Posts.Clients;
+using Eravol.UIClient.Repositories.Posts.Public;
 using Eravol.UIClient.Repositories.Services.Freelancers;
 using Eravol.UIClient.Repositories.Services.Public;
 using Eravol.UIClient.Repositories.Users;
@@ -29,6 +30,7 @@ builder.Services.AddTransient<ILoginApiClient, LoginApiClient>();
 builder.Services.AddTransient<IFreelancerServices, FreelancerServices>();
 builder.Services.AddTransient<IClientPostsRepository, ClientPostsRepository>();
 builder.Services.AddTransient<IPublicCategoryService, PublicCategoryService>();
+builder.Services.AddTransient<IPostRepository, PostRepository>();
 builder.Services.AddTransient<IPublicServices, PublicServices>();
 builder.Services.AddTransient(typeof(IClientsRequestService<>), typeof(ClientsRequestService<>));
 
