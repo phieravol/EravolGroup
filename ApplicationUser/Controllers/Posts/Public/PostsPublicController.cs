@@ -16,9 +16,12 @@ namespace Eravol.WebApi.Controllers.Posts.Public
     [ApiController]
     public class PostsPublicController : ControllerBase
     {
-        private readonly IPostsPublicRepository postsPublicRepository;
+		#region Dependencies Injection services
+		private readonly IPostsPublicRepository postsPublicRepository;
 		private readonly UserManager<AppUser> userManager;
+		#endregion
 
+		#region Constructor
 		public PostsPublicController(
             IPostsPublicRepository postsPublicRepository,
             UserManager<AppUser> userManager
@@ -27,13 +30,14 @@ namespace Eravol.WebApi.Controllers.Posts.Public
             this.postsPublicRepository = postsPublicRepository;
             this.userManager = userManager;
         }
+		#endregion
 
-        /// <summary>
-        /// Get all post of public user
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        [HttpGet]
+		/// <summary>
+		/// Get all post of public user
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
+		[HttpGet]
         public async Task<IActionResult> GetPublicPosts([FromQuery] PagingRequestBase<Post> request)
         {
             //decode URL
@@ -72,6 +76,11 @@ namespace Eravol.WebApi.Controllers.Posts.Public
             }
 
             Post? post = await postsPublicRepository.GetPublicPostById(postId);
+
+            if (post == null)
+            {
+                return NotFound("Post not found!");
+            }
 			return Ok(post);
 		}
 
