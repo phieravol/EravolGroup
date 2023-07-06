@@ -11,8 +11,11 @@ namespace Eravol.UserWebApi.Data.Configuration
 			builder.ToTable("UserImage");
 			builder.HasKey(x => x.ImgageId);
 			builder.Property(x => x.UserImagePath)
-				.IsRequired()
+				.IsRequired(false)
 				.HasMaxLength(1024);
+			builder.Property(x => x.UserImageName)
+				.IsRequired(false)
+				.HasMaxLength(256);
 			
 		}
 	}

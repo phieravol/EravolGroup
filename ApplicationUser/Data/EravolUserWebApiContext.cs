@@ -40,6 +40,9 @@ namespace Eravol.UserWebApi.Data
 			modelBuilder.ApplyConfiguration(new ServiceImageConfiguration());
 			modelBuilder.ApplyConfiguration(new PostSkillRequiredConfiguration());
 			modelBuilder.ApplyConfiguration(new UserSkillConfiguration());
+			modelBuilder.ApplyConfiguration(new ExperienceConfiguration());
+			modelBuilder.ApplyConfiguration(new PortfolioConfiguration());
+			modelBuilder.ApplyConfiguration(new CertificateConfiguration());
 
 			base.OnModelCreating(modelBuilder);
 			new DataSeeder(modelBuilder).Seed();
@@ -57,6 +60,9 @@ namespace Eravol.UserWebApi.Data
 		public DbSet<ServiceStatus> ServiceStatuses { get; set; }
 		public DbSet<PostSkillRequired> PostSkilRequires { get; set; }
 		public DbSet<UserSkill> UserSkills { get; set; }
+		public DbSet<Experience> Experiences { get; set; }
+		public DbSet<Portfolio> Portfolios { get; set; }
+		public DbSet<Certificate> Certificates { get; set; }
         #endregion
     }
 }
