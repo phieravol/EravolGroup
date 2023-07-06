@@ -3,6 +3,7 @@ using Eravol.WebApi.Data.Models;
 using Eravol.WebApi.Repositories.PostStatuses.Clients;
 using Eravol.WebApi.ViewModels.Base;
 using Eravol.WebApi.ViewModels.PostStatuses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -10,7 +11,7 @@ using System.Security.Claims;
 
 namespace Eravol.WebApi.Controllers.PostStatuses.Clients
 {
-    [Route("api/[controller]")]
+    [Route("api/Admin/[controller]")]
     [ApiController]
     public class PostStatusesController : Controller
     {
@@ -28,6 +29,7 @@ namespace Eravol.WebApi.Controllers.PostStatuses.Clients
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetPostStatus([FromQuery] PagingRequestBase<PostStatus> request)
         {
             request.SearchTerm = WebUtility.UrlDecode(request.SearchTerm);
