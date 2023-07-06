@@ -1,6 +1,8 @@
 ﻿using Eravol.UserWebApi.Data;
 using Eravol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.ViewModels.Skills;
+using Eravol.WebApi.Data.Models;
+using Eravol.WebApi.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eravol.UserWebApi.Repository.Skills
@@ -14,46 +16,80 @@ namespace Eravol.UserWebApi.Repository.Skills
             this.context = context;
         }
 
-        public void CreateUserSkill(Skill request)
+        public async Task CreateSkillAsync(SkillViewModel skill)
         {
-            context.Skills.Add(request);
-            context.SaveChanges();
+            try
+            {
+                Skill skills = new Skill()
+                {
+                    SkillName = skill.SkillName,
+                    isPublic = skill.isPublic
+                };
+                context.Skills.Add(skills);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public List<Skill> GetPublicSkills()
+        public async Task DeleteSkillAsync(Skill skill)
         {
-            return context.Skills.ToList();
+            try
+            {
+                context.Skills.Remove(skill);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public Skill getSkillById(int? skillId)
+        public async Task<Skill> GetSkillByIdAsync(int? skillId)
         {
-            return context.Skills.Find(skillId);
+            try
+            {
+                Skill? skill = await context.Skills.FindAsync(skillId);
+                return skill;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        /// <summary>
-        /// Get all Skill of user by username
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        public List<Skill> GetSkillsByUsername(string username)
+        public async Task<List<Skill>> GetSkillSearchPaging(PagingRequestBase<Skill> request)
         {
-            var query = from skill in context.Skills
-                        //join user in context.AppUsers on skill.UserId equals user.Id
-                        //where user.UserName == username
-                        select skill;
-            return query.ToList();
-        }
+            try
+            {
+                IQueryable<Skill> query = context.Skills/*.Where(x => x.isPublic.Value == true)*/;
 
-        public async Task RemoveSkillAsync(Skill skill)
-        {
-            context.Skills.Remove(skill);
-            await context.SaveChangesAsync();
+                if (!string.IsNullOrEmpty(request.SearchTerm))
+                {
+                    query = query.Where(x => x.SkillName.Contains(request.SearchTerm));
+                }
+                request.Items = await query.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return request.Items;
         }
 
         public async Task UpdateSkillAsync(Skill skill)
         {
-            context.Entry(skill).State = EntityState.Modified;
-            await context.SaveChangesAsync();
+            try
+            {
+                context.Entry<Skill>(skill).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }
