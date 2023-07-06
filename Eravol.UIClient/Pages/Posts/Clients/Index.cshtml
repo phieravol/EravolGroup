@@ -61,7 +61,7 @@ else
                             {
                                 <tr>
                                     <td>@item.PostTitle</td>
-                                    <td>@item.Budget</td>
+                                    <td>@item.Budget$</td>
                                     <td>@item.ExpirationDate</td>
                                     <td>@item.PostedDate</td>
                                     @if (item.LastUpdatedDate != null)
@@ -77,8 +77,8 @@ else
                                     <td>@item.LevelRequired</td>
                                     <td>
                                         <div class="wt-actionbtn">
-                                            <a asp-page="/Posts/Clients/Update" asp-route-CategoryId="@item.PostId" class="wt-addinfo wt-skillsaddinfo" style="margin-bottom:3px"><i class="lnr lnr-pencil"></i></a><br />
-                                            <a href="javascript:void(0)" class="wt-deleteinfo" onclick="confirmDelteCategory(@item.PostId)"><i class="lnr lnr-trash"></i></a>
+                                            <a asp-page="/Posts/Clients/Update" asp-route-PostId="@item.PostId" class="wt-addinfo wt-skillsaddinfo" style="margin-bottom:3px"><i class="lnr lnr-pencil"></i></a><br />
+                                            <a href="javascript:void(0)" class="wt-deleteinfo" onclick="confirmDeletePost(@item.PostId)"><i class="lnr lnr-trash"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -119,4 +119,8 @@ else
             </div>
         </div>
     </main>
+}
+
+@section scripts{
+    <script src="~/js/posts/DeletePostScript.js"></script>
 }

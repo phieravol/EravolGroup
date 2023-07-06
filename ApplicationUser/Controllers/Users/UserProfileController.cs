@@ -1,8 +1,11 @@
 ﻿using Eravlol.UserWebApi.Data.Models;
+using Eravol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Repository.User.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Eravol.WebApi.Controllers.Users
 {
@@ -10,23 +13,38 @@ namespace Eravol.WebApi.Controllers.Users
     [ApiController]
     public class UserProfileController : ControllerBase
     {
+        #region Dependency Injection services
         private readonly IManageProfileRepository profileRepository;
         private readonly UserManager<AppUser> userManager;
+        #endregion
 
+        #region Constructor
         public UserProfileController(IManageProfileRepository profileRepository, UserManager<AppUser> userManager)
         {
             this.profileRepository = profileRepository;
             this.userManager = userManager;
         }
+        #endregion
 
-        [HttpGet("{UserName}")]
-        public async Task<ActionResult<AppUser>> GetProfile(string? UserName)
+        /// <summary>
+        /// Get user profile from database
+        /// </summary>
+        /// <param name="UserName"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<AppUser>> GetProfile()
         {
-            if (string.IsNullOrWhiteSpace(UserName))
+            //Get UserId by claims in token
+			string? UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            /* Check UserId is null or not null */
+            if (string.IsNullOrWhiteSpace(UserIdStr))
             {
-                return BadRequest("Username parameter is empty!");
+                return BadRequest("UserId can not be null");
             }
-            AppUser? appUser = await profileRepository.GetUserByUsername(UserName);
+
+            AppUser? appUser = await profileRepository.GetUserByUsername(UserIdStr);
 
             if (appUser == null)
             {
@@ -35,5 +53,39 @@ namespace Eravol.WebApi.Controllers.Users
 
             return appUser;
         }
+
+        /// <summary>
+        /// Create User profile images
+        /// </summary>
+        /// <param name="profileImages"></param>
+        /// <returns></returns>
+        [HttpPost("ProfileImages")]
+        [Authorize]
+        public async Task<IActionResult> AddProfileImages(List<IFormFile>? profileImages)
+        {
+            //Get UserId by claims in token
+            string? UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            /* Check UserId is null or not null */
+            if (string.IsNullOrWhiteSpace(UserIdStr))
+            {
+                return BadRequest("UserId can not be null");
+            }
+
+            //Convert ID from string to GUID
+            Guid UserId = Guid.Parse(UserIdStr);
+
+            //Return error if user not choose images
+            if (profileImages == null) 
+            { 
+                return BadRequest("Please choose least 1 profile image!"); 
+            }
+
+            //Add Images to database
+            List<UserImage> responseImages = await profileRepository.AddProfileImagesToDb(UserId, profileImages);
+
+            return Ok(responseImages);
+        }
+
     }
 }

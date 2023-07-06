@@ -6,7 +6,12 @@ namespace Eravol.WebApi.Repositories.PostSkills
     public interface IPostSkillsRepository
     {
         Task CreateSkillsRequireAsync(List<PostSkillRequired> skillRequires);
+        Task CreateSpecifySkillRequireAsync(PostSkillRequired skillRequired);
+        Task DeleteSkillRequire(PostSkillRequired skillRequired);
         Task<PostSkillRequired> GetSkillRequireById(int? skillRequireId);
+        Task<List<PostSkillRequireViewModel>> GetSkillRequireByPostId(int? postId);
+		List<PostSkillRequireViewModel>? GetSkillRequireBySearchTerm(string? searchTerm);
+		Task<PostSkillRequired?> GetSpecificSkillRequire(int? skillRequireId, int? postId);
         Task UpdateSkillRequire(PostSkillRequired skillRequire);
     }
 }

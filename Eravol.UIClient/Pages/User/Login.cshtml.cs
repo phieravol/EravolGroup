@@ -1,5 +1,5 @@
 ﻿using Eravlol.UserWebApi.Data.Models;
-using Eravol.UIClient.Repositories.Users;
+using Eravol.UIClient.Repositories.Users.Authentication;
 using Eravol.UIClient.ViewModels.Users.Public;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;

@@ -2,9 +2,11 @@
 using Eravol.WebApi.Data.Models;
 using Eravol.WebApi.Repositories.Posts.Public;
 using Eravol.WebApi.ViewModels.Base;
+using Eravol.WebApi.ViewModels.Posts.Public;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using System.Net;
 using System.Security.Claims;
 
@@ -14,9 +16,12 @@ namespace Eravol.WebApi.Controllers.Posts.Public
     [ApiController]
     public class PostsPublicController : ControllerBase
     {
-        private readonly IPostsPublicRepository postsPublicRepository;
+		#region Dependencies Injection services
+		private readonly IPostsPublicRepository postsPublicRepository;
 		private readonly UserManager<AppUser> userManager;
+		#endregion
 
+		#region Constructor
 		public PostsPublicController(
             IPostsPublicRepository postsPublicRepository,
             UserManager<AppUser> userManager
@@ -25,13 +30,14 @@ namespace Eravol.WebApi.Controllers.Posts.Public
             this.postsPublicRepository = postsPublicRepository;
             this.userManager = userManager;
         }
+		#endregion
 
-        /// <summary>
-        /// Get all post of public user
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        [HttpGet]
+		/// <summary>
+		/// Get all post of public user
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
+		[HttpGet]
         public async Task<IActionResult> GetPublicPosts([FromQuery] PagingRequestBase<Post> request)
         {
             //decode URL
@@ -44,11 +50,24 @@ namespace Eravol.WebApi.Controllers.Posts.Public
         }
 
         /// <summary>
-        /// Get Post detail for freelancer
+        /// Get filter paging post public
         /// </summary>
-        /// <param name="postId"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        [HttpGet("{postId}")]
+		[HttpGet("FilterPost")]
+		public async Task<IActionResult> GetFilterPagingPublicPosts([FromQuery] PostPublicFilterPaging request)
+		{
+            List<PostPublicViewModel> Posts = await postsPublicRepository.GetPostFilterPaging(request);
+			return Ok(request);
+		}
+
+
+		/// <summary>
+		/// Get Post detail for freelancer
+		/// </summary>
+		/// <param name="postId"></param>
+		/// <returns></returns>
+		[HttpGet("{postId}")]
 		public async Task<IActionResult> GetPublicPostById(int? postId)
 		{
             if (postId == null)
@@ -57,6 +76,11 @@ namespace Eravol.WebApi.Controllers.Posts.Public
             }
 
             Post? post = await postsPublicRepository.GetPublicPostById(postId);
+
+            if (post == null)
+            {
+                return NotFound("Post not found!");
+            }
 			return Ok(post);
 		}
 

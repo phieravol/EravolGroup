@@ -143,7 +143,7 @@ namespace Eravol.WebApi.Migrations
                             Id = new Guid("aedc1266-b3b5-4323-b10b-f020a31f3359"),
                             AccessFailedCount = 0,
                             Address = "Thai Binh",
-                            ConcurrencyStamp = "8ec19716-53fe-4032-80b3-b2167a95f64d",
+                            ConcurrencyStamp = "ca314696-e4b2-4447-baf8-e36b6323655f",
                             Country = "VietNam",
                             Email = "eravolgroup@gmail.com",
                             EmailConfirmed = false,
@@ -162,7 +162,7 @@ namespace Eravol.WebApi.Migrations
                             Id = new Guid("ae750391-4d11-4e00-8e92-607d18b839cf"),
                             AccessFailedCount = 0,
                             Address = "Yen Bai",
-                            ConcurrencyStamp = "ee4e2514-cb1a-4097-96e7-89a32d71847e",
+                            ConcurrencyStamp = "8417b8ee-0b1f-4252-908f-573b8bad8571",
                             Country = "VietNam",
                             Email = "phinqevol@gmail.com",
                             EmailConfirmed = false,
@@ -181,7 +181,7 @@ namespace Eravol.WebApi.Migrations
                             Id = new Guid("01a033a2-ddf4-4986-8cc9-4e117f7c8685"),
                             AccessFailedCount = 0,
                             Address = "Hung Yen",
-                            ConcurrencyStamp = "faae5537-b8a6-4ecc-b2c2-3ead1af643ae",
+                            ConcurrencyStamp = "a805c913-bb4a-4a2c-88ea-c88e61fca698",
                             Country = "VietNam",
                             Email = "chitung@gmail.com",
                             EmailConfirmed = false,
@@ -249,8 +249,11 @@ namespace Eravol.WebApi.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("UserImageName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
                     b.Property<string>("UserImagePath")
-                        .IsRequired()
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)");
 
@@ -302,6 +305,131 @@ namespace Eravol.WebApi.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Category", (string)null);
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.Certificate", b =>
+                {
+                    b.Property<int>("CertificateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CertificateId"), 1L, 1);
+
+                    b.Property<DateTime?>("CertificateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CertificateImageName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("CertificateImagePath")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<long?>("CertificateImageSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CertificateTitle")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("IsCertificatePublic")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CertificateId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Certificate", (string)null);
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.Experience", b =>
+                {
+                    b.Property<int>("ExperienceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExperienceId"), 1L, 1);
+
+                    b.Property<string>("CompanyTitle")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("EndingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("JobDescription")
+                        .HasMaxLength(1500)
+                        .HasColumnType("nvarchar(1500)");
+
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("StartingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ExperienceId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Experience", (string)null);
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.Portfolio", b =>
+                {
+                    b.Property<int>("PortfolioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PortfolioId"), 1L, 1);
+
+                    b.Property<bool>("IsPortfolioPublic")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PortfolioDescription")
+                        .HasMaxLength(2500)
+                        .HasColumnType("nvarchar(2500)");
+
+                    b.Property<string>("PortfolioImageName")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PortfolioImagePath")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
+
+                    b.Property<long?>("PortfolioImageSize")
+                        .IsRequired()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("PortfolioTitle")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PortfolioUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("PortfolioId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Portfolio", (string)null);
                 });
 
             modelBuilder.Entity("Eravol.WebApi.Data.Models.Post", b =>
@@ -453,7 +581,7 @@ namespace Eravol.WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("PriceType")
@@ -639,21 +767,21 @@ namespace Eravol.WebApi.Migrations
                         new
                         {
                             Id = new Guid("30a990c6-33c7-4884-9dcb-718ce356eb0d"),
-                            ConcurrencyStamp = "c730112d-37dd-4084-90d9-b839ada8884f",
+                            ConcurrencyStamp = "d4839faf-8c26-4967-af04-1bbf38357c73",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("b8fd818f-63f1-49ee-bec5-f7b66cafbfca"),
-                            ConcurrencyStamp = "105586a0-fbcf-4ce4-b23c-73cbb3e44194",
+                            ConcurrencyStamp = "7251786b-4955-42ab-a2a4-faf9d4241485",
                             Name = "Freelancer",
                             NormalizedName = "FREELANCER"
                         },
                         new
                         {
                             Id = new Guid("fe0e9c2d-6abd-4f73-a635-63fc58ec700e"),
-                            ConcurrencyStamp = "be5d4161-5737-4124-b59d-19b77b443faa",
+                            ConcurrencyStamp = "f575843b-fe44-4795-9271-06d838555f8e",
                             Name = "Client",
                             NormalizedName = "CLIENT"
                         });
@@ -795,6 +923,39 @@ namespace Eravol.WebApi.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.Certificate", b =>
+                {
+                    b.HasOne("Eravlol.UserWebApi.Data.Models.AppUser", "AppUser")
+                        .WithMany("Certificates")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.Experience", b =>
+                {
+                    b.HasOne("Eravlol.UserWebApi.Data.Models.AppUser", "AppUser")
+                        .WithMany("Experiences")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("Eravol.WebApi.Data.Models.Portfolio", b =>
+                {
+                    b.HasOne("Eravlol.UserWebApi.Data.Models.AppUser", "AppUser")
+                        .WithMany("Portfolios")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("Eravol.WebApi.Data.Models.Post", b =>
                 {
                     b.HasOne("Eravol.WebApi.Data.Models.Category", "Categories")
@@ -827,7 +988,7 @@ namespace Eravol.WebApi.Migrations
                     b.HasOne("Eravol.WebApi.Data.Models.Post", "Post")
                         .WithMany("PostSkillRequired")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Eravol.UserWebApi.Data.Models.Skill", "Skill")
@@ -951,6 +1112,12 @@ namespace Eravol.WebApi.Migrations
 
             modelBuilder.Entity("Eravlol.UserWebApi.Data.Models.AppUser", b =>
                 {
+                    b.Navigation("Certificates");
+
+                    b.Navigation("Experiences");
+
+                    b.Navigation("Portfolios");
+
                     b.Navigation("Posts");
 
                     b.Navigation("Services");

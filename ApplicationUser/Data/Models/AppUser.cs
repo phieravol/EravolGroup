@@ -24,6 +24,9 @@ namespace Eravlol.UserWebApi.Data.Models
         public virtual ICollection<UserImage> UserImages { get; set; }
 		public virtual ICollection<Post> Posts { get; set; }
 		public virtual ICollection<Service> Services { get; set; }
+		public virtual ICollection<Portfolio> Portfolios { get; set; }
+		public virtual ICollection<Certificate> Certificates { get; set; }
+		public virtual ICollection<Experience> Experiences { get; set; }
 		#endregion
 	}
 }
