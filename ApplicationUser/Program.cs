@@ -24,6 +24,7 @@ using System.Text.Json.Serialization;
 using Eravol.WebApi.Repositories.ServiceImages.Freelancers;
 using Eravol.WebApi.Repositories.Services.Publics;
 using Eravol.WebApi.Repositories.PostStatuses.Clients;
+using Eravol.WebApi.Repositories.Servicestatuses.Admin;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -131,6 +132,7 @@ builder.Services.AddTransient<IServiceStatusesRepository, ServiceStatusesReposit
 builder.Services.AddTransient<IServiceImagesRepository, ServiceImagesRepository>();
 builder.Services.AddTransient<IServicesPublicRepository, ServicesPublicRepository>();
 builder.Services.AddTransient<IPostStatusesRepository, PostStatusesRepository>();
+builder.Services.AddTransient<IServiceStatusesAdminRepository, ServiceStatusesAdminRepository>();
 
 var app = builder.Build();
 
