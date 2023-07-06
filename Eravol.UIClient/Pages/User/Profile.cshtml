@@ -1,6 +1,12 @@
 ﻿@page
-@model Eravol.UIClient.Pages.User.Manage.ProfileModel
+@using Eravlol.UserWebApi.Data.Models;
+@using Eravol.UserWebApi.Data.Models;
+@model Eravol.UIClient.Pages.User.ProfileModel
 @{
+    AppUser? appUser = Model.appUser;
+    string? token = Model.token;
+    List<UserImage>? profileImages = Model.profileImages;
+    List<UserImage>? userAvatars = Model.userAvatars;
 }
 <head>
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -14,129 +20,7 @@
 <!--Main Start-->
 <main id="wt-main" class="wt-main wt-haslayout">
     <!--Sidebar Start-->
-    <div id="wt-sidebarwrapper" class="wt-sidebarwrapper">
-        <div id="wt-btnmenutoggle" class="wt-btnmenutoggle">
-            <span class="menu-icon">
-                <em></em>
-                <em></em>
-                <em></em>
-            </span>
-        </div>
-        <div id="wt-verticalscrollbar" class="wt-verticalscrollbar">
-            <div class="wt-companysdetails wt-usersidebar">
-                <figure class="wt-companysimg">
-                    <img src="~/images/sidebar/img-01.jpg" alt="img description">
-                </figure>
-                <div class="wt-companysinfo">
-                    <figure><img src="~/images/sidebar/img-02.html" alt="img description"></figure>
-                    <div class="wt-title">
-                        <h2><a href="javascript:void(0);"> Louanne Mattioli</a></h2>
-                        <span>Amento Tech</span>
-                    </div>
-                    <div class="wt-btnarea"><a href="dashboard-postjob.html" class="wt-btn">Post a Job</a></div>
-                </div>
-            </div>
-            <nav id="wt-navdashboard" class="wt-navdashboard">
-                <ul>
-                    <li class="menu-item-has-children">
-                        <a href="javascript:void(0);">
-                            <i class="ti-dashboard"></i>
-                            <span>Insights</span>
-                        </a>
-                        <ul class="sub-menu">
-                            <li><hr><a href="dashboard-insights.html">Insights</a></li>
-                            <li><hr><a href="dashboard-insightsuser.html">Insights User</a></li>
-                        </ul>
-                    </li>
-                    <li class="wt-active">
-                        <a href="dashboard-profile.html">
-                            <i class="ti-briefcase"></i>
-                            <span>My Profile</span>
-                        </a>
-                    </li>
-                    <li class="menu-item-has-children">
-                        <a href="javascript:void(0);">
-                            <i class="ti-package"></i>
-                            <span>All Jobs</span>
-                        </a>
-                        <ul class="sub-menu">
-                            <li><hr><a href="dashboard-completejobs.html">Completed Jobs</a></li>
-                            <li><hr><a href="dashboard-canceljobs.html">Cancelled Jobs</a></li>
-                            <li><hr><a href="dashboard-ongoingjob.html">Ongoing Jobs</a></li>
-                            <li><hr><a href="dashboard-ongoingsingle.html">Ongoing Single</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="dashboard-managejobs.html">
-                            <i class="ti-announcement"></i>
-                            <span>Manage Jobs</span>
-                        </a>
-                    </li>
-                    <li class="wt-notificationicon menu-item-has-children">
-                        <a href="javascript:void(0);">
-                            <i class="ti-pencil-alt"></i>
-                            <span>Messages</span>
-                        </a>
-                        <ul class="sub-menu">
-                            <li><hr><a href="dashboard-messages.html">Messages</a></li>
-                            <li><hr><a href="dashboard-messages2.html">Messages V 2</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="dashboard-saveitems.html">
-                            <i class="ti-heart"></i>
-                            <span>My Saved Items</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="dashboard-invocies.html">
-                            <i class="ti-file"></i>
-                            <span>Invoices</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="dashboard-category.html">
-                            <i class="ti-layers"></i>
-                            <span>Category</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="dashboard-packages.html">
-                            <i class="ti-money"></i>
-                            <span>Packages</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="dashboard-proposals.html">
-                            <i class="ti-bookmark-alt"></i>
-                            <span>Proposals</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="dashboard-accountsettings.html">
-                            <i class="ti-anchor"></i>
-                            <span>Account Settings</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="dashboard-helpsupport.html">
-                            <i class="ti-tag"></i>
-                            <span>Help &amp; Support</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="index-2.html">
-                            <i class="ti-shift-right"></i>
-                            <span>Logout</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="wt-navdashboard-footer">
-                <span>Worktern. © 2019 All Rights Reserved.</span>
-            </div>
-        </div>
-    </div>
+    @await Component.InvokeAsync("DashboardSideBarComponent")
     <!--Sidebar Start-->
     <!--Register Form Start-->
     <section class="wt-haslayout">
@@ -164,83 +48,65 @@
                                     </div>
                                     <form class="wt-formtheme wt-userform">
                                         <fieldset>
-
+                                            <input type="hidden" id="userId" name="userId" value="@appUser.Id">
+                                            <input type="hidden" id="token_Js" name="token_Js" value="@token">
                                             <div class="form-group form-group-half">
-                                                <input type="text" name="firstname" class="form-control" placeholder="First Name">
+                                                <input type="text" asp-for="@appUser.FirstName" class="form-control" placeholder="First Name">
                                             </div>
                                             <div class="form-group form-group-half">
-                                                <input type="text" name="lastname" class="form-control" placeholder="Last Name">
+                                                <input type="text" asp-for="@appUser.LastName" class="form-control" placeholder="Last Name">
                                             </div>
                                             <div class="form-group form-group-half">
-                                                <input type="text" name="phone" class="form-control" placeholder="Phone Number">
+                                                <input type="text" asp-for="@appUser.PhoneNumber" class="form-control" placeholder="Phone Number">
                                             </div>
                                             <div class="form-group form-group-half">
-                                                <input type="date" name="birthday" class="form-control" placeholder="Date of birth">
+                                                <input type="date" asp-for="@appUser.Birthday" class="form-control" placeholder="Date of birth">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" name="tagline" class="form-control" placeholder="Add Your Tagline Here">
+                                                <input type="text" asp-for="@appUser.Tagline" class="form-control" placeholder="Add Your Tagline Here">
                                             </div>
                                             <div class="form-group">
-                                                <textarea name="description" class="form-control" placeholder="Description"></textarea>
+                                                <textarea name="description" class="form-control" placeholder="Description">@appUser.Description</textarea>
                                             </div>
                                         </fieldset>
                                     </form>
                                 </div>
                                 <div class="wt-profilephoto wt-tabsinfo">
                                     <div class="wt-tabscontenttitle">
-                                        <h2>Profile Photo</h2>
+                                        <h2>Profile Photos</h2>
                                     </div>
                                     <div class="wt-profilephotocontent">
                                         <div class="wt-description">
-                                            <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua aut enim ad minim veniamac quis nostrud exercitation ullamco laboris.</p>
+                                            <p>Select images to add into your profile photo.</p>
                                         </div>
-                                        <form class="wt-formtheme wt-formprojectinfo wt-formcategory">
+                                        <form class="wt-formtheme wt-formprojectinfo wt-formcategory" enctype="multipart/form-data">
                                             <fieldset>
                                                 <div class="form-group form-group-label">
                                                     <div class="wt-labelgroup">
                                                         <label for="filep">
                                                             <span class="wt-btn">Select Files</span>
-                                                            <input type="file" name="file" id="filep">
+                                                            <input type="file" name="file" id="filep" multiple accept=".jpg, .jpeg, .png">
                                                         </label>
                                                         <span>Drop files here to upload</span>
                                                         <em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <ul class="wt-attachfile wt-attachfilevtwo">
-                                                        <li class="wt-uploadingholder wt-companyimg-uploading">
-                                                            <div class="wt-uploadingbox">
-                                                                <figure><img src="~/images/company/img-07.jpg" alt="img description"></figure>
-                                                                <div class="wt-uploadingbar wt-uploading">
-                                                                    <span class="uploadprogressbar"></span>
-                                                                    <span>Profile Photo.jpg</span>
-                                                                    <em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
+                                                    <ul class="wt-attachfile wt-attachfilevtwo" id="profileImgContainer">
+                                                        @foreach (var image in profileImages)
+                                                        {
+                                                            <li class="wt-uploadingholder" id="item-profileImg_@image.ImgageId">
+                                                                <div class="wt-uploadingbox">
+                                                                    <div class="wt-designimg">
+                                                                        <label for="demoz"><img src=@($"https://localhost:7259/api/Images/{image.UserImageName}") alt="img description"></label>
+                                                                    </div>
+                                                                    <div class="wt-uploadingbar wt-uploading">
+                                                                        <span class="uploadprogressbar"></span>
+                                                                        <em>File size: @(image.UserImageSize / 1024) kb<button type="button" onclick="removeProfileImage(@image.ImgageId)" class="lnr lnr-cross" style="color:red"></button></em>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="wt-uploadingholder wt-companyimg-user">
-                                                            <div class="wt-uploadingbox">
-                                                                <figure><img src="~/images/company/img-08.jpg" alt="img description"></figure>
-                                                                <div class="wt-uploadingbar wt-uploading">
-                                                                    <span class="uploadprogressbar"></span>
-                                                                    <span>Profile Photo.jpg</span>
-                                                                    <em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="wt-uploadingholder">
-                                                            <div class="wt-uploadingbox">
-                                                                <div class="wt-designimg">
-                                                                    <input id="demoz" type="radio" name="employees" value="company" checked="">
-                                                                    <label for="demoz"><img src="~/images/company/img-09.jpg" alt="img description"><i class="fa fa-check"></i></label>
-                                                                </div>
-                                                                <div class="wt-uploadingbar wt-uploading">
-                                                                    <span class="uploadprogressbar"></span>
-                                                                    <span>Profile Photo.jpg</span>
-                                                                    <em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </div>
-                                                            </div>
-                                                        </li>
+                                                            </li>
+                                                        }
                                                     </ul>
                                                 </div>
                                             </fieldset>
@@ -249,11 +115,11 @@
                                 </div>
                                 <div class="wt-bannerphoto wt-tabsinfo">
                                     <div class="wt-tabscontenttitle">
-                                        <h2>Banner Photo</h2>
+                                        <h2>My Avatar</h2>
                                     </div>
                                     <div class="wt-profilephotocontent">
                                         <div class="wt-description">
-                                            <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua aut enim ad minim veniamac quis nostrud exercitation ullamco laboris.</p>
+                                            <p>Select photo from computer to change your avatar.</p>
                                         </div>
                                         <form class="wt-formtheme wt-formprojectinfo wt-formcategory">
                                             <fieldset>
@@ -268,20 +134,23 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <ul class="wt-attachfile wt-attachfilevtwo">
-                                                        <li class="wt-uploadingholder">
-                                                            <div class="wt-uploadingbox">
-                                                                <div class="wt-designimg">
-                                                                    <input id="demoq" type="radio" name="employees" value="company" checked="">
-                                                                    <label for="demoq"><img src="~/images/company/img-10.jpg" alt="img description"><i class="fa fa-check"></i></label>
+                                                    <ul class="wt-attachfile wt-attachfilevtwo" id="user-avatar_img">
+                                                        @foreach (var image in userAvatars)
+                                                        {
+                                                            <li class="wt-uploadingholder">
+                                                                <div class="wt-uploadingbox">
+                                                                    <div class="wt-designimg">
+                                                                        <input id="avatar-@image.ImgageId" type="radio" name="userAvatar" checked="">
+                                                                        <label for="demoq"><img src=@($"https://localhost:7259/api/Images/{image.UserImageName}") alt="img description"><i class="fa fa-check"></i></label>
+                                                                    </div>
+                                                                    <div class="wt-uploadingbar">
+                                                                        <span class="uploadprogressbar"></span>
+                                                                        <span>Banner Photo.jpg</span>
+                                                                        <em>File size: @(image.UserImageSize / 1024) kb<button onclick="removeProfileImage(@image.ImgageId)" class="lnr lnr-cross" style="color:red"></button></em>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="wt-uploadingbar">
-                                                                    <span class="uploadprogressbar"></span>
-                                                                    <span>Banner Photo.jpg</span>
-                                                                    <em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </div>
-                                                            </div>
-                                                        </li>
+                                                            </li>
+                                                        }
                                                     </ul>
                                                 </div>
                                             </fieldset>
@@ -1168,6 +1037,5 @@
         menu_icon.addEventListener('click', addClassFunThree);
     </script>
     <script src="~/js/users/manage/manageprofilescript.js"></script>
-    <script src="https://unpkg.com/jsonwebtoken"></script>
-
+    
 }

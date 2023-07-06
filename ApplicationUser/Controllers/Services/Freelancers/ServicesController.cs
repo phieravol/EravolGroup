@@ -22,13 +22,16 @@ namespace Eravol.WebApi.Controllers.Services.Freelancers
     [ApiController]
     public class ServicesController : ControllerBase
     {
-        private readonly IManageServicesRepository servicesRepository;
+		#region Dependency Injection Services
+		private readonly IManageServicesRepository servicesRepository;
         private readonly IManageCategoryRepository categoryRepository;
         private readonly IServiceStatusesRepository serviceStatusRepository;
 		private readonly UserManager<AppUser> userManager;
 		private readonly IFileStorageService fileStorageRepository;
 		private readonly IServiceImagesRepository serviceImagesRepository;
+		#endregion
 
+		#region Constructor
 		public ServicesController(
 			IManageServicesRepository servicesRepository,
 			IManageCategoryRepository categoryRepository,
@@ -45,6 +48,7 @@ namespace Eravol.WebApi.Controllers.Services.Freelancers
 			this.fileStorageRepository = fileStorageRepository;
 			this.serviceImagesRepository = serviceImagesRepository;
 		}
+		#endregion
 
 		/// <summary>
 		/// Get Service list of Current freelancer (Login as Freelancer before do this action)

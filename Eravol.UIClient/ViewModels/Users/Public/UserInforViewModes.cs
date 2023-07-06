@@ -10,5 +10,6 @@
 		public string? Role { get; set;}
 		public bool? IsLoginSuccess { get; set; }
 		public string? Password { get; set; }
+		public string? UserAvatar { get; set; }
 	}
 }

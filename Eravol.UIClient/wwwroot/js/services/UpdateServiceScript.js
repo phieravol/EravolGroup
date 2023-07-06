@@ -135,7 +135,6 @@ function updateImgToDb(serviceCode) {
         formData.append("serviceImages", serviceImages[i]);
     }
 
-    console.log(serviceImageUrl + serviceCode);
     $.ajax({
         url: serviceImageUrl + serviceCode,
         type: "POST",
@@ -182,8 +181,6 @@ function createServiceThumbnail() {
             console.log(status);
             console.log(xhr);
             console.log(xhr);
-
-            // Xử lý lỗi
         }
     });
 }

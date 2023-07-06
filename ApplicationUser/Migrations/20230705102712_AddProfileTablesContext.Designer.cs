@@ -4,6 +4,7 @@ using Eravol.UserWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eravol.WebApi.Migrations
 {
     [DbContext(typeof(EravolUserWebApiContext))]
-    partial class EravolUserWebApiContextModelSnapshot : ModelSnapshot
+    [Migration("20230705102712_AddProfileTablesContext")]
+    partial class AddProfileTablesContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,7 +145,7 @@ namespace Eravol.WebApi.Migrations
                             Id = new Guid("aedc1266-b3b5-4323-b10b-f020a31f3359"),
                             AccessFailedCount = 0,
                             Address = "Thai Binh",
-                            ConcurrencyStamp = "ca314696-e4b2-4447-baf8-e36b6323655f",
+                            ConcurrencyStamp = "a321e9c9-338f-4c02-8f9a-ed9b40dc43de",
                             Country = "VietNam",
                             Email = "eravolgroup@gmail.com",
                             EmailConfirmed = false,
@@ -162,7 +164,7 @@ namespace Eravol.WebApi.Migrations
                             Id = new Guid("ae750391-4d11-4e00-8e92-607d18b839cf"),
                             AccessFailedCount = 0,
                             Address = "Yen Bai",
-                            ConcurrencyStamp = "8417b8ee-0b1f-4252-908f-573b8bad8571",
+                            ConcurrencyStamp = "2900baaf-a758-406d-a0e2-9a397d134f76",
                             Country = "VietNam",
                             Email = "phinqevol@gmail.com",
                             EmailConfirmed = false,
@@ -181,7 +183,7 @@ namespace Eravol.WebApi.Migrations
                             Id = new Guid("01a033a2-ddf4-4986-8cc9-4e117f7c8685"),
                             AccessFailedCount = 0,
                             Address = "Hung Yen",
-                            ConcurrencyStamp = "a805c913-bb4a-4a2c-88ea-c88e61fca698",
+                            ConcurrencyStamp = "eef234ad-1dca-4490-a23a-cad8830aff84",
                             Country = "VietNam",
                             Email = "chitung@gmail.com",
                             EmailConfirmed = false,
@@ -249,11 +251,8 @@ namespace Eravol.WebApi.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("UserImageName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
                     b.Property<string>("UserImagePath")
+                        .IsRequired()
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)");
 
@@ -767,21 +766,21 @@ namespace Eravol.WebApi.Migrations
                         new
                         {
                             Id = new Guid("30a990c6-33c7-4884-9dcb-718ce356eb0d"),
-                            ConcurrencyStamp = "d4839faf-8c26-4967-af04-1bbf38357c73",
+                            ConcurrencyStamp = "7616b849-0249-4971-9500-5a0900d1863b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("b8fd818f-63f1-49ee-bec5-f7b66cafbfca"),
-                            ConcurrencyStamp = "7251786b-4955-42ab-a2a4-faf9d4241485",
+                            ConcurrencyStamp = "143d2479-40df-4ee9-8a05-51910617cae1",
                             Name = "Freelancer",
                             NormalizedName = "FREELANCER"
                         },
                         new
                         {
                             Id = new Guid("fe0e9c2d-6abd-4f73-a635-63fc58ec700e"),
-                            ConcurrencyStamp = "f575843b-fe44-4795-9271-06d838555f8e",
+                            ConcurrencyStamp = "2dc69b96-c99c-4d78-b092-773738cdb553",
                             Name = "Client",
                             NormalizedName = "CLIENT"
                         });

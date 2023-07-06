@@ -82,7 +82,7 @@
 							
 							<div class="wt-userlogedin" style="display:block">
 								<figure class="wt-userimg">
-									<img src="~/images/user-img.jpg" alt="image description">
+									<img src="@($"https://localhost:7259/api/Images/{Model.UserAvatar}")" alt="image description">
 								</figure>
 								<div class="wt-username">
 										<h3>@Model.FullName</h3>
@@ -100,7 +100,7 @@
 											</ul>
 										</li>
 										<li>
-											<a href="dashboard-profile.html">
+											<a asp-page="/user/profile">
 												<span>My Profile</span>
 											</a>
 										</li>
@@ -263,7 +263,7 @@ else if (Model.Role == "Freelancer")
 							
 							<div class="wt-userlogedin" style="display:block">
 								<figure class="wt-userimg">
-									<img src="~/images/user-img.jpg" alt="image description">
+									<img src="@($"https://localhost:7259/api/Images/{Model.UserAvatar}")" alt="image description">
 								</figure>
 								<div class="wt-username">
 										<h3>@Model.FullName</h3>
@@ -281,7 +281,7 @@ else if (Model.Role == "Freelancer")
 											</ul>
 										</li>
 										<li>
-											<a href="dashboard-profile.html">
+											<a asp-page="/user/profile">
 												<span>My Profile</span>
 											</a>
 										</li>
@@ -437,7 +437,7 @@ else if (Model.Role == "Client")
 							
 								<div class="wt-userlogedin" style="display:block">
 								<figure class="wt-userimg">
-									<img src="~/images/user-img.jpg" alt="image description">
+									<img src="@($"https://localhost:7259/api/Images/{Model.UserAvatar}")" alt="image description">
 								</figure>
                                     <div class="wt-username">
                                             <h3>@Model.FullName</h3>
@@ -455,7 +455,7 @@ else if (Model.Role == "Client")
 											</ul>
 										</li>
 										<li>
-											<a href="dashboard-profile.html">
+											<a asp-page="/user/profile">
 												<span>My Profile</span>
 											</a>
 										</li>

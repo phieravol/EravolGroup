@@ -23,6 +23,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using Eravol.WebApi.Repositories.ServiceImages.Freelancers;
 using Eravol.WebApi.Repositories.Services.Publics;
+using Eravol.WebApi.Repositories.UserImages;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -129,6 +130,7 @@ builder.Services.AddTransient<IManageServicesRepository, ManageServicesRepositor
 builder.Services.AddTransient<IServiceStatusesRepository, ServiceStatusesRepository>();
 builder.Services.AddTransient<IServiceImagesRepository, ServiceImagesRepository>();
 builder.Services.AddTransient<IServicesPublicRepository, ServicesPublicRepository>();
+builder.Services.AddTransient<IUserImageRepository, UserImageRepository>();
 
 var app = builder.Build();
 
