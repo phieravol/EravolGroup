@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient.Server;
 using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace Eravol.UIClient.Pages.PostStatuses.Clients
@@ -12,7 +14,7 @@ namespace Eravol.UIClient.Pages.PostStatuses.Clients
 	public class UpdateModel : PageModel
 	{
 		const string BASE_URL = "https://localhost:7259";
-		string RELATIVE_PATH_URL = $"/api/PostStatuses";
+		string RELATIVE_PATH_URL = $"/api/Admin/PostStatuses";
 		const string HTTP_GET = "GET";
 		const string HTTP_PUT = "PUT";
 		const string HTTP_POST = "POST";
@@ -30,7 +32,23 @@ namespace Eravol.UIClient.Pages.PostStatuses.Clients
 		[BindProperty] public PostStatus? postStatus { get; set; }
 		public async Task<IActionResult> OnGetAsync()
 		{
-			var client = clientFactory.CreateClient();
+            //get token by session
+            string? token = HttpContext.Session.GetString("AuthToken");
+            if (!string.IsNullOrEmpty(token))
+            {
+                // Giải mã token
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var decodedToken = tokenHandler.ReadJwtToken(token);
+
+                // Lấy danh sách claims từ token đã giải mã
+                var claims = decodedToken.Claims.ToList();
+                var roleClaimValue = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+                if (!roleClaimValue.ToString().Equals("Admin") || PostStatusId is null)
+                {
+                    return RedirectToPage("/Forbidden");
+                }
+            }
+            var client = clientFactory.CreateClient();
 			client.BaseAddress = new Uri(BASE_URL);
 			string url = $"{RELATIVE_PATH_URL}/PostStatusId?PostStatusId={PostStatusId}";
 			HttpResponseMessage response = await client.GetAsync(url);
