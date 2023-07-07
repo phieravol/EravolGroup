@@ -1,31 +1,30 @@
 ﻿using Eravol.UserWebApi.Data;
-using Eravol.UserWebApi.Data.Models;
-using Eravol.UserWebApi.ViewModels.Skills;
 using Eravol.WebApi.Data.Models;
 using Eravol.WebApi.ViewModels.Base;
+using Eravol.WebApi.ViewModels.ServiceStatuses;
 using Microsoft.EntityFrameworkCore;
 
-namespace Eravol.UserWebApi.Repository.Skills
+namespace Eravol.WebApi.Repositories.Servicestatuses.Admin
 {
-    public class SkillRepository : ISkillRepository
+    public class ServiceStatusesAdminRepository : IServiceStatusesAdminRepository
     {
         private readonly EravolUserWebApiContext context;
 
-        public SkillRepository(EravolUserWebApiContext context)
+        public ServiceStatusesAdminRepository(EravolUserWebApiContext context)
         {
             this.context = context;
         }
 
-        public async Task CreateSkillAsync(SkillViewModel skill)
+        public async Task CreateServiceStatusAsync(ServiceStatusViewModel request)
         {
             try
             {
-                Skill skills = new Skill()
+                ServiceStatus serviceStatus = new ServiceStatus()
                 {
-                    SkillName = skill.SkillName,
-                    isPublic = skill.isPublic
+                    ServiceStatusName = request.ServiceStatusName,
+                    ServiceStatusDesc = request.ServiceStatusDesc
                 };
-                context.Skills.Add(skills);
+                context.ServiceStatuses.Add(serviceStatus);
                 await context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -34,11 +33,11 @@ namespace Eravol.UserWebApi.Repository.Skills
             }
         }
 
-        public async Task DeleteSkillAsync(Skill skill)
+        public async Task DeleteServiceStatusAsync(ServiceStatus serviceStatus)
         {
             try
             {
-                context.Skills.Remove(skill);
+                context.ServiceStatuses.Remove(serviceStatus);
                 await context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -47,12 +46,12 @@ namespace Eravol.UserWebApi.Repository.Skills
             }
         }
 
-        public async Task<Skill> GetSkillByIdAsync(int? skillId)
+        public async Task<ServiceStatus> GetServiceStatusByIdAsync(int? serviceStatusId)
         {
             try
             {
-                Skill? skill = await context.Skills.FindAsync(skillId);
-                return skill;
+                ServiceStatus? serviceStatus = await context.ServiceStatuses.FindAsync(serviceStatusId);
+                return serviceStatus;
             }
             catch (Exception ex)
             {
@@ -60,15 +59,15 @@ namespace Eravol.UserWebApi.Repository.Skills
             }
         }
 
-        public async Task<List<Skill>> GetSkillSearchPaging(PagingRequestBase<Skill> request)
+        public async Task<List<ServiceStatus>> GetServiceStatusSearchPaging(PagingRequestBase<ServiceStatus> request)
         {
             try
             {
-                IQueryable<Skill> query = context.Skills/*.Where(x => x.isPublic.Value == true)*/;
+                IQueryable<ServiceStatus> query = context.ServiceStatuses;
 
                 if (!string.IsNullOrEmpty(request.SearchTerm))
                 {
-                    query = query.Where(x => x.SkillName.Contains(request.SearchTerm));
+                    query = query.Where(x => x.ServiceStatusName.Contains(request.SearchTerm) || x.ServiceStatusDesc.Contains(request.SearchTerm));
                 }
                 request.Items = await query.ToListAsync();
             }
@@ -79,11 +78,11 @@ namespace Eravol.UserWebApi.Repository.Skills
             return request.Items;
         }
 
-        public async Task UpdateSkillAsync(Skill skill)
+        public async Task UpdateServiceStatusAsync(ServiceStatus serviceStatus)
         {
             try
             {
-                context.Entry<Skill>(skill).State = EntityState.Modified;
+                context.Entry<ServiceStatus>(serviceStatus).State = EntityState.Modified;
                 await context.SaveChangesAsync();
             }
             catch (Exception e)

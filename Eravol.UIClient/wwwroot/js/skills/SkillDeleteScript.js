@@ -1,14 +1,14 @@
 ﻿/**
- * Delete Category with confirm dialog
+ * Delete Skills with confirm dialog
  * */
-function confirmDelteCategory(categoryId) {
-    var confirmDiaglog = confirm("Are you sure you want to delete this category?", "Delete category");
+function confirmDelteSkill(skillId) {
+    var confirmDiaglog = confirm("Are you sure you want to delete this skill?", "Delete skill");
     if (confirmDiaglog) {
 
         const baseUrl = "https://localhost:7259";
-        const relativeUrl = "api/Admin/Categories";
-        const url = `${baseUrl}/${relativeUrl}/${categoryId}`;
-        fetch(`${baseUrl}/${relativeUrl}/${categoryId}`,
+        const relativeUrl = "api/Admin/Skills";
+        const url = `${baseUrl}/${relativeUrl}/${skillId}`;
+        fetch(`${baseUrl}/${relativeUrl}/${skillId}`,
             {
                 method: 'DELETE'
             })
@@ -16,7 +16,7 @@ function confirmDelteCategory(categoryId) {
                 if (response.ok) {
                     console.log("delete successfully");
                     // Cập nhật danh sách categories trên giao diện nếu cần thiết
-                    var row = document.getElementById(`row-category-${categoryId}`);
+                    var row = document.getElementById(`row-skills-${skillId}`);
                     row.remove();
                 }
             });

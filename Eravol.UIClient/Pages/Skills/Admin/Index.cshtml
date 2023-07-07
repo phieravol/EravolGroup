@@ -1,0 +1,172 @@
+﻿@page
+@using Eravol.UserWebApi.Data.Models;
+@using Eravol.UserWebApi.ViewModels.Skills;
+@model Eravol.UIClient.Pages.Skills.Admin.IndexModel
+@{
+    bool HasPreviousPage = Model.PagingRequest.HasPrevious;
+    bool HasNextPage = Model.PagingRequest.HasNext;
+    int TotalPages = Model.PagingRequest.TotalPages;
+    int PageSize = Model.PagingRequest.PageSize;
+    int CurrentPage = Model.PagingRequest.CurrentPage;
+    string? SearchTerm = Model.PagingRequest.SearchTerm;
+    List<Skill>? Skills = Model.PagingRequest.Items;
+    SkillViewModel? skill = new SkillViewModel();
+    var message = TempData["Message"];
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/themify-icons.css">
+    <link rel="stylesheet" href="~/css/basictable.css">
+    <link rel="stylesheet" href="~/css/dashboard.css">
+    <link rel="stylesheet" href="~/css/dbresponsive.css">
+    <script src="~/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+<!--Main Start-->
+<main id="wt-main" class="wt-main wt-haslayout">
+
+    <!--Sidebar Start-->
+    @await Component.InvokeAsync("DashboardSideBarComponent")
+    <!--Sidebar Start-->
+    <!--Register Form Start-->
+    <section class="wt-haslayout wt-dbsectionspace">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 float-left">
+                <div class="wt-dashboardbox">
+                    <div class="wt-dashboardboxtitle">
+                        <h2>Add New Skill</h2>
+                    </div>
+                    <div class="wt-dashboardboxcontent">
+                        <form method="post" asp-page="./Create" class="wt-formtheme wt-formprojectinfo wt-formcategory" enctype="multipart/form-data">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input type="text" asp-for="@skill.SkillName" class="form-control" placeholder="Name">
+                                    <span class="form-group-description">Skill name</span>
+                                </div>
+                                <div class="form-group">
+                                    <span class="wt-select">
+                                        <select asp-for="@skill.isPublic">
+                                            <option value="@null" disabled="" selected>Set Public</option>
+                                            <option value="@true">Public</option>
+                                            <option value="@false">Private</option>
+                                        </select>
+                                    </span>
+                                    <span class="form-group-description">Skill Public</span>
+                                </div>
+                                <div class="form-group wt-btnarea">
+                                    <button type="submit" class="wt-btn">Add New Skill</button>
+                                </div>
+                                <div style="color:red">@message</div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 float-right">
+                <div class="wt-dashboardbox wt-categorys">
+                    <div class="wt-dashboardboxtitle wt-titlewithsearch">
+                        <h2>Skills</h2>
+                        <form class="wt-formtheme wt-formsearch">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input type="text" asp-for="@SearchTerm" class="form-control" placeholder="Search Post Status">
+                                    <button type="submit" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="wt-dashboardboxcontent wt-categoriescontentholder">
+                        <table class="wt-tablecategories">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span class="wt-checkbox">
+                                            <input id="wt-name" type="checkbox" name="head">
+                                            <label for="wt-name"></label>
+                                        </span>
+                                    </th>
+                                    <th>Skill Name</th>
+                                    <th>Is Public</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Skills != null)
+                                {
+                                    @foreach (var item in Skills)
+                                    {
+                                        <tr id="row-skills-@item.Id">
+                                            <td>
+                                                <span class="wt-checkbox">
+                                                    <input id="wt-namea-@item.Id" type="checkbox" name="head">
+                                                    <label for="wt-namea-@item.Id"></label>
+                                                </span>
+                                            </td>
+                                            <td>@item.SkillName</td>
+                                            @if(item.isPublic is true)
+                                            {
+                                                <td>Public</td>
+                                            }
+                                            else if (item.isPublic is false)
+                                            {
+                                                <td>Private</td>
+                                            }else{
+                                                <td>Default</td>
+                                            }
+                                            <td>
+                                                <div class="wt-actionbtn">
+                                                    <a asp-page="/Skills/Admin/Update" asp-route-skillId="@item.Id" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
+                                                    <a href="javascript:void(0)" class="wt-deleteinfo" onclick="confirmDelteSkill(@item.Id)"><i class="lnr lnr-trash"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                        @if (HasPreviousPage || HasNextPage)
+                        {
+                            @if (TotalPages > 1)
+                            {
+                                <nav class="wt-pagination">
+                                    <ul>
+                                        <li class="wt-prevpage">
+                                            <a asp-page="./Index" asp-route-CurrentPage="@CurrentPage-1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">
+                                                <i class="lnr lnr-chevron-left"></i>
+                                            </a>
+                                        </li>
+                                        @if (TotalPages <= 3)
+                                        {
+                                            for (int i = 1; i <= TotalPages; i++)
+                                            {
+                                                <li><a asp-route-CurrentPage="@i" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">@i</a></li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            for (int i = 1; i <= TotalPages; i++)
+                                            {
+                                                <li><a asp-route-CurrentPage="@i" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">@i</a></li>
+                                            }
+                                            <li><a href="javascrip:void(0);">...</a></li>
+                                            <li><a asp-route-CurrentPage="@TotalPages" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize">Last Page</a></li>
+                                        }
+                                        <li asp-page="./Index" asp-route-CurrentPage="@CurrentPage+1" asp-route-searchTerm="@SearchTerm" asp-route-pageSize="@PageSize" class="wt-nextpage">
+                                            <a href="javascrip:void(0);">
+                                                <i class="lnr lnr-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Register Form End-->
+</main>
+@section Scripts {
+    <script src="~/js/skills/skilldeletescript.js"></script>
+}

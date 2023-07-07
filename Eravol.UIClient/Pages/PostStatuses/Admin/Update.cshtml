@@ -1,0 +1,39 @@
+﻿@page
+@using Eravol.WebApi.Data.Models;
+@model Eravol.UIClient.Pages.PostStatuses.Clients.UpdateModel
+@{
+	PostStatus? postStatus = Model.postStatus;
+	var message = TempData["FailedMessage"];
+}
+<!--Register Form Start-->
+<section class="wt-haslayout wt-dbsectionspace">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 mx-auto">
+			<div class="wt-dashboardbox">
+				<div class="wt-dashboardboxtitle">
+					<h2>Update Post Status</h2>
+				</div>
+				<div class="wt-dashboardboxcontent">
+					<form method="post" class="wt-formtheme wt-formprojectinfo wt-formcategory" enctype="multipart/form-data">
+						<fieldset>
+							<input type="hidden" asp-for="@postStatus.PostStatusId" class="form-control" placeholder="Name">
+							<div class="form-group">
+								<input type="text" asp-for="@postStatus.PostStatusName" class="form-control" placeholder="Name">
+								<span class="form-group-description">Post Status Name</span>
+							</div>						
+							<div class="form-group">
+								<textarea asp-for="@postStatus.PostStatusDesc" class="form-control" placeholder="Description"></textarea>
+								<span class="form-group-description">Post Status Description</span>
+							</div>
+							<div class="form-group wt-btnarea">
+								<button type="submit" class="wt-btn">Update Post Status</button>
+							</div>
+                            <div style="color:red">@message</div>						
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--Register Form End-->

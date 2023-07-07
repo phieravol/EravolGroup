@@ -1,31 +1,31 @@
 ﻿using Eravol.UserWebApi.Data;
-using Eravol.UserWebApi.Data.Models;
-using Eravol.UserWebApi.ViewModels.Skills;
 using Eravol.WebApi.Data.Models;
 using Eravol.WebApi.ViewModels.Base;
+using Eravol.WebApi.ViewModels.PostStatuses;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
-namespace Eravol.UserWebApi.Repository.Skills
+namespace Eravol.WebApi.Repositories.PostStatuses.Clients
 {
-    public class SkillRepository : ISkillRepository
+    public class PostStatusesRepository : IPostStatusesRepository
     {
         private readonly EravolUserWebApiContext context;
 
-        public SkillRepository(EravolUserWebApiContext context)
+        public PostStatusesRepository(EravolUserWebApiContext context)
         {
             this.context = context;
         }
 
-        public async Task CreateSkillAsync(SkillViewModel skill)
+        public async Task CreatePostStatusAsync(UpdatePostStatusRequest request)
         {
             try
             {
-                Skill skills = new Skill()
+                PostStatus postStatus = new PostStatus()
                 {
-                    SkillName = skill.SkillName,
-                    isPublic = skill.isPublic
+                    PostStatusName = request.PostStatusName,
+                    PostStatusDesc = request.PostStatusDesc
                 };
-                context.Skills.Add(skills);
+                context.PostStatuses.Add(postStatus);
                 await context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -34,11 +34,11 @@ namespace Eravol.UserWebApi.Repository.Skills
             }
         }
 
-        public async Task DeleteSkillAsync(Skill skill)
+        public async Task DeletePostStatusAsync(PostStatus postStatus)
         {
             try
             {
-                context.Skills.Remove(skill);
+                context.PostStatuses.Remove(postStatus);
                 await context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -47,12 +47,12 @@ namespace Eravol.UserWebApi.Repository.Skills
             }
         }
 
-        public async Task<Skill> GetSkillByIdAsync(int? skillId)
+        public async Task<PostStatus> GetPostStatusByIdAsync(int? postStatusId)
         {
             try
             {
-                Skill? skill = await context.Skills.FindAsync(skillId);
-                return skill;
+                PostStatus? postStatus = await context.PostStatuses.FindAsync(postStatusId);
+                return postStatus;
             }
             catch (Exception ex)
             {
@@ -60,15 +60,15 @@ namespace Eravol.UserWebApi.Repository.Skills
             }
         }
 
-        public async Task<List<Skill>> GetSkillSearchPaging(PagingRequestBase<Skill> request)
+        public async Task<List<PostStatus>> GetPostStatusSearchPaging(PagingRequestBase<PostStatus> request)
         {
             try
             {
-                IQueryable<Skill> query = context.Skills/*.Where(x => x.isPublic.Value == true)*/;
+                IQueryable<PostStatus> query = context.PostStatuses;
 
                 if (!string.IsNullOrEmpty(request.SearchTerm))
                 {
-                    query = query.Where(x => x.SkillName.Contains(request.SearchTerm));
+                    query = query.Where(x => x.PostStatusName.Contains(request.SearchTerm) || x.PostStatusDesc.Contains(request.SearchTerm));
                 }
                 request.Items = await query.ToListAsync();
             }
@@ -79,11 +79,11 @@ namespace Eravol.UserWebApi.Repository.Skills
             return request.Items;
         }
 
-        public async Task UpdateSkillAsync(Skill skill)
+        public async Task UpdatePostStatusAsync(PostStatus postStatus)
         {
             try
             {
-                context.Entry<Skill>(skill).State = EntityState.Modified;
+                context.Entry<PostStatus>(postStatus).State = EntityState.Modified;
                 await context.SaveChangesAsync();
             }
             catch (Exception e)

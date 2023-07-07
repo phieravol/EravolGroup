@@ -1,10 +1,11 @@
-﻿namespace Eravol.UserWebApi.ViewModels.Skills
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Eravol.UserWebApi.ViewModels.Skills
 {
     public class SkillViewModel
     {
-        public int? Id { get; set; }
+        [Required(ErrorMessage = "Skill Name is required.")]
         public string SkillName { get; set; }
-        public int? Score { get; set; }
-        public bool? IsVerified { get; set; }
+        public bool? isPublic { get; set; }
     }
 }

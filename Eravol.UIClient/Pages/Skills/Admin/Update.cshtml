@@ -1,0 +1,45 @@
+﻿@page
+@using Eravol.UserWebApi.Data.Models;
+@model Eravol.UIClient.Pages.Skills.Admin.UpdateModel
+@{
+    Skill? skills = Model.skills;
+    var message = TempData["FailedUpdateMessage"];
+}
+<!--Register Form Start-->
+<section class="wt-haslayout wt-dbsectionspace">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 mx-auto">
+            <div class="wt-dashboardbox">
+                <div class="wt-dashboardboxtitle">
+                    <h2>Update Skills</h2>
+                </div>
+                <div class="wt-dashboardboxcontent">
+                    <form method="post" class="wt-formtheme wt-formprojectinfo wt-formcategory" enctype="multipart/form-data">
+                        <fieldset>
+                            <input type="hidden" asp-for="@skills.Id" class="form-control" placeholder="Name">
+                            <div class="form-group">
+                                <input type="text" asp-for="@skills.SkillName" class="form-control" placeholder="Name">
+                                <span class="form-group-description">Skill Name</span>
+                            </div>
+                            <div class="form-group">
+                                <span class="wt-select">
+                                    <select asp-for="@skills.isPublic">
+                                        <option value="@null" disabled="" selected>Set Public</option>
+                                        <option value="@true">Public</option>
+                                        <option value="@false">Private</option>
+                                    </select>
+                                </span>
+                                <span class="form-group-description">Skill Public</span>
+                            </div>
+                            <div class="form-group wt-btnarea">
+                                <button type="submit" class="wt-btn">Update Skill</button>
+                            </div>
+                            <div style="color:red">@message</div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Register Form End-->
