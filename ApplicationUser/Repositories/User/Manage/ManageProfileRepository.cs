@@ -164,5 +164,44 @@ namespace Eravol.UserWebApi.Repository.User.Admin
 				throw new Exception(e.Message);
 			}
 		}
+
+        /// <summary>
+        /// Get AppUser by user Id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+		public async Task<AppUser?> GetAppUserById(Guid userId)
+		{
+			AppUser? appUser = new AppUser();
+			try
+			{
+				appUser = await context.AppUsers.FindAsync(userId);
+                return appUser;
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			}
+		}
+
+        /// <summary>
+        /// Update appUser
+        /// </summary>
+        /// <param name="appUser"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+		public async Task UpdateAppUser(AppUser appUser)
+		{
+			try
+			{
+                context.AppUsers.Update(appUser);
+                await context.SaveChangesAsync();
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			}
+		}
 	}
 }
