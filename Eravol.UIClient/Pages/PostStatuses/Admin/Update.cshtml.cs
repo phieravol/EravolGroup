@@ -83,12 +83,12 @@ namespace Eravol.UIClient.Pages.PostStatuses.Clients
 			HttpResponseMessage response = await client.PutAsync(url, formData);
 			if (response.IsSuccessStatusCode)
 			{
-				TempData["SuccessMessage"] = "Update Successfully!";
+				TempData["Message"] = "Update Successfully!";
 				return RedirectToPage("./Index");
 			}
 			else
 			{
-				TempData["FailedMessage"] = "Update Falied! Please Try Again";
+				TempData["Message"] = "Update Falied! Please Try Again";
 				return RedirectToPage("./Index");
 			}
 		}
