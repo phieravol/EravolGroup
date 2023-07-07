@@ -6,9 +6,11 @@ namespace Eravol.UserWebApi.Repository.User.Admin
 	public interface IManageProfileRepository
 	{
         Task<List<UserImage>> AddProfileImagesToDb(Guid UserId, List<IFormFile> profileImages);
+		Task<AppUser?> GetAppUserById(Guid userId);
 		Task<UserImage?> GetCurrentAvatarById(Guid userId);
 		Task<List<UserImage>> GetUseAvatarById(Guid userId);
         Task<AppUser?> GetUserByUsername(string? userName);
         Task<List<UserImage>> GetUserImagesById(Guid userId);
-    }
+		Task UpdateAppUser(AppUser appUser);
+	}
 }

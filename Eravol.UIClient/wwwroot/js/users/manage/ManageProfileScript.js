@@ -9,6 +9,13 @@
     $("#filew").change(function () {
         insertAvatarImages();
     });
+
+    //Update user profile
+    $("#btn-profile_update").click(function () {
+        updateUserProfile();
+    });
+
+
 });
 
 
@@ -150,7 +157,61 @@ function insertAvatarImages() {
             console.log(xhr);
         }
     });
+}
 
-    
+/**
+ * Update user profile button
+ * */
+function updateUserProfile() {
+    var token = $("#token_Js").val();
+    var firstname = $('#input-firstname_Js').val();
+    var lastname = $('#input-lastname_Js').val();
+    var phonenumber = $('#input-phone_Js').val();
+    var birthday = $('#input-birthdat_Js').val();
+    var tagline = $('#input-tagline_Js').val();
+    var description = $('#text-desc_Js').val();
+    var country = $('#select-country_Js').val();
+    var address = $('#input-address_Js').val();
+
+    var Url = 'https://localhost:7259/api/UserProfile/ProfileInformation';
+    $.ajax({
+        url: Url,
+        type: "PUT",
+        data: JSON.stringify({
+            firstName: firstname,
+            lastName: lastname,
+            tagline: tagline,
+            description: description,
+            phoneNumber: phonenumber,
+            country: country,
+            address: address,
+            birthday: birthday
+        }),
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        contentType: 'application/json',
+        success: function (response) {
+            console.log(response);
+            var html = `<div id="notification-items" class="position-fixed" style="z-index:2;top: 20px;right: 20px;">
+                            <div class="alert alert-success d-flex align-items-center" role="alert">
+                                <i class="fa-solid fa-circle-check fa-lg"></i>
+                                <div class="m-1">
+                                    Update Profile success
+                                </div>
+                            </div>
+                        </div>`;
+            $('#wt-main').append(html);
+            
+            setTimeout(function () {
+                $('#notification-items').fadeIn().delay(1000).fadeOut();
+            }, 1000);
+        },
+        error: function (xhr, status, error) {
+            console.log(status);
+            console.log(xhr);
+            console.log(error);
+        }
+    });
 }
 
