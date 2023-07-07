@@ -1,10 +1,13 @@
 ﻿using Eravlol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Repository.User.Admin;
+using Eravol.WebApi.ViewModels.Users.Profiles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Metrics;
+using System.Diagnostics;
 using System.Security.Claims;
 
 namespace Eravol.WebApi.Controllers.Users
@@ -87,5 +90,44 @@ namespace Eravol.WebApi.Controllers.Users
             return Ok(responseImages);
         }
 
-    }
+        [HttpPut("ProfileInformation")]
+        [Authorize]
+        public async Task<IActionResult> UpdateProfileInfor(UserProfileViewModel ProfileInfor)
+        {
+			//Get UserId by claims in token
+			string? UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+			/* Check UserId is null or not null */
+			if (string.IsNullOrWhiteSpace(UserIdStr))
+			{
+				return BadRequest("UserId can not be null");
+			}
+
+			//Convert ID from string to GUID
+			Guid UserId = Guid.Parse(UserIdStr);
+
+            //Get AppUser by UserId
+            AppUser? appUser = await profileRepository.GetAppUserById(UserId);
+
+            if (appUser == null)
+            {
+                return NotFound("User not found");
+            }
+
+            appUser.FirstName= ProfileInfor.FirstName;
+            appUser.LastName= ProfileInfor.LastName;
+            appUser.PhoneNumber= ProfileInfor.PhoneNumber;
+            appUser.Address= ProfileInfor.Address;
+			appUser.Tagline = ProfileInfor.Tagline;
+            appUser.Description = ProfileInfor.Description;
+            appUser.Country = ProfileInfor.Country;
+            appUser.Birthday = ProfileInfor?.Birthday;
+
+            //Update appUser
+            await profileRepository.UpdateAppUser(appUser);
+
+			return Ok(appUser);
+        }
+
+	}
 }
