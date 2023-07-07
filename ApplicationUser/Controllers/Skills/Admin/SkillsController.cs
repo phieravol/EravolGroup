@@ -1,8 +1,8 @@
 ﻿using Eravlol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Data.Models;
-using Eravol.UserWebApi.Repository.Skills;
 using Eravol.UserWebApi.ViewModels.Skills;
 using Eravol.WebApi.Data.Models;
+using Eravol.WebApi.Repositories.Skills.Admin;
 using Eravol.WebApi.ViewModels.Base;
 using Eravol.WebApi.ViewModels.PostStatuses;
 using Microsoft.AspNetCore.Authorization;

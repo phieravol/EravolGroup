@@ -1,5 +1,7 @@
 ﻿using Eravlol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Data.Models;
+using Eravol.WebApi.Data.Models;
+using Eravol.WebApi.ViewModels.UserSkills;
 
 namespace Eravol.UIClient.Repositories.Users.Profiles
 {
@@ -8,5 +10,7 @@ namespace Eravol.UIClient.Repositories.Users.Profiles
 		Task<AppUser?> GetUserInformation(string token);
         Task<List<UserImage>?> GetUserProfileImages(string token);
         Task<List<UserImage>?> GetUserAvatarImage(string token);
+        Task<List<Skill>?> GetAllPublicSkills();
+        Task<List<UserSkillViewModel>?> GetMyUserSkills(string token);
     }
 }

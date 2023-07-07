@@ -5,7 +5,7 @@ using Eravol.WebApi.Data.Models;
 using Eravol.WebApi.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
 
-namespace Eravol.UserWebApi.Repository.Skills
+namespace Eravol.WebApi.Repositories.Skills.Admin
 {
     public class SkillRepository : ISkillRepository
     {
@@ -83,7 +83,7 @@ namespace Eravol.UserWebApi.Repository.Skills
         {
             try
             {
-                context.Entry<Skill>(skill).State = EntityState.Modified;
+                context.Entry(skill).State = EntityState.Modified;
                 await context.SaveChangesAsync();
             }
             catch (Exception e)

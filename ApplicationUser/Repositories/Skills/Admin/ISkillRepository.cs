@@ -4,7 +4,7 @@ using Eravol.WebApi.Data.Models;
 using Eravol.WebApi.ViewModels.Base;
 using Eravol.WebApi.ViewModels.PostStatuses;
 
-namespace Eravol.UserWebApi.Repository.Skills
+namespace Eravol.WebApi.Repositories.Skills.Admin
 {
     public interface ISkillRepository
     {
