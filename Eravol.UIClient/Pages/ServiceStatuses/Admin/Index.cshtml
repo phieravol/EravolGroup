@@ -1,7 +1,7 @@
 ﻿@page
 @using Eravol.WebApi.Data.Models;
-@using Eravol.WebApi.ViewModels.PostStatuses;
-@model Eravol.UIClient.Pages.PostStatuses.Clients.IndexModel
+@using Eravol.WebApi.ViewModels.ServiceStatuses;
+@model Eravol.UIClient.Pages.ServiceStatuses.Admin.IndexModel
 @{
     bool HasPreviousPage = Model.PagingRequest.HasPrevious;
     bool HasNextPage = Model.PagingRequest.HasNext;
@@ -9,8 +9,8 @@
     int PageSize = Model.PagingRequest.PageSize;
     int CurrentPage = Model.PagingRequest.CurrentPage;
     string? SearchTerm = Model.PagingRequest.SearchTerm;
-    List<PostStatus>? PostStatuses = Model.PagingRequest.Items;
-    PostStatusesRequest? postStatus = new PostStatusesRequest();
+    List<ServiceStatus>? ServiceStatuses = Model.PagingRequest.Items;
+    ServiceStatusViewModel? serviceStatus = new ServiceStatusViewModel();
     var message = TempData["Message"];
 }
 <head>
@@ -33,21 +33,21 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 float-left">
                 <div class="wt-dashboardbox">
                     <div class="wt-dashboardboxtitle">
-                        <h2>Add New Post Status</h2>
+                        <h2>Add New Service Status</h2>
                     </div>
                     <div class="wt-dashboardboxcontent">
                         <form method="post" asp-page="./Create" class="wt-formtheme wt-formprojectinfo wt-formcategory" enctype="multipart/form-data">
                             <fieldset>
                                 <div class="form-group">
-                                    <input type="text" asp-for="@postStatus.PostStatusName" class="form-control" placeholder="Name">
-                                    <span class="form-group-description">Post status name</span>
+                                    <input type="text" asp-for="@serviceStatus.ServiceStatusName" class="form-control" placeholder="Name">
+                                    <span class="form-group-description">Service Status Name</span>
                                 </div>
                                 <div class="form-group">
-                                    <textarea asp-for="@postStatus.PostStatusDesc" class="form-control" placeholder="Description"></textarea>
-                                    <span class="form-group-description">Post status Description</span>
+                                    <textarea asp-for="@serviceStatus.ServiceStatusDesc" class="form-control" placeholder="Description"></textarea>
+                                    <span class="form-group-description">Service Status Description</span>
                                 </div>
                                 <div class="form-group wt-btnarea">
-                                    <button type="submit" class="wt-btn">Add New Post Status</button>
+                                    <button type="submit" class="wt-btn">Add New Service Status</button>
                                 </div>
                                 <div style="color:red">@message</div>
                             </fieldset>
@@ -58,7 +58,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 float-right">
                 <div class="wt-dashboardbox wt-categorys">
                     <div class="wt-dashboardboxtitle wt-titlewithsearch">
-                        <h2>Post Status</h2>
+                        <h2>Service Status</h2>
                         <form class="wt-formtheme wt-formsearch">
                             <fieldset>
                                 <div class="form-group">
@@ -84,23 +84,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (PostStatuses != null)
+                                @if (ServiceStatuses != null)
                                 {
-                                    @foreach (var item in PostStatuses)
+                                    @foreach (var item in ServiceStatuses)
                                     {
-                                        <tr id="row-postStatus-@item.PostStatusId">
+                                        <tr id="row-serviceStatus-@item.ServiceStatusId">
                                             <td>
                                                 <span class="wt-checkbox">
-                                                    <input id="wt-namea-@item.PostStatusId" type="checkbox" name="head">
-                                                    <label for="wt-namea-@item.PostStatusId"></label>
+                                                    <input id="wt-namea-@item.ServiceStatusId" type="checkbox" name="head">
+                                                    <label for="wt-namea-@item.ServiceStatusId"></label>
                                                 </span>
                                             </td>
-                                            <td>@item.PostStatusName</td>
-                                            <td>@item.PostStatusDesc</td>
+                                            <td>@item.ServiceStatusName</td>
+                                            <td>@item.ServiceStatusDesc</td>
                                             <td>
                                                 <div class="wt-actionbtn">
-                                                    <a asp-page="/PostStatuses/Admin/Update" asp-route-PostStatusId="@item.PostStatusId" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a>
-                                                    <a href="javascript:void(0)" class="wt-deleteinfo" onclick="confirmDeltePostStatus(@item.PostStatusId)"><i class="lnr lnr-trash"></i></a>
+                                                    <a asp-page="/ServiceStatuses/Admin/Update" asp-route-ServiceStatusId="@item.ServiceStatusId" class="wt-addinfo wt-skillsaddinfo"><i class="lnr lnr-pencil"></i></a><br />
+                                                    <a href="javascript:void(0)" class="wt-deleteinfo" onclick="confirmDelteServiceStatus(@item.ServiceStatusId)"><i class="lnr lnr-trash"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -154,5 +154,5 @@
 </main>
 <!--Main End-->
 @section Scripts {
-    <script src="~/js/poststatuses/poststatusdeletescript.js"></script>
+    <script src="~/js/servicestatuses/servicestatusesdeletescript.js"></script>
 }

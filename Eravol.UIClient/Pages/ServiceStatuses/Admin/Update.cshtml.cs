@@ -1,19 +1,18 @@
-﻿using Eravol.UserWebApi.Data.Models;
-using Eravol.UserWebApi.ViewModels.Skills;
-using Eravol.WebApi.Data.Models;
+﻿using Eravol.WebApi.Data.Models;
 using Eravol.WebApi.ViewModels.PostStatuses;
+using Eravol.WebApi.ViewModels.ServiceStatuses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace Eravol.UIClient.Pages.Skills.Admin
+namespace Eravol.UIClient.Pages.ServiceStatuses.Admin
 {
     public class UpdateModel : PageModel
     {
         const string BASE_URL = "https://localhost:7259";
-        string RELATIVE_PATH_URL = $"/api/Admin/Skills";
+        string RELATIVE_PATH_URL = $"/api/Admin/ServiceStatusesAdmin";
         const string HTTP_GET = "GET";
         const string HTTP_PUT = "PUT";
         const string HTTP_POST = "POST";
@@ -27,8 +26,8 @@ namespace Eravol.UIClient.Pages.Skills.Admin
             this.clientFactory = clientFactory;
             client = new HttpClient();
         }
-        [BindProperty(SupportsGet = true)] public int? skillId { get; set; }
-        [BindProperty] public Skill? skills { get; set; }
+        [BindProperty(SupportsGet = true)] public int? ServiceStatusId { get; set; }
+        [BindProperty] public ServiceStatus? serviceStatus { get; set; }
         public async Task<IActionResult> OnGetAsync()
         {
             //get token by session
@@ -42,41 +41,41 @@ namespace Eravol.UIClient.Pages.Skills.Admin
                 // Lấy danh sách claims từ token đã giải mã
                 var claims = decodedToken.Claims.ToList();
                 var roleClaimValue = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
-                if (!roleClaimValue.ToString().Equals("Admin") || skillId is null)
+                if (!roleClaimValue.ToString().Equals("Admin") || ServiceStatusId is null)
                 {
                     return RedirectToPage("/Forbidden");
                 }
             }
             var client = clientFactory.CreateClient();
             client.BaseAddress = new Uri(BASE_URL);
-            string url = $"{RELATIVE_PATH_URL}/skillId?skillId={skillId}";
+            string url = $"{RELATIVE_PATH_URL}/ServiceStatusId?ServiceStatusId={ServiceStatusId}";
             HttpResponseMessage response = await client.GetAsync(url);
             string dataResponse = await response.Content.ReadAsStringAsync();
-            skills = JsonConvert.DeserializeObject<Skill>(dataResponse);
+            serviceStatus = JsonConvert.DeserializeObject<ServiceStatus>(dataResponse);
             return Page();
         }
         public async Task<IActionResult> OnPostAsync()
         {
             var client = clientFactory.CreateClient();
             client.BaseAddress = new Uri(BASE_URL);
-            string url = $"{RELATIVE_PATH_URL}/{skills.Id}";
-            var json = JsonConvert.SerializeObject(skills);
-            if (skills.SkillName is null)
+            string url = $"{RELATIVE_PATH_URL}/{serviceStatus.ServiceStatusId}";
+            var json = JsonConvert.SerializeObject(serviceStatus);
+            if (serviceStatus.ServiceStatusName is null)
             {
-                TempData["FailedUpdateMessage"] = "Update Falied! Skill Name Can't Null";
+                TempData["FailedMessage"] = "Update Falied! Service Status Name Can't Null";
                 return Page();
             }
-            SkillViewModel updateSkillRequest = new SkillViewModel()
+            ServiceStatusViewModel updateServiceStatusRequest = new ServiceStatusViewModel()
             {
-                SkillName = skills.SkillName,
-                isPublic = skills.isPublic
+                ServiceStatusName = serviceStatus.ServiceStatusName,
+                ServiceStatusDesc = serviceStatus.ServiceStatusDesc
             };
             //json = JsonConvert.SerializeObject(updatePostStatusRequest);
 
             var formData = new MultipartFormDataContent
             {
-                { new StringContent(updateSkillRequest.SkillName), "SkillName" },
-                { new StringContent(updateSkillRequest.isPublic.ToString()), "isPublic" }
+                { new StringContent(updateServiceStatusRequest.ServiceStatusName), "ServiceStatusName" },
+                { new StringContent(updateServiceStatusRequest.ServiceStatusDesc), "ServiceStatusDesc" }
             };
 
             HttpResponseMessage response = await client.PutAsync(url, formData);

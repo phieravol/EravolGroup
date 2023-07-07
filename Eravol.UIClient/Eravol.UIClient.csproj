@@ -28,8 +28,4 @@
     <ProjectReference Include="..\ApplicationUser\Eravol.WebApi.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\ServiceStatuses\" />
-  </ItemGroup>
-
 </Project>
