@@ -88,5 +88,73 @@ namespace Eravol.WebApi.Controllers.UserSkills.Public
             return Ok(userSkillVM);
         }
 
+        /// <summary>
+        /// Delete UserSkill By UserSkillId
+        /// </summary>
+        /// <param name="updateRequest"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> UpdateSkillRateByUserSkillId(UpdateUserSkillRateViewModel updateRequest)
+        {
+            //Get UserId by claims in token
+            string? UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            /* Check UserId is null or not null */
+            if (string.IsNullOrWhiteSpace(UserIdStr))
+            {
+                return BadRequest("UserId can not be null");
+            }
+
+            //Convert ID from string to GUID
+            Guid UserId = Guid.Parse(UserIdStr);
+
+            // Get UserSkillId by current UserSkillId
+            UserSkill? userSkill = await userSkillRepository.GetUserSkillById(updateRequest.UserSkillId);
+
+            //check if current userskill is not found
+            if (userSkill == null)
+            {
+                return NotFound("UserSkill not found!");
+            }
+
+            userSkill.Score = updateRequest.Score;
+
+            //update User skill
+            await userSkillRepository.UpdateUserSkillScore(userSkill);
+            return Ok();
+        }
+
+        [HttpDelete("{userSkillId}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteUserSkillBylId(int userSkillId)
+        {
+            //Get UserId by claims in token
+            string? UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            /* Check UserId is null or not null */
+            if (string.IsNullOrWhiteSpace(UserIdStr))
+            {
+                return BadRequest("UserId can not be null");
+            }
+
+            //Convert ID from string to GUID
+            Guid UserId = Guid.Parse(UserIdStr);
+
+            //Get UserSkill by UserSkill ID
+            UserSkill? userSkill = await userSkillRepository.GetUserSkillById(userSkillId);
+
+            //check if current userskill is not found
+            if (userSkill == null)
+            {
+                return NotFound("UserSkill not found!");
+            }
+
+            //Delete UserSkill
+            await userSkillRepository.DeleteUserSkill(userSkill);
+            return Ok();
+        }
+
     }
+
 }

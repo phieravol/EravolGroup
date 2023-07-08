@@ -19,6 +19,7 @@ namespace Eravol.UIClient.Repositories.Users.Profiles
 		private string AVATAR_PATH_URL = $"/api/UserImages/UserAvatar";
 		private string SKILL_PATH_URL = $"/api/PublicSkills/PublicSkills";
 		private string MYSKILLS_PATH_URL = $"/api/PublicUserSkills/MySkills";
+		private string EXPERIENCE_PATH_URL = $"/api/Experiences";
 		#endregion
 
 		#region Dependency Injection Services
@@ -93,6 +94,19 @@ namespace Eravol.UIClient.Repositories.Users.Profiles
 
             string dataResponse = await response.Content.ReadAsStringAsync();
             List<UserSkillViewModel>? profileImages = JsonConvert.DeserializeObject<List<UserSkillViewModel>?>(dataResponse);
+            return profileImages;
+        }
+
+        public async Task<List<Experience>?> GetMyExperiences(string token)
+        {
+            //Create new client to send request to api
+            var client = clientFactory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            client.BaseAddress = new Uri(BASE_URL);
+            HttpResponseMessage response = await client.GetAsync(EXPERIENCE_PATH_URL);
+
+            string dataResponse = await response.Content.ReadAsStringAsync();
+            List<Experience>? profileImages = JsonConvert.DeserializeObject<List<Experience>?>(dataResponse);
             return profileImages;
         }
     }

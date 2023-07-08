@@ -35,6 +35,25 @@ namespace Eravol.WebApi.Repositories.UserSkills
         }
 
         /// <summary>
+        /// Delete UserSkill
+        /// </summary>
+        /// <param name="userSkill"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task DeleteUserSkill(UserSkill userSkill)
+        {
+            try
+            {
+                context.UserSkills.Remove(userSkill);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        /// <summary>
         /// Get UserSkill by UserId
         /// </summary>
         /// <param name="userId">User Id</param>
@@ -49,6 +68,7 @@ namespace Eravol.WebApi.Repositories.UserSkills
                             select new { us, s };
                 List<UserSkillViewModel>? userSkills = await query.Select(x => new UserSkillViewModel()
                 {
+                    UserSkillId = x.us.UserSkillId,
                     SkillId = x.s.Id,
                     UserSkillName = x.s.SkillName,
                     IsVerified = x.us.IsVerified,
@@ -77,6 +97,44 @@ namespace Eravol.WebApi.Repositories.UserSkills
             {
                 UserSkill? userSkill = context.UserSkills.FirstOrDefault(x => x.SkillId == skillId && x.UserId == userId);
                 return userSkill;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get UserSkill By UserSkillId
+        /// </summary>
+        /// <param name="userSkillId">Current UserSkillId</param>
+        /// <returns>UserSkill object</returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<UserSkill?> GetUserSkillById(int userSkillId)
+        {
+            try
+            {
+                UserSkill? userSkill = await context.UserSkills.FirstOrDefaultAsync(x => x.UserSkillId == userSkillId);
+                return userSkill;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Update UserSkill score
+        /// </summary>
+        /// <param name="userSkill">Score</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task UpdateUserSkillScore(UserSkill userSkill)
+        {
+            try
+            {
+                context.UserSkills.Update(userSkill);
+                await context.SaveChangesAsync();
             }
             catch (Exception e)
             {

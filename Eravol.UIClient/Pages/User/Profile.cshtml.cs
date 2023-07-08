@@ -28,6 +28,7 @@ namespace Eravol.UIClient.Pages.User
         [BindProperty(SupportsGet = true)] public List<UserImage>? userAvatars { get; set; }
         [BindProperty(SupportsGet = true)] public List<Skill>? Skills { get; set; }
         [BindProperty(SupportsGet = true)] public List<UserSkillViewModel>? UserSkills { get; set; }
+        [BindProperty(SupportsGet = true)] public List<Experience>? UserExperiences { get; set; }
 
 		public async Task<IActionResult> OnGetAsync()
         {
@@ -54,6 +55,9 @@ namespace Eravol.UIClient.Pages.User
 
 			//Get all User skills
 			UserSkills = await profileService.GetMyUserSkills(token);
+
+			//Get all Experience of current user
+			UserExperiences = await profileService.GetMyExperiences(token);
 			return Page();
         }
     }
