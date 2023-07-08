@@ -1,6 +1,5 @@
 using Eravlol.UserWebApi.Data.Models;
 using Eravol.UserWebApi.Data;
-using Eravol.UserWebApi.Repository.Skills;
 using Eravol.UserWebApi.Repository.User.Admin;
 using Eravol.WebApi.Repositories.Categories.Admin;
 using Eravol.WebApi.Repositories.Categories.Public;
@@ -26,7 +25,10 @@ using Eravol.WebApi.Repositories.Services.Publics;
 using Eravol.WebApi.Repositories.UserImages;
 using Eravol.WebApi.Repositories.PostStatuses.Clients;
 using Eravol.WebApi.Repositories.Servicestatuses.Admin;
-using Eravol.WebApi.Repositories.UserImages;
+using Eravol.WebApi.Repositories.Skills.Admin;
+using Eravol.WebApi.Repositories.Skills.Public;
+using Eravol.WebApi.Repositories.UserSkills;
+using Eravol.WebApi.Repositories.Experiences;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -137,6 +139,9 @@ builder.Services.AddTransient<IUserImageRepository, UserImageRepository>();
 builder.Services.AddTransient<IPostStatusesRepository, PostStatusesRepository>();
 builder.Services.AddTransient<IServiceStatusesAdminRepository, ServiceStatusesAdminRepository>();
 builder.Services.AddTransient<IUserImageRepository, UserImageRepository>();
+builder.Services.AddTransient<IPublicSkillRepository, PublicSkillsRepository>();
+builder.Services.AddTransient<IPublicUserSkillRepository, PublicUserSkillRepository>();
+builder.Services.AddTransient<IUserExperiencesRepository, UserExperiencesRepository>();
 
 var app = builder.Build();
 

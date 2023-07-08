@@ -8,7 +8,7 @@ namespace Eravol.WebApi.Data.Models
 		public int ExperienceId { get; set; }
 		public string CompanyTitle { get; set; }
 		public string Position { get; set; }
-		public string JobDescription { get; set; }
+		public string? JobDescription { get; set; }
 		public DateTime StartingDate { get; set; }
 		public DateTime? EndingDate { get; set;}
 		#endregion

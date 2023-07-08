@@ -1,6 +1,8 @@
 using Eravlol.UserWebApi.Data.Models;
 using Eravol.UIClient.Repositories.Users.Profiles;
 using Eravol.UserWebApi.Data.Models;
+using Eravol.WebApi.Data.Models;
+using Eravol.WebApi.ViewModels.UserSkills;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -24,6 +26,9 @@ namespace Eravol.UIClient.Pages.User
         [BindProperty(SupportsGet = true)] public AppUser? appUser { get; set; }
         [BindProperty(SupportsGet = true)] public List<UserImage>? profileImages { get; set; }
         [BindProperty(SupportsGet = true)] public List<UserImage>? userAvatars { get; set; }
+        [BindProperty(SupportsGet = true)] public List<Skill>? Skills { get; set; }
+        [BindProperty(SupportsGet = true)] public List<UserSkillViewModel>? UserSkills { get; set; }
+        [BindProperty(SupportsGet = true)] public List<Experience>? UserExperiences { get; set; }
 
 		public async Task<IActionResult> OnGetAsync()
         {
@@ -36,7 +41,7 @@ namespace Eravol.UIClient.Pages.User
 				return RedirectToPage("/Forbidden");
             }
 
-			// Get User information from backend api
+			//Get User information from backend api
 			appUser = await profileService.GetUserInformation(token);
 
 			//Get User Profile Images
@@ -44,7 +49,15 @@ namespace Eravol.UIClient.Pages.User
 
 			//Get User Avatar Images
 			userAvatars = await profileService.GetUserAvatarImage(token);
-			
+
+			//Get all public skills
+			Skills = await profileService.GetAllPublicSkills();
+
+			//Get all User skills
+			UserSkills = await profileService.GetMyUserSkills(token);
+
+			//Get all Experience of current user
+			UserExperiences = await profileService.GetMyExperiences(token);
 			return Page();
         }
     }
