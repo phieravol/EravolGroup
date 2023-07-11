@@ -90,5 +90,25 @@ namespace Eravol.WebApi.Repositories.Portfolios.Users
                 throw new Exception(e.Message);
             }
         }
+
+        /// <summary>
+        /// UPdate Portfolio into database
+        /// </summary>
+        /// <param name="portfolio"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task UpdateUserPortfolio(Portfolio portfolio)
+        {
+            try
+            {
+                context.Portfolios.Update(portfolio);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

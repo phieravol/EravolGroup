@@ -62,6 +62,9 @@ function addUserPortfolio() {
                                         <div class="form-group form-group-half">
                                             <input type="text" name="Project URL" class="form-control" placeholder="Project URL">
                                         </div>
+                                        <div class="form-group">
+                                              <textarea name="portfolioDescription" id="portfolio-Desc_update" class="form-control" placeholder="Portfolio Description">${response.portfolioDescription}</textarea>
+                                        </div>
                                         <div class="form-group form-group-label wt-infouploading">
                                             <div class="wt-labelgroup">
                                                 <label for="filen">
@@ -132,6 +135,50 @@ function deleteUserPortfolio(portfolioId) {
     });
 }
 
+function updateUserPortfolio(portfolioId) {
+    var token = $("#token_Js").val();
+    var Url = 'https://localhost:7259/api/Portfolios';
+
+    var portfolioTitle = $(`#portfolio-title_${portfolioId}`).val();
+    var portfolioUrl = $(`#portfolio-url_${portfolioId}`).val();
+    var portfolioDesc = $(`#portfolio-Desc_${portfolioId}`).val();
+
+    var portfolioImageInput = document.getElementById(`filen-${portfolioId}`);
+    var file = portfolioImageInput.files[0];
+
+    var formData = new FormData();
+    formData.append("PortfolioTitle", portfolioTitle);
+    formData.append("PortfolioUrl", portfolioUrl);
+    formData.append("PortfolioDescription", portfolioDesc);
+    formData.append("PortfolioImage", file);
+    formData.append("PortfolioId", portfolioId);
+
+    $.ajax({
+        url: Url,
+        type: "PUT",
+        data: formData,
+        processData: false,
+        contentType: false,
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        success: function (response) {
+            console.log(response);
+            var message = "Update job Portfolio successed!";
+            displayNotifilcation(true, message);
+
+            var imgElement = $(`#portfolio-showimage-${portfolioId}`);
+            imgElement.prop('src', `https://localhost:7259/api/Images/${response.portfolioImageName}`);
+        },
+        error: function (xhr, status, error) {
+            // Xử lý lỗi (nếu có)
+            console.error(error);
+            var message = "Update job Portfolio Failed!";
+            displayNotifilcation(false, message);
+        }
+    });
+}
+
 
 /**
  * Display portfolio image
@@ -157,4 +204,65 @@ function displayPortfolioImage() {
     };
 
     reader.readAsDataURL(file);
+}
+
+/**
+ * Display Portfolio update image
+ * */
+function displayUpdatePortfolioImage(portfolioId) {
+    var portfolioImageInput = document.getElementById(`filen-${portfolioId}`);
+    var file = portfolioImageInput.files[0];
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        var imageUrl = e.target.result;
+
+        // Hiển thị ảnh trên frontend
+        var html = `<div class="wt-uploadingbox" id="img-portfolio-upload">
+                       <div class="wt-designimg">
+                           <label for="demoz"><img src="${imageUrl}" alt="img description"></label>
+                       </div>
+                   </div>
+                   `;
+        // Thêm khối thẻ HTML vào phần tử mục tiêu
+        var displayElement = $(`#portfolio_updateshow_${portfolioId}`);
+        var containerElement = $(`#portfolio-container_${portfolioId}`);
+        displayElement.remove();
+        containerElement.append(html);
+    };
+
+    reader.readAsDataURL(file);
+    
+
+}
+
+/**
+ * Display notifilcation
+ * */
+function displayNotifilcation(status, message) {
+    var html = '';
+    if (status == true) {
+        html = `<div id="notification-items" class="position-fixed" style="z-index:2;top: 20px;right: 20px;">
+                            <div class="alert alert-success d-flex align-items-center" role="alert">
+                                <i class="fa-solid fa-circle-check fa-lg"></i>
+                                <div class="m-1">
+                                    ${message}.
+                                </div>
+                            </div>
+                        </div>`;
+    }
+    else {
+        html = `<div id="notification-items" class="position-fixed" style="z-index:2;top: 20px;right: 20px;">
+                            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                            <i class="fa-solid fa-circle-xmark fa-xl"></i>
+                                <div class="m-1">
+                                    ${message}
+                                </div>
+                             </div>
+                        </div>`;
+    }
+
+    $('#wt-main').append(html);
+    setTimeout(function () {
+        $('#notification-items').fadeIn().delay(1000).fadeOut();
+    }, 1000);
 }

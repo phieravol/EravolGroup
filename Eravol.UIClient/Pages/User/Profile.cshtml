@@ -408,7 +408,7 @@
                                             <li id="portfolio_delete-@port.PortfolioId">
                                                 <div class="wt-accordioninnertitle">
                                                     <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitleaone-@port.PortfolioId">
-                                                        <figure><img src=@($"https://localhost:7259/api/Images/{port.PortfolioImageName}") alt="img description"></figure>
+                                                        <figure><img src=@($"https://localhost:7259/api/Images/{port.PortfolioImageName}") alt="img description" id="portfolio-showimage-@port.PortfolioId"></figure>
                                                         <h3>@port.PortfolioTitle<span>@port.PortfolioUrl</span></h3>
                                                     </div>
                                                     <div class="wt-rightarea">
@@ -417,27 +417,30 @@
                                                     </div>
                                                 </div>
                                                 <div class="wt-collapseexp collapse" id="innertitleaone-@port.PortfolioId" aria-labelledby="accordioninnertitle" data-parent="#accordion">
-                                                    <form class="wt-formtheme wt-userform wt-formprojectinfo">
+                                                    <form class="wt-formtheme wt-userform wt-formprojectinfo" enctype="multipart/form-data">
                                                         <fieldset>
                                                             <div class="form-group form-group-half">
-                                                                <input type="text" name="portfolioTitle" class="form-control" placeholder="Portfolio Title" value="@port.PortfolioTitle">
+                                                                <input type="text" name="portfolioTitle" id="portfolio-title_@port.PortfolioId" class="form-control" placeholder="Portfolio Title" value="@port.PortfolioTitle">
                                                             </div>
                                                             <div class="form-group form-group-half">
-                                                                <input type="text" name="portfolioUrl" value="@port.PortfolioUrl" class="form-control" placeholder="Portfolio URL">
+                                                                <input type="text" name="portfolioUrl" id="portfolio-url_@port.PortfolioId" value="@port.PortfolioUrl" class="form-control" placeholder="Portfolio URL">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <textarea name="portfolioDescription" id="portfolio-Desc_@port.PortfolioId" class="form-control" placeholder="Portfolio Description">@port.PortfolioDescription</textarea>
                                                             </div>
                                                             <div class="form-group form-group-label wt-infouploading">
                                                                 <div class="wt-labelgroup">
-                                                                    <label for="filen">
+                                                                    <label for="filen-@port.PortfolioId">
                                                                         <span class="wt-btn">Select Files</span>
-                                                                        <input type="file" name="file" id="filen">
+                                                                        <input type="file" name="file" id="filen-@port.PortfolioId" onchange="displayUpdatePortfolioImage(@port.PortfolioId)" accept=".jpg, .jpeg, .png">
                                                                     </label>
                                                                     <span>Drop files here to upload</span>
                                                                     <em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <ul class="wt-attachfile">
-                                                                    <li class="wt-uploading">
+                                                                <ul class="wt-attachfile" id="portfolio-container_@port.PortfolioId">
+                                                                    <li class="wt-uploading" id="portfolio_updateshow_@port.PortfolioId">
                                                                         <span>fortfolio.jpg</span>
                                                                         <em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
                                                                         <span>Logo.jpg</span>
@@ -446,7 +449,7 @@
                                                                 </ul>
                                                             </div>
                                                             <div class="form-group wt-btnarea">
-                                                                <a href="javascript:void(0);" class="wt-btn">Save</a>
+                                                                <button type="button" onclick="updateUserPortfolio(@port.PortfolioId, '@port.PortfolioTitle', '@port.PortfolioUrl', '@port.PortfolioDescription')" class="wt-btn">Save</button>
                                                             </div>
                                                         </fieldset>
                                                     </form>

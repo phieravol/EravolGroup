@@ -8,5 +8,6 @@ namespace Eravol.WebApi.Repositories.Portfolios.Users
         Task DeleteUserPortfolio(Portfolio portfolio);
         Task<List<Portfolio>?> GetCurrentUserPortfolios(Guid userId);
         Task<Portfolio?> GetUserPortfolioById(int? portfolioId);
+        Task UpdateUserPortfolio(Portfolio portfolio);
     }
 }

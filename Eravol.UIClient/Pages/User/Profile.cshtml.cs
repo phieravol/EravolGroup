@@ -66,3 +66,5 @@ namespace Eravol.UIClient.Pages.User
         }
     }
 }
+
+// response.value.

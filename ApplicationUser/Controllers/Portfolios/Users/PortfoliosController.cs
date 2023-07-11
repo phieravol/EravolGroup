@@ -95,6 +95,49 @@ namespace Eravol.WebApi.Controllers.Portfolios.Users
             return Ok(portfolio);
         }
 
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> UpdateUserPortfolio([FromForm] UpdatePortfolioViewModel updateRequest)
+        {
+            //Get UserId by claims in token
+            string? UserIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            /* Check UserId is null or not null */
+            if (string.IsNullOrWhiteSpace(UserIdStr))
+            {
+                return BadRequest("UserId can not be null");
+            }
+
+            //Convert ID from string to GUID
+            Guid UserId = Guid.Parse(UserIdStr);
+
+            //Get portfolio by id
+            Portfolio? portfolio = await portfolioRepository.GetUserPortfolioById(updateRequest.PortfolioId);
+
+            //Return message when portfolio not found
+            if (portfolio == null)
+            {
+                return NotFound("Portfolio not found");
+            }
+
+            //Delete user portfolio in folder
+            string? portfolioImg = portfolio.PortfolioImageName;
+            if (!string.IsNullOrWhiteSpace(portfolioImg))
+            {
+                await fileStorageService.DeleteFileAsync(portfolioImg);
+            }
+
+            portfolio.PortfolioTitle = updateRequest.PortfolioTitle;
+            portfolio.PortfolioUrl = updateRequest.PortfolioUrl;
+            portfolio.PortfolioDescription= updateRequest.PortfolioDescription;
+            portfolio.PortfolioImageName = await SaveFile(updateRequest.PortfolioImage);
+            portfolio.PortfolioImagePath = "/" + USER_CONTENT_FOLDER_NAME + "/" + portfolio.PortfolioImageName;
+
+            await portfolioRepository.UpdateUserPortfolio(portfolio);
+
+            return Ok(portfolio);
+        }
+
         /// <summary>
         /// Delete User Portfolio by UserId
         /// </summary>
