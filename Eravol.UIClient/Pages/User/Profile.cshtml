@@ -12,6 +12,7 @@
     List<Skill>? skills = Model.Skills;
     List<UserSkillViewModel>? mySkills = Model.UserSkills;
     List<Experience>? myExperiences = Model.UserExperiences;
+    List<Portfolio>? portfolios = Model.Portfolios;
 }
 <head>
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -338,103 +339,49 @@
                                 <div class="wt-addprojectsholder wt-tabsinfo">
                                     <div class="wt-tabscontenttitle wt-addnew">
                                         <h2>Add Your Projects</h2>
-                                        <a href="javascript:void(0);">Add New</a>
                                     </div>
                                     <ul class="wt-experienceaccordion accordion">
                                         <li>
                                             <div class="wt-accordioninnertitle">
-                                                <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitleaone">
-                                                    <figure><img src="~/images/thumbnail/img-11.jpg" alt="img description"></figure>
-                                                    <h3>Project Title Here<span>www.themeforest.net</span></h3>
-                                                </div>
-                                                <div class="wt-rightarea">
-                                                    <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitleaone"><i class="lnr lnr-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                                </div>
-                                            </div>
-                                            <div class="wt-collapseexp collapse" id="innertitleaone" aria-labelledby="accordioninnertitle" data-parent="#accordion">
-                                                <form class="wt-formtheme wt-userform wt-formprojectinfo">
-                                                    <fieldset>
-                                                        <div class="form-group form-group-half">
-                                                            <input type="text" name="Project Title" class="form-control" placeholder="Project Title">
-                                                        </div>
-                                                        <div class="form-group form-group-half">
-                                                            <input type="text" name="Project URL" class="form-control" placeholder="Project URL">
-                                                        </div>
-                                                        <div class="form-group form-group-label wt-infouploading">
-                                                            <div class="wt-labelgroup">
-                                                                <label for="filen">
-                                                                    <span class="wt-btn">Select Files</span>
-                                                                    <input type="file" name="file" id="filen">
-                                                                </label>
-                                                                <span>Drop files here to upload</span>
-                                                                <em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <ul class="wt-attachfile">
-                                                                <li class="wt-uploading">
-                                                                    <span>Logo.jpg</span>
-                                                                    <em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Wireframe Document.doc</span>
-                                                                    <em>File size: 512 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Requirments.pdf</span>
-                                                                    <em>File size: 110 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Company Intro.docx</span>
-                                                                    <em>File size: 224 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="form-group wt-btnarea">
-                                                            <a href="javascript:void(0);" class="wt-btn">Save</a>
-                                                        </div>
-                                                    </fieldset>
-                                                </form>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="wt-accordioninnertitle">
                                                 <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitlebone">
                                                     <figure><img src="~/images/thumbnail/img-12.jpg" alt="img description"></figure>
-                                                    <h3>Project Title Here<span>www.themeforest.net</span></h3>
+                                                    <h3 style="color:blueviolet">Add new Portfolio</h3>
                                                 </div>
                                                 <div class="wt-rightarea">
-                                                    <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitlebone"><i class="lnr lnr-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
+                                                    <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitlebone"><i class="fa-regular fa-floppy-disk fa-lg"></i></a>
                                                 </div>
                                             </div>
                                             <div class="wt-collapseexp collapse show" id="innertitlebone" aria-labelledby="accordioninnertitle1" data-parent="#accordion">
-                                                <form class="wt-formtheme wt-userform wt-formprojectinfo">
+                                                <form class="wt-formtheme wt-userform wt-formprojectinfo" enctype="multipart/form-data">
                                                     <fieldset>
                                                         <div class="form-group form-group-half">
-                                                            <input type="text" name="Project Title" class="form-control" placeholder="Project Title">
+                                                            <input type="text" name="portfolioTitle" id="portfolio-title_add" class="form-control" placeholder="Portfolio Title">
                                                         </div>
                                                         <div class="form-group form-group-half">
-                                                            <input type="text" name="Project URL" class="form-control" placeholder="Project URL">
+                                                            <input type="text" name="portfolioUrl" id="portfolio-url_add" class="form-control" placeholder="Project URL">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <textarea name="portfolioDesc" id="portfolio-Desc_add" class="form-control" placeholder="Portfolio Description"></textarea>
                                                         </div>
                                                         <div class="form-group form-group-label wt-infouploading">
                                                             <div class="wt-labelgroup">
                                                                 <label for="filet">
                                                                     <span class="wt-btn">Select Files</span>
-                                                                    <input type="file" name="file" id="filet">
+                                                                    <input type="file" name="file" id="filet" accept=".jpg, .jpeg, .png">
                                                                 </label>
                                                                 <span>Drop files here to upload</span>
                                                                 <em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
+                                                                
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <ul class="wt-attachfile">
-                                                                <li class="wt-uploading">
+                                                                <li class="wt-uploading" id="portfolio-img_display">
                                                                     <span>Logo.jpg</span>
                                                                     <em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
+                                                                    
                                                                 </li>
-                                                                <li>
+                                                                @*<li>
                                                                     <span>Wireframe Document.doc</span>
                                                                     <em>File size: 512 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
                                                                 </li>
@@ -445,73 +392,70 @@
                                                                 <li>
                                                                     <span>Company Intro.docx</span>
                                                                     <em>File size: 224 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
+                                                                </li>*@
                                                             </ul>
                                                         </div>
                                                         <div class="form-group wt-btnarea">
-                                                            <a href="javascript:void(0);" class="wt-btn">Save</a>
+                                                            <button id="btn-portfolio_add" type="button" class="wt-btn">Save</button>
                                                         </div>
                                                     </fieldset>
                                                 </form>
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="wt-accordioninnertitle">
-                                                <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitlecone">
-                                                    <figure><img src="~/images/thumbnail/img-13.jpg" alt="img description"></figure>
-                                                    <h3>Project Title Here<span>www.themeforest.net</span></h3>
+                                        <div id="portfolio-display">
+                                            @foreach (var port in portfolios)
+                                            {
+                                            <li id="portfolio_delete-@port.PortfolioId">
+                                                <div class="wt-accordioninnertitle">
+                                                    <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitleaone-@port.PortfolioId">
+                                                        <figure><img src=@($"https://localhost:7259/api/Images/{port.PortfolioImageName}") alt="img description"></figure>
+                                                        <h3>@port.PortfolioTitle<span>@port.PortfolioUrl</span></h3>
+                                                    </div>
+                                                    <div class="wt-rightarea">
+                                                        <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitleaone-@port.PortfolioId"><i class="lnr lnr-pencil"></i></a>
+                                                        <a href="javascript:void(0);" onclick="deleteUserPortfolio(@port.PortfolioId)" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
+                                                    </div>
                                                 </div>
-                                                <div class="wt-rightarea">
-                                                    <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitlecone"><i class="lnr lnr-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                                </div>
-                                            </div>
-                                            <div class="wt-collapseexp collapse" id="innertitlecone" aria-labelledby="accordioninnertitle1" data-parent="#accordion">
-                                                <form class="wt-formtheme wt-userform wt-formprojectinfo">
-                                                    <fieldset>
-                                                        <div class="form-group form-group-half">
-                                                            <input type="text" name="Project Title" class="form-control" placeholder="Project Title">
-                                                        </div>
-                                                        <div class="form-group form-group-half">
-                                                            <input type="text" name="Project URL" class="form-control" placeholder="Project URL">
-                                                        </div>
-                                                        <div class="form-group form-group-label wt-infouploading">
-                                                            <div class="wt-labelgroup">
-                                                                <label for="fileb">
-                                                                    <span class="wt-btn">Select Files</span>
-                                                                    <input type="file" name="file" id="fileb">
-                                                                </label>
-                                                                <span>Drop files here to upload</span>
-                                                                <em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
+                                                <div class="wt-collapseexp collapse" id="innertitleaone-@port.PortfolioId" aria-labelledby="accordioninnertitle" data-parent="#accordion">
+                                                    <form class="wt-formtheme wt-userform wt-formprojectinfo">
+                                                        <fieldset>
+                                                            <div class="form-group form-group-half">
+                                                                <input type="text" name="portfolioTitle" class="form-control" placeholder="Portfolio Title" value="@port.PortfolioTitle">
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <ul class="wt-attachfile">
-                                                                <li class="wt-uploading">
-                                                                    <span>Logo.jpg</span>
-                                                                    <em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Wireframe Document.doc</span>
-                                                                    <em>File size: 512 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Requirments.pdf</span>
-                                                                    <em>File size: 110 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Company Intro.docx</span>
-                                                                    <em>File size: 224 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="form-group wt-btnarea">
-                                                            <a href="javascript:void(0);" class="wt-btn">Save</a>
-                                                        </div>
-                                                    </fieldset>
-                                                </form>
-                                            </div>
-                                        </li>
+                                                            <div class="form-group form-group-half">
+                                                                <input type="text" name="portfolioUrl" value="@port.PortfolioUrl" class="form-control" placeholder="Portfolio URL">
+                                                            </div>
+                                                            <div class="form-group form-group-label wt-infouploading">
+                                                                <div class="wt-labelgroup">
+                                                                    <label for="filen">
+                                                                        <span class="wt-btn">Select Files</span>
+                                                                        <input type="file" name="file" id="filen">
+                                                                    </label>
+                                                                    <span>Drop files here to upload</span>
+                                                                    <em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <ul class="wt-attachfile">
+                                                                    <li class="wt-uploading">
+                                                                        <span>fortfolio.jpg</span>
+                                                                        <em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
+                                                                        <span>Logo.jpg</span>
+                                                                        <em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="form-group wt-btnarea">
+                                                                <a href="javascript:void(0);" class="wt-btn">Save</a>
+                                                            </div>
+                                                        </fieldset>
+                                                    </form>
+                                                </div>
+                                            </li>
+                                            }
+                                            
+                                        </div>
+                                        
                                     </ul>
                                 </div>
                                 <div class="wt-addprojectsholder">
@@ -746,4 +690,5 @@
     <script src="~/js/users/manage/manageprofilescript.js"></script>
     <script src="~/js/users/manage/userskillscript.js"></script>
     <script src="~/js/experiences/experiencescript.js"></script>
+    <script src="~/js/portfolios/portfoliosscript.js"></script>
 }S
