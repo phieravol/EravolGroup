@@ -29,6 +29,7 @@ using Eravol.WebApi.Repositories.Skills.Admin;
 using Eravol.WebApi.Repositories.Skills.Public;
 using Eravol.WebApi.Repositories.UserSkills;
 using Eravol.WebApi.Repositories.Experiences;
+using Eravol.WebApi.Repositories.Portfolios.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -142,6 +143,7 @@ builder.Services.AddTransient<IUserImageRepository, UserImageRepository>();
 builder.Services.AddTransient<IPublicSkillRepository, PublicSkillsRepository>();
 builder.Services.AddTransient<IPublicUserSkillRepository, PublicUserSkillRepository>();
 builder.Services.AddTransient<IUserExperiencesRepository, UserExperiencesRepository>();
+builder.Services.AddTransient<IPortfolioRepository, PortfolioRepository>();
 
 var app = builder.Build();
 
