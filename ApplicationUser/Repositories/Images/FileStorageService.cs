@@ -27,11 +27,34 @@ namespace Eravol.WebApi.Repositories.Images
             return $"/{USER_CONTENT_FOLDER_NAME}/{fileName}";
         }
 
+        /// <summary>
+        /// Save image file into folder
+        /// </summary>
+        /// <param name="mediaBinaryStream"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         public async Task SaveFileAsync(Stream mediaBinaryStream, string fileName)
         {
-            var filePath = Path.Combine(userContentFolder, fileName);
+            string uniqueFileName = GetUniqueFileName(fileName);
+            var filePath = Path.Combine(userContentFolder, uniqueFileName);
             using var output = new FileStream(filePath, FileMode.Create);
             await mediaBinaryStream.CopyToAsync(output);
+        }
+
+        public string GetUniqueFileName(string fileName)
+        {
+            var uniqueFileName = fileName;
+            var counter = 1;
+
+            while (File.Exists(Path.Combine(userContentFolder, uniqueFileName)))
+            {
+                var extension = Path.GetExtension(fileName);
+                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+                uniqueFileName = $"{fileNameWithoutExtension}_{counter}{extension}";
+                counter++;
+            }
+
+            return uniqueFileName;
         }
 
         public async Task DeleteFileAsync(string fileName)

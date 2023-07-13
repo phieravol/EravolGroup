@@ -44,8 +44,8 @@
                                 <li class="nav-item">
                                     <a class="active" data-toggle="tab" href="#wt-skills">Personal Details &amp; Skills</a>
                                 </li>
-                                <li class="nav-item"><a data-toggle="tab" href="#wt-education">Experience &amp; Education</a></li>
-                                <li class="nav-item"><a data-toggle="tab" href="#wt-awards">Projects &amp; Awards</a></li>
+                                <li class="nav-item"><a data-toggle="tab" href="#wt-education">Job Experiences</a></li>
+                                <li class="nav-item"><a data-toggle="tab" href="#wt-awards">Portfolios &amp; Certificates</a></li>
                             </ul>
                         </div>
                         <div class="wt-tabscontent tab-content">
@@ -464,9 +464,50 @@
                                 <div class="wt-addprojectsholder">
                                     <div class="wt-tabscontenttitle wt-addnew">
                                         <h2>Add Your Awards</h2>
-                                        <a href="javascript:void(0);">Add New</a>
                                     </div>
                                     <ul class="wt-experienceaccordion accordion">
+                                        <li>
+                                            <div class="wt-accordioninnertitle">
+                                                <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitlebwone">
+                                                    <figure><img src="~/images/thumbnail/img-08.jpg" alt="img description"></figure>
+                                                    <h3 style="color:#dc3545">Add new Certificate here</h3>
+                                                </div>
+                                                <div class="wt-rightarea">
+                                                    <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitlebwone"><i class="fa-regular fa-floppy-disk fa-lg"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="wt-collapseexp collapse show" id="innertitlebwone" aria-labelledby="accordioninnertitle1" data-parent="#accordion">
+                                                <form class="wt-formtheme wt-userform wt-formprojectinfo">
+                                                    <fieldset>
+                                                        <div class="form-group form-group-half">
+                                                            <span class="m-1">Enter certificate title here</span>
+                                                            <input type="text" name="cert-create_title" id="cert-create_title" class="form-control" placeholder="Certificate Title">
+                                                        </div>
+                                                        <div class="form-group form-group-half">
+                                                            <span class="m-1">Certificated Date</span>
+                                                            <input type="date" name="cert-create_date" id="cert-create_date" class="form-control">
+                                                        </div>
+                                                        <div class="form-group form-group-label wt-infouploading">
+                                                            <div class="wt-labelgroup">
+                                                                <label for="filea">
+                                                                    <span class="wt-btn">Select Files</span>
+                                                                    <input type="file" name="file" id="filea">
+                                                                </label>
+                                                                <span>Drop files here to upload</span>
+                                                                <em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <ul class="wt-attachfile" id="cert-img_create">
+                                                            </ul>
+                                                        </div>
+                                                        <div class="form-group wt-btnarea">
+                                                        <input type="button" id="btn-certificate_create" value="Save" class="wt-btn border-0">
+                                                        </div>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+                                        </li>
                                         <li>
                                             <div class="wt-accordioninnertitle">
                                                 <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitleawone">
@@ -492,63 +533,6 @@
                                                                 <label for="file">
                                                                     <span class="wt-btn">Select Files</span>
                                                                     <input type="file" name="file" id="file">
-                                                                </label>
-                                                                <span>Drop files here to upload</span>
-                                                                <em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <ul class="wt-attachfile">
-                                                                <li class="wt-uploading">
-                                                                    <span>Logo.jpg</span>
-                                                                    <em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Wireframe Document.doc</span>
-                                                                    <em>File size: 512 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Requirments.pdf</span>
-                                                                    <em>File size: 110 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Company Intro.docx</span>
-                                                                    <em>File size: 224 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="form-group wt-btnarea">
-                                                            <a href="javascript:void(0);" class="wt-btn">Save</a>
-                                                        </div>
-                                                    </fieldset>
-                                                </form>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="wt-accordioninnertitle">
-                                                <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitlebwone">
-                                                    <figure><img src="~/images/thumbnail/img-08.jpg" alt="img description"></figure>
-                                                    <h3>Awards Title Here<samp>Apr 27, 2016</samp></h3>
-                                                </div>
-                                                <div class="wt-rightarea">
-                                                    <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitlebwone"><i class="lnr lnr-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                                </div>
-                                            </div>
-                                            <div class="wt-collapseexp collapse show" id="innertitlebwone" aria-labelledby="accordioninnertitle1" data-parent="#accordion">
-                                                <form class="wt-formtheme wt-userform wt-formprojectinfo">
-                                                    <fieldset>
-                                                        <div class="form-group form-group-half">
-                                                            <input type="text" name="Award Title" class="form-control" placeholder="Award Title">
-                                                        </div>
-                                                        <div class="form-group form-group-half">
-                                                            <input type="text" name="Award Date" class="form-control" placeholder="Award Date">
-                                                        </div>
-                                                        <div class="form-group form-group-label wt-infouploading">
-                                                            <div class="wt-labelgroup">
-                                                                <label for="filea">
-                                                                    <span class="wt-btn">Select Files</span>
-                                                                    <input type="file" name="file" id="filea">
                                                                 </label>
                                                                 <span>Drop files here to upload</span>
                                                                 <em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
@@ -694,4 +678,5 @@
     <script src="~/js/users/manage/userskillscript.js"></script>
     <script src="~/js/experiences/experiencescript.js"></script>
     <script src="~/js/portfolios/portfoliosscript.js"></script>
+    <script src="~/js/certificates/certificatescript.js"></script>
 }S

@@ -7,5 +7,6 @@
         Task SaveFileAsync(Stream mediaBinaryStream, string fileName);
 
         Task DeleteFileAsync(string fileName);
+        public string GetUniqueFileName(string fileName);
     }
 }
