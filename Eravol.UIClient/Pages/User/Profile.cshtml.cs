@@ -30,6 +30,7 @@ namespace Eravol.UIClient.Pages.User
         [BindProperty(SupportsGet = true)] public List<UserSkillViewModel>? UserSkills { get; set; }
         [BindProperty(SupportsGet = true)] public List<Experience>? UserExperiences { get; set; }
         [BindProperty(SupportsGet = true)] public List<Portfolio>? Portfolios { get; set; }
+        [BindProperty(SupportsGet = true)] public List<Certificate>? Certificates { get; set; }
 
 		public async Task<IActionResult> OnGetAsync()
         {
@@ -62,9 +63,11 @@ namespace Eravol.UIClient.Pages.User
 			
 			//Get all Portfolio of current user
 			Portfolios = await profileService.GetMyPortfolios(token);
+
+			//Get all Certificates of currenet user
+			Certificates = await profileService.GetMyCertificates(token);
 			return Page();
         }
     }
 }
 
-// response.value.

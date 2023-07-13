@@ -13,6 +13,7 @@
     List<UserSkillViewModel>? mySkills = Model.UserSkills;
     List<Experience>? myExperiences = Model.UserExperiences;
     List<Portfolio>? portfolios = Model.Portfolios;
+    List<Certificate>? certificates = Model.Certificates;
 }
 <head>
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -465,7 +466,7 @@
                                     <div class="wt-tabscontenttitle wt-addnew">
                                         <h2>Add Your Awards</h2>
                                     </div>
-                                    <ul class="wt-experienceaccordion accordion">
+                                    <ul class="wt-experienceaccordion accordion" id="cert-container">
                                         <li>
                                             <div class="wt-accordioninnertitle">
                                                 <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitlebwone">
@@ -508,120 +509,52 @@
                                                 </form>
                                             </div>
                                         </li>
-                                        <li>
+                                        @foreach (var cert in certificates)
+                                        {
+                                            string gettedDate = cert.CertificateDate == null ? "" : cert.CertificateDate.Value.ToString("MM/dd/yyyyy");
+                                            <li id="cert-item_@cert.CertificateId">
                                             <div class="wt-accordioninnertitle">
-                                                <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitleawone">
-                                                    <figure><img src="~/images/thumbnail/img-08.jpg" alt="img description"></figure>
-                                                    <h3>Awards Title Here<samp>Apr 27, 2016</samp></h3>
+                                                <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitlecwone-@cert.CertificateId">
+                                                    <figure><img src=@($"https://localhost:7259/api/Images/{cert.CertificateImageName}") alt="img description"></figure>
+                                                    <h3>@cert.CertificateTitle<samp>@gettedDate</samp></h3>
                                                 </div>
                                                 <div class="wt-rightarea">
-                                                    <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitleawone"><i class="lnr lnr-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
+                                                    <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitlecwone-@cert.CertificateId"><i class="lnr lnr-pencil"></i></a>
+                                                    <a href="javascript:void(0);" onclick="deleteCertificate(@cert.CertificateId)" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
                                                 </div>
                                             </div>
-                                            <div class="wt-collapseexp collapse" id="innertitleawone" aria-labelledby="accordioninnertitle" data-parent="#accordion">
+                                            <div class="wt-collapseexp collapse" id="innertitlecwone-@cert.CertificateId" aria-labelledby="accordioninnertitle1" data-parent="#accordion">
                                                 <form class="wt-formtheme wt-userform wt-formprojectinfo">
                                                     <fieldset>
                                                         <div class="form-group form-group-half">
-                                                            <input type="text" name="Awards" class="form-control" placeholder="Award Title">
+                                                            <input type="text" name="cert-title_update" id="certtitle-update_@cert.CertificateId" class="form-control" value="@cert.CertificateTitle" placeholder="Certificate Title">
                                                         </div>
                                                         <div class="form-group form-group-half">
-                                                            <input type="text" name="awards" class="form-control" placeholder="Award Date">
+                                                            <input type="date" name="cert-date_update" id="certdate-update_@cert.CertificateId" value="@cert.CertificateDate.Value.ToString("yyyy-MM-dd")" class="form-control" placeholder="Certificate Date">
                                                         </div>
                                                         <div class="form-group form-group-label wt-infouploading">
                                                             <div class="wt-labelgroup">
-                                                                <label for="file">
+                                                                <label for="filec-@cert.CertificateId">
                                                                     <span class="wt-btn">Select Files</span>
-                                                                    <input type="file" name="file" id="file">
+                                                                    <input type="file" name="file" onchange="showUpdateCertImage(@cert.CertificateId)" id="filec-@cert.CertificateId">
                                                                 </label>
                                                                 <span>Drop files here to upload</span>
                                                                 <em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <ul class="wt-attachfile">
-                                                                <li class="wt-uploading">
-                                                                    <span>Logo.jpg</span>
-                                                                    <em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Wireframe Document.doc</span>
-                                                                    <em>File size: 512 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Requirments.pdf</span>
-                                                                    <em>File size: 110 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Company Intro.docx</span>
-                                                                    <em>File size: 224 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
+                                                            <ul class="wt-attachfile" id="containder-imgcert_@cert.CertificateId">
+                                                                
                                                             </ul>
                                                         </div>
                                                         <div class="form-group wt-btnarea">
-                                                            <a href="javascript:void(0);" class="wt-btn">Save</a>
+                                                            <button type="button" onclick="updateCertificate(@cert.CertificateId)" class="wt-btn border-0">Save</button>
                                                         </div>
                                                     </fieldset>
                                                 </form>
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="wt-accordioninnertitle">
-                                                <div class="wt-projecttitle collapsed" data-toggle="collapse" data-target="#innertitlecwone">
-                                                    <figure><img src="~/images/thumbnail/img-09.jpg" alt="img description"></figure>
-                                                    <h3>Awards Title Here<samp>Apr 27, 2016</samp></h3>
-                                                </div>
-                                                <div class="wt-rightarea">
-                                                    <a href="javascript:void(0);" class="wt-addinfo wt-skillsaddinfo" data-toggle="collapse" data-target="#innertitlecwone"><i class="lnr lnr-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="wt-deleteinfo"><i class="lnr lnr-trash"></i></a>
-                                                </div>
-                                            </div>
-                                            <div class="wt-collapseexp collapse" id="innertitlecwone" aria-labelledby="accordioninnertitle1" data-parent="#accordion">
-                                                <form class="wt-formtheme wt-userform wt-formprojectinfo">
-                                                    <fieldset>
-                                                        <div class="form-group form-group-half">
-                                                            <input type="text" name="Award Title" class="form-control" placeholder="Award Title">
-                                                        </div>
-                                                        <div class="form-group form-group-half">
-                                                            <input type="text" name="Award Date" class="form-control" placeholder="Award Date">
-                                                        </div>
-                                                        <div class="form-group form-group-label wt-infouploading">
-                                                            <div class="wt-labelgroup">
-                                                                <label for="filec">
-                                                                    <span class="wt-btn">Select Files</span>
-                                                                    <input type="file" name="file" id="filec">
-                                                                </label>
-                                                                <span>Drop files here to upload</span>
-                                                                <em class="wt-fileuploading">Uploading<i class="fa fa-spinner fa-spin"></i></em>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <ul class="wt-attachfile">
-                                                                <li class="wt-uploading">
-                                                                    <span>Logo.jpg</span>
-                                                                    <em>File size: 300 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Wireframe Document.doc</span>
-                                                                    <em>File size: 512 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Requirments.pdf</span>
-                                                                    <em>File size: 110 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Company Intro.docx</span>
-                                                                    <em>File size: 224 kb<a href="javascript:void(0);" class="lnr lnr-cross"></a></em>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="form-group wt-btnarea">
-                                                            <a href="javascript:void(0);" class="wt-btn">Save</a>
-                                                        </div>
-                                                    </fieldset>
-                                                </form>
-                                            </div>
-                                        </li>
+                                        }
                                     </ul>
                                 </div>
                             </div>
